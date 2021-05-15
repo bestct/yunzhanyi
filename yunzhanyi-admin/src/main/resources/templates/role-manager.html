@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link th:insert="common::common-hand">
+    <title>
+        角色列表
+    </title>
+</head>
+<body>
+<div id="app">
+    <el-container style="height: 100%; border: 1px solid #ffffff">
+        <el-aside width="200px" style="background-color: rgb(84,92,100)">
+            <div th:insert="common::#aside">
+
+            </div>
+
+        </el-aside>
+
+        <el-container>
+            <el-header th:insert="common::#header">
+
+            </el-header>
+
+            <el-main>
+                <div style="margin-top: 15px;">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item><a href="/index">首页</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+                        <el-breadcrumb-item>角色列表</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
+                <div style="margin-top: 20px">
+                    <el-col span="5">
+                        <el-input size="small" v-model='searchVal' @keyup.enter.native="searchByVal">
+                        </el-input>
+                    </el-col>
+
+                    <el-button icon="el-icon-search" type="warning" size="small" @click="searchByVal">搜索</el-button>
+                    <el-button icon="el-icon-refresh" type="primary" size="small" @click="loadingData">刷新</el-button>
+                    <el-button icon="el-icon-circle-plus-outline" type="success" size="small"
+                               @click="dialogFormVisible=true">添加
+                    </el-button>
+
+                    <el-button icon="el-icon-delete" @click="batchDelete" type="danger" size="small"
+                               :disabled="multipleSelection.length===0">批量删除
+                    </el-button>
+                </div>
+
+                <el-table ref="multipleTable" :data="roleList" tooltip-effect="dark"
+                          style="width: 100%;font-size: 13px" size="small"
+                          height="430"
+                          @selection-change="handleSelectionChange">
+                    <el-table-column type="selection" width="30"></el-table-column>
+                    <el-table-column prop="name" label="角色名" width="120"></el-table-column>
+                    <el-table-column label="操作" width="300">
+                        <el-table-column label="编辑">
+                            <template slot-scope="scope">
+                                <el-button type="primary" icon="el-icon-edit" @click="openEditRole(scope)"
+                                           circle></el-button>
+                            </template>
+                        </el-table-column>
+
+                        <el-table-column label="权限">
+                            <template slot-scope="scope">
+                                <el-button type="warning" icon="el-icon-star-off" @click="toAuthority(scope)"
+                                           circle></el-button>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="删除">
+                            <template slot-scope="scope">
+                                <el-button type="danger" icon="el-icon-delete" @click="deleteTr(scope) "
+                                           circle></el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table-column>
+                </el-table>
+
+                <div class="block" style="margin-top: 10px">
+
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            @prev-click=""
+                            @next-click=""
+                            :current-page="pageNum"
+                            :page-sizes="[10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="total">
+                    </el-pagination>
+                </div>
+
+                <el-dialog title="角色添加" :visible.sync="dialogFormVisible">
+                    <el-form :model="roleForm">
+                        <el-form-item label="角色名称" :label-width="formLabelWidth" placeholder="名称格式示例: authority_add">
+                            <el-input v-model="roleForm.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible=false">取 消</el-button>
+                        <el-button type="primary" @click="addRole">确 定</el-button>
+                    </div>
+                </el-dialog>
+
+                <!--权限修改-->
+                <el-dialog title="角色修改" :visible.sync="dialogEditFormVisible">
+                    <el-form :model="roleEditForm">
+                        <el-form-item label="角色名称" :label-width="formLabelWidth" placeholder="名称格式示例: authority_add">
+                            <el-input v-model="roleEditForm.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogEditFormVisible=false">取 消</el-button>
+                        <el-button type="primary" @click="editRole">确 定</el-button>
+                    </div>
+                </el-dialog>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:insert="common::#common-script">
+
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            roleList: null,
+            multipleSelection: [],
+            searchVal: '',
+            pageNum: 1,
+            total: 0,
+            delArr: [],
+            pageSize: 10,
+            roleForm: {
+                name:''
+            },
+            roleEditForm: {
+                name:''
+            },
+            dialogFormVisible: false,
+            dialogEditFormVisible: false,
+            formLabelWidth: '120px'
+
+        },
+        created() {
+
+            this.loadingData();
+        },
+        methods: {
+
+            loadingData: function () {
+                axios.get("role/loading")
+                    .then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            console.log("没有数据")
+                        } else {
+                            this.roleList = commonResult.data.list
+                            this.total = commonResult.data.total;
+                        }
+                        this.searchVal = '';
+                        this.pageNum = 1;
+                        this.pageSize = 10;
+                    })
+            },
+
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            }
+            ,
+            handleSizeChange(val) {
+                let searchVal = this.searchVal;
+                axios.get("role/loading?pageSize=" + val + "&searchVal=" + searchVal).then(res => {
+                    let commonResult = res.data;
+                    if (commonResult.code === 0) {
+                        console.log("没有数据")
+                    } else {
+                        this.roleList = commonResult.data.list;
+                        this.pageSize = val;
+                        this.pageNum = 1;
+                    }
+
+                })
+            },
+            handleCurrentChange(val) {
+
+                let searchVal = this.searchVal;
+                let pageSize = this.pageSize;
+
+                axios.get("role/loading?pageNum=+" + val + "&pageSize=" + pageSize + "&searchVal=" + searchVal).then(res => {
+                    let commonResult = res.data;
+                    if (commonResult.code === 0) {
+                        console.log("没有数据")
+                    } else {
+                        this.roleList = commonResult.data.list;
+                        this.pageNum = val
+                    }
+                })
+            },
+
+            searchByVal() {
+                let searchVal = this.searchVal;
+                if (searchVal === '') {
+                    this.$message({
+                        message: "您还没输入呢",
+                        type: 'warning'
+                    })
+
+                } else {
+                    axios.get("role/loading/?searchVal=" + searchVal).then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            console.log("没有数据")
+                        } else {
+                            this.roleList = commonResult.data.list;
+                            this.total = commonResult.data.total;
+                            if (this.total === 0) {
+                                this.$message({
+                                    message: "没有您想要的数据",
+                                    type: 'warning'
+                                })
+                            } else {
+                                this.$message({
+                                    message: "搜索成功",
+                                    type: 'success'
+                                })
+
+                            }
+                            this.pageNum = 1
+                        }
+                    })
+                }
+
+            },
+            toAuthority(scope){
+                let index = scope.$index;
+                let id = this.roleList[index].id;
+                window.open("to/role/authority/"+id)
+            },
+            addRole() {
+                axios.post("role/add", Qs.stringify(this.roleForm)).then(res => {
+                    let data = res.data;
+                    if (data === 0) {
+                        this.$message({
+                            message: data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$message({
+                            message: data.message,
+                            type: 'success'
+                        })
+                        this.dialogFormVisible = false
+                        this.roleForm.name=""
+                        this.loadingData()
+                    }
+                }).catch(err => {
+                    let data = err.response.data;
+                    this.$message({
+                        message: data.msg,
+                        type: 'error'
+                    });
+                })
+
+            },
+            deleteTr(scope) {
+                let index = scope.$index;
+                let id = this.roleList[index].id;
+                this.delArr.push(id)
+                this.deleteArray(false, index)
+            },
+
+            batchDelete() {
+                let multData = this.multipleSelection;
+                let multDataLen = multData.length;
+                for (let i = 0; i < multDataLen; i++) {
+                    this.delArr.push(multData[i].id)
+                }
+                this.deleteArray(true, 1)
+            },
+
+            deleteArray(flag, index) {
+                let delStr = "";
+                let length = this.delArr.length;
+                for (let i = 0; i < length; i++) {
+                    if (i === length - 1) {
+                        delStr = delStr + this.delArr[i]
+                    } else {
+                        delStr = delStr + this.delArr[i] + ","
+                    }
+                }
+
+                this.$confirm('此操作将永久删除角色' + delStr + '是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                    axios.post("role/remove", "roleIds=" + delStr
+                    ).then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            this.$message({
+                                message: "删除失败",
+                                type: 'error'
+                            });
+                        } else {
+                            this.$message({
+                                message: "删除成功",
+                                type: 'success'
+                            })
+                            if (flag) {
+                                let multData = this.multipleSelection;
+                                let tableData = this.roleList;
+                                let multDataLen = multData.length;
+                                let tableDataLen = tableData.length;
+                                for (let i = 0; i < multDataLen; i++) {
+                                    for (let y = 0; y < tableDataLen; y++) {
+                                        if (JSON.stringify(multData[i]) === JSON.stringify(tableData[y])) { //判断是否相等，相等就删除
+                                            this.roleList.splice(y, 1)
+                                            console.log(1)
+                                        }
+                                    }
+                                }
+                            } else {
+                                this.roleList.splice(index, 1)
+                            }
+                        }
+                        this.delArr = [];
+                    }).catch(err => {
+                        let data = err.response.data;
+                        this.$message({
+                            message: data.msg,
+                            type: 'error'
+                        });
+                        this.delArr = [];
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                    this.delArr = [];
+                    this.$refs.multipleTable.clearSelection();
+                });
+
+            },
+            openEditRole(scope) {
+                let index = scope.$index;
+                this.roleEditForm = this.roleList[index]
+                this.dialogEditFormVisible = true
+            },
+            editRole() {
+                axios.post("role/edit", Qs.stringify(this.roleEditForm)).then(res => {
+                    let data = res.data;
+                    if (data === 0) {
+                        this.$message({
+                            message: data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$message({
+                            message: data.message,
+                            type: 'success'
+                        }).catch(err => {
+                            let data = err.response.data;
+                            this.$message({
+                                message: data.msg,
+                                type: 'error'
+                            });
+                        })
+
+                    }
+                })
+                this.dialogEditFormVisible = false
+            }
+        },
+
+    });
+</script>
+
+</html>
+

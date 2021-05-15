@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <base href="http://www.yunzhanyi.net/">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="icon" type="image/x-icon" href="image/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" media="screen" href="css/style.css">
+
+</head>
+<style>
+
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    html, body {
+        height: 100%
+    }
+
+    /*这里很关键*/
+
+    .outer-wrap {
+        /*只有同时为html和body设置height: 100%时，这里的height才生效，
+        并且随浏览器窗口变化始终保持和浏览器视窗等高*/
+        height: 100%;
+        position: relative;
+    }
+
+    .login-panel {
+        width: 400px;
+        height: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px;
+        margin-left: -200px;
+    }
+
+
+
+    .header {
+        text-align: center;
+    }
+
+    .form {
+        margin-top: 8%;
+    }
+
+    .label {
+        font-size: 22px;
+
+    }
+
+
+</style>
+<body class="main">
+<div id="app" class="outer-wrap">
+    <div id="particles-js">
+    <el-container >
+        <el-header class="header">
+            <h1 style="font-size: 29px; margin: 10px;">云沾衣-管理中心</h1>
+        </el-header>
+
+        <el-main >
+            <div class="form">
+                <el-card class="login-panel" style="background-color:rgba(6,169,175,0.7)">
+                    <div style="text-align: center;font-size: 25px">管理员登录</div>
+                    <el-form label-position="right" :model="loginForm" :rules="rules" style="color: #c6c6c6">
+                        <el-form-item class="label" label="用户名" prop="username">
+                            <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="el-icon-user"
+                                      clearable="true">
+
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item class="label" label="密码" prop="password">
+                            <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="el-icon-key"
+                                      show-password @keyup.enter.native="login()">
+
+                            </el-input>
+                        </el-form-item>
+                        <div style="text-align: center;">
+                        <el-button type="success" native-type="button" @click="login">登录</el-button>
+
+                        <el-button type="primary" native-type="reset" @reset="true">重置</el-button>
+                        </div>
+                    </el-form>
+
+                </el-card>
+            </div>
+
+        </el-main>
+    </el-container>
+    </div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="vue/axios.min.js"></script>
+<!-- scripts -->
+<script src="particles/particles.js"></script>
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            loginForm: {
+                username: '',
+                password: ''
+            },
+            rules: {
+                username: [{
+                    required: true, message: '请输入用户名', trigger: 'blur'
+                }
+                ],
+                password: [
+                    {required: true, message: '请输入密码', trigger: 'blur'},
+                    {min: 4, max: 12, message: '长度在 4 到 12 个字符', trigger: 'blur'}
+                ]
+            },
+        },
+
+        mounted(){
+            this.init()
+        },
+        methods: {
+            login() {
+
+                let username = this.loginForm.username;
+                let password = this.loginForm.password;
+
+                if ("" === username || "" === password) {
+                    this.$message({
+                        message: "用户名或密码不能为空",
+                        type: 'warning'
+                    })
+                } else {
+
+                    axios.post('login', 'username=' + username + '&password=' + password)
+                        .then(res => {
+                            window.location.href = "index"
+                        })
+                        .catch(err => {
+                            let data = err.response.data;
+                            this.$message({
+                                message: data.msg,
+                                type: 'error'
+                            });
+                        })
+                }
+            },
+            init(){
+
+                particlesJS('particles-js',
+                    {
+                        "particles": {
+                            "number": {
+                                "value": 40,
+                                "density": {
+                                    "enable": true,
+                                    "value_area": 800
+                                }
+                            },
+                            "color": {
+                                "value": "#a4cdfd"
+                            },
+                            "shape": {
+                                "type": "circle",
+                                "stroke": {
+                                    "width": 0,
+                                    "color": "#260b4b"
+                                },
+                                "polygon": {
+                                    "nb_sides": 5
+                                },
+                                "image": {
+                                    "src": "img/github.svg",
+                                    "width": 100,
+                                    "height": 100
+                                }
+                            },
+                            "opacity": {
+                                "value": 0.7,
+                                "random": false,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 1,
+                                    "opacity_min": 0.1,
+                                    "sync": false
+                                }
+                            },
+                            "size": {
+                                "value": 3,
+                                "random": true,
+                                "anim": {
+                                    "enable": false,
+                                    "speed": 40,
+                                    "size_min": 0.1,
+                                    "sync": false
+                                }
+                            },
+                            "line_linked": {
+                                "enable": true,
+                                "distance": 150,
+                                "color": "#05ffea",
+                                "opacity": 0.6,
+                                "width": 1
+                            },
+                            "move": {
+                                "enable": true,
+                                "speed": 6,
+                                "direction": "none",
+                                "random": false,
+                                "straight": false,
+                                "out_mode": "out",
+                                "bounce": false,
+                                "attract": {
+                                    "enable": false,
+                                    "rotateX": 600,
+                                    "rotateY": 1200
+                                }
+                            }
+                        },
+                        "interactivity": {
+                            "detect_on": "canvas",
+                            "events": {
+                                "onhover": {
+                                    "enable": true,
+                                    "mode": "grab"
+                                },
+                                "onclick": {
+                                    "enable": true,
+                                    "mode": "push"
+                                },
+                                "resize": true
+                            },
+                            "modes": {
+                                "grab": {
+                                    "distance": 200,
+                                    "line_linked": {
+                                        "opacity": 1
+                                    }
+                                },
+                                "bubble": {
+                                    "distance": 400,
+                                    "size": 40,
+                                    "duration": 2,
+                                    "opacity": 8,
+                                    "speed": 3
+                                },
+                                "repulse": {
+                                    "distance": 200,
+                                    "duration": 0.4
+                                },
+                                "push": {
+                                    "particles_nb": 4
+                                },
+                                "remove": {
+                                    "particles_nb": 2
+                                }
+                            }
+                        },
+                        "retina_detect": false
+                    }
+                );
+
+
+            }
+        }
+    })
+</script>
+</html>

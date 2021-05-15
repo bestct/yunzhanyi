@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link th:insert="common::common-hand">
+    <title>
+        作者列表
+    </title>
+</head>
+<body>
+<div id="app">
+    <el-container style="height: 100%; border: 1px solid #ffffff">
+        <el-aside width="200px" style="background-color: rgb(84,92,100)">
+            <div th:insert="common::#aside">
+
+            </div>
+
+        </el-aside>
+
+        <el-container>
+            <el-header th:insert="common::#header">
+
+            </el-header>
+
+            <el-main>
+                <div style="margin-top: 15px;">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item><a href="/index">首页</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>作者管理</el-breadcrumb-item>
+                        <el-breadcrumb-item>作者列表</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
+                <div style="margin-top: 20px">
+
+                    <el-col span="4">
+                        <el-select v-model="dynasty" @change="changeDynasty" size="small">
+                            <el-option v-for="item in dynasties"
+                                       :key="item" :label="item" :value="item">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col span="5">
+                        <el-input size="small" v-model='searchVal' @keyup.enter.native="searchByVal">
+                        </el-input>
+                    </el-col>
+
+                    <el-button icon="el-icon-search" type="warning" size="small" @click="searchByVal">搜索</el-button>
+                    <el-button icon="el-icon-refresh" type="primary" size="small" @click="loadingData">刷新</el-button>
+                    <el-button icon="el-icon-circle-plus-outline" type="success" size="small"
+                               @click="dialogFormVisible=true">添加
+                    </el-button>
+
+                    <el-button icon="el-icon-delete" @click="batchDelete" type="danger" size="small"
+                               :disabled="multipleSelection.length===0">批量删除
+                    </el-button>
+                </div>
+
+                <el-table ref="multipleTable" :data="authorList" tooltip-effect="dark"
+                          style="width: 100%;font-size: 13px" size="small"
+                          height="430"
+                          @selection-change="handleSelectionChange">
+                    <el-table-column type="selection" width="30"></el-table-column>
+                    <el-table-column prop="name" label="作者名" width="120"></el-table-column>
+                    <el-table-column prop="dynasty" label="朝代" width="200"
+                    ></el-table-column>
+                    <el-table-column prop="introduction" label="内容" width="200"
+                                     show-overflow-tooltip></el-table-column>
+
+                    <el-table-column label="操作">
+                        <el-table-column label="编辑">
+                            <template slot-scope="scope">
+                                <el-button type="primary" icon="el-icon-edit" @click="openEditAuthor(scope)"
+                                           circle></el-button>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="删除">
+                            <template slot-scope="scope">
+                                <el-button type="danger" icon="el-icon-delete" @click="deleteTr(scope) "
+                                           circle></el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table-column>
+                </el-table>
+
+                <div class="block" style="margin-top: 10px">
+
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            @prev-click=""
+                            @next-click=""
+                            :current-page="pageNum"
+                            :page-sizes="[10, 20, 30, 40]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="total">
+                    </el-pagination>
+                </div>
+
+                <el-dialog title="作者添加" :visible.sync="dialogFormVisible">
+                    <el-form :model="authorForm">
+                        <el-form-item label="作者名" :label-width="formLabelWidth">
+                            <el-input v-model="authorForm.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="朝代" :label-width="formLabelWidth">
+                            <el-select v-model="authorForm.dynasty" size="small">
+                                <el-option v-for="item in dynasties2"
+                                           :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="介绍">
+                            <el-input type="textarea" v-model="authorForm.introduction" :label-width="formLabelWidth"
+                                      :autosize="{ minRows: 2, maxRows: 4}">
+                            </el-input>
+                        </el-form-item>
+
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible=false">取 消</el-button>
+                        <el-button type="primary" @click="addAuthor">确 定</el-button>
+                    </div>
+                </el-dialog>
+
+                <!--权限修改-->
+                <el-dialog title="作者修改" :visible.sync="dialogEditFormVisible">
+                    <el-form :model="authorEditForm">
+                        <el-form-item label="作者名" :label-width="formLabelWidth">
+                            <el-input v-model="authorEditForm.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="朝代" :label-width="formLabelWidth">
+                            <el-select v-model="authorEditForm.dynasty" size="small">
+                                <el-option v-for="item in dynasties2"
+                                           :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="介绍">
+                            <el-input type="textarea" v-model="authorEditForm.introduction"
+                                      :label-width="formLabelWidth"
+                                      :autosize="{ minRows: 2, maxRows: 4}">
+                            </el-input>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogEditFormVisible=false">取 消</el-button>
+                        <el-button type="primary" @click="editAuthor">确 定</el-button>
+                    </div>
+                </el-dialog>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:insert="common::#common-script">
+
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            authorList: null,
+            multipleSelection: [],
+            searchVal: '',
+            pageNum: 1,
+            total: 0,
+            delArr: [],
+            pageSize: 10,
+            authorForm: {
+                name: "",
+                dynasty: "",
+                introduction: ""
+            },
+            authorEditForm: {
+                name: "",
+                dynasty: "",
+                introduction: ""
+            },
+            dynasties: ["所有朝代", "先秦", "秦", "汉", "魏晋", "南北朝", "隋", "唐", "五代十国", "宋", "金", "元", "明", "清", "近现代"],
+            dynasties2: ["先秦", "秦", "汉", "魏晋", "南北朝", "隋", "唐", "五代十国", "宋", "金", "元", "明", "清", "近现代"],
+            dynasty: '所有朝代',
+            dialogFormVisible: false,
+            dialogEditFormVisible: false,
+            formLabelWidth: '120px'
+
+        },
+        created() {
+            this.loadingData();
+        },
+        methods: {
+
+            loadingData: function () {
+                axios.get("author/loading")
+                    .then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            console.log("没有数据")
+                        } else {
+                            this.authorList = commonResult.data.list
+                            this.total = commonResult.data.total;
+                        }
+                        this.searchVal = '';
+                        this.pageNum = 1;
+                        this.pageSize = 10;
+                    })
+            },
+
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            }
+            ,
+            handleSizeChange(val) {
+                let searchVal = this.searchVal;
+                let dynasty = this.dynasty;
+                axios.get("author/loading?pageSize=" + val + "&searchVal=" + searchVal + "&dynasty=" + dynasty).then(res => {
+                    let commonResult = res.data;
+                    if (commonResult.code === 0) {
+                        console.log("没有数据")
+                    } else {
+                        this.authorList = commonResult.data.list;
+                        this.pageSize = val;
+                        this.pageNum = 1;
+                    }
+
+                })
+            },
+            handleCurrentChange(val) {
+
+                let searchVal = this.searchVal;
+                let pageSize = this.pageSize;
+                let dynasty = this.dynasty;
+
+                axios.get("author/loading?pageNum=+" + val + "&pageSize=" + pageSize + "&searchVal=" + searchVal + "&dynasty=" + dynasty).then(res => {
+                    let commonResult = res.data;
+                    if (commonResult.code === 0) {
+                        console.log("没有数据")
+                    } else {
+                        this.authorList = commonResult.data.list;
+                        this.pageNum = val
+                    }
+                })
+            },
+
+            searchByVal() {
+                let searchVal = this.searchVal;
+                if (searchVal === '') {
+                    this.$message({
+                        message: "您还没输入呢",
+                        type: 'warning'
+                    })
+
+                } else {
+                    let dynasty = this.dynasty;
+                    axios.get("author/loading/?searchVal=" + searchVal + "&&dynasty=" + dynasty).then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            console.log("没有数据")
+                        } else {
+                            this.authorList = commonResult.data.list;
+                            this.total = commonResult.data.total;
+                            if (this.total === 0) {
+                                this.$message({
+                                    message: "没有您想要的数据",
+                                    type: 'warning'
+                                })
+                            } else {
+                                this.$message({
+                                    message: "搜索成功",
+                                    type: 'success'
+                                })
+
+                            }
+                            this.pageNum = 1
+                        }
+                    })
+                }
+
+            },
+
+            changeDynasty(val) {
+                let searchVal = this.searchVal;
+                axios.get("author/loading/?searchVal=" + searchVal + "&dynasty=" + val).then(res => {
+                    let commonResult = res.data;
+                    if (commonResult.code === 0) {
+                        console.log("没有数据")
+                    } else {
+                        this.authorList = commonResult.data.list;
+                        this.total = commonResult.data.total;
+                        if (this.total === 0) {
+                            this.$message({
+                                message: "没有您想要的数据",
+                                type: 'warning'
+                            })
+                        }
+                        this.pageNum = 1;
+                        this.dynasty = val;
+                    }
+                })
+            },
+            addAuthor() {
+                let authorForm = this.authorForm;
+                if (authorForm.name === '' || authorForm.dynasty === '') {
+                    this.$message({
+                        message: "请填写完整",
+                        type: 'warning'
+                    })
+                } else {
+                    axios.post("/author/add", Qs.stringify(authorForm)).then(res => {
+                        let data = res.data;
+                        if (data === 0) {
+                            this.$message({
+                                message: data.message,
+                                type: 'error'
+                            })
+                        } else {
+                            this.$message({
+                                message: data.message,
+                                type: 'success'
+                            })
+                            this.dialogFormVisible = false
+                            this.loadingData()
+                        }
+                    }).catch(err => {
+                        let data = err.response.data;
+                        this.$message({
+                            message: data.msg,
+                            type: 'error'
+                        });
+                    })
+
+                }
+            },
+
+            openEditAuthor(scope) {
+                let index = scope.$index;
+                this.authorEditForm = this.authorList[index]
+                this.dialogEditFormVisible = true
+            },
+
+            editAuthor() {
+                let authorForm = this.authorEditForm;
+                if (authorForm.name === '' || authorForm.dynasty === '') {
+                    this.$message({
+                        message: "请填写完整",
+                        type: 'warning'
+                    })
+                } else {
+                    axios.post("/author/edit", Qs.stringify(authorForm)).then(res => {
+                        let data = res.data;
+                        if (data === 0) {
+                            this.$message({
+                                message: data.message,
+                                type: 'error'
+                            })
+                        } else {
+                            this.$message({
+                                message: data.message,
+                                type: 'success'
+                            })
+
+                        }
+                    }).catch(err => {
+                        let data = err.response.data;
+                        this.$message({
+                            message: data.msg,
+                            type: 'error'
+                        });
+                    })
+
+                    this.dialogEditFormVisible = false
+                }
+            },
+            deleteTr(scope) {
+                let index = scope.$index;
+                let id = this.authorList[index].id;
+                this.delArr.push(id)
+                this.deleteArray(false, index)
+            },
+
+            batchDelete() {
+                let multData = this.multipleSelection;
+                let multDataLen = multData.length;
+                for (let i = 0; i < multDataLen; i++) {
+                    this.delArr.push(multData[i].id)
+                }
+                this.deleteArray(true, 1)
+            },
+
+            deleteArray(flag, index) {
+                let delStr = "";
+                let length = this.delArr.length;
+                for (let i = 0; i < length; i++) {
+                    if (i === length - 1) {
+                        delStr = delStr + this.delArr[i]
+                    } else {
+                        delStr = delStr + this.delArr[i] + ","
+                    }
+                }
+
+                this.$confirm('此操作将永久删除作者' + delStr + '是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                    axios.post("author/remove", "authorIds=" + delStr
+                    ).then(res => {
+                        let commonResult = res.data;
+                        if (commonResult.code === 0) {
+                            this.$message({
+                                message: "删除失败",
+                                type: 'error'
+                            });
+                        } else {
+                            this.$message({
+                                message: "删除成功",
+                                type: 'success'
+                            })
+                            if (flag) {
+                                let multData = this.multipleSelection;
+                                let tableData = this.authorList;
+                                let multDataLen = multData.length;
+                                let tableDataLen = tableData.length;
+                                for (let i = 0; i < multDataLen; i++) {
+                                    for (let y = 0; y < tableDataLen; y++) {
+                                        if (JSON.stringify(multData[i]) === JSON.stringify(tableData[y])) { //判断是否相等，相等就删除
+                                            this.authorList.splice(y, 1)
+                                            console.log(1)
+                                        }
+                                    }
+                                }
+                            } else {
+                                this.authorList.splice(index, 1)
+                            }
+                        }
+                        this.delArr = [];
+                    }).catch(err => {
+                        let data = err.response.data;
+                        this.$message({
+                            message: data.msg,
+                            type: 'error'
+                        });
+                        this.delArr = [];
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                    this.delArr = [];
+                    this.$refs.multipleTable.clearSelection();
+                });
+
+            }
+        },
+
+    });
+</script>
+
+</html>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link th:insert="common::common-hand">
+    <title>
+
+    </title>
+</head>
+<body>
+<div id="app">
+    <data id="aid" th:value="${aid}"></data>
+    <el-container style="height: 100%; border: 1px solid #ffffff">
+        <el-aside width="200px" style="background-color: rgb(84,92,100)">
+            <div th:insert="common::#aside">
+
+            </div>
+
+        </el-aside>
+
+        <el-container>
+            <el-header th:insert="common::#header">
+
+            </el-header>
+
+            <el-main>
+                <div style="margin:16px">
+                    <h2>管理员 {{aid}} 设置角色</h2>
+                    <el-transfer v-model="value" :data="data"
+                                 :props="{
+                              key: 'id',
+                              label: 'name'
+                              }"
+                                 :titles="['未有角色', '已有角色']"
+                                 :button-texts="['到右边', '到右边']"
+                    ></el-transfer>
+                    <div style="text-align: center">
+                        <el-button @click="changeRoleAuth" type="success">修改</el-button>
+                    </div>
+                </div>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:insert="common::#common-script">
+
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            data: [],
+            value: [],
+            aid: 1
+        },
+        created: function () {
+            this.loadingData();
+        },
+        methods: {
+            loadingData() {
+
+                let value = document.getElementById("aid").value;
+
+                axios.get("load/role?aid=" + value)
+                    .then(res => {
+                        let data = res.data;
+                        console.log(data.code)
+                        this.data = data.data.allRole;
+                        this.value = data.data.ids;
+                    })
+                this.aid = value
+            },
+            changeRoleAuth() {
+                let value = this.value;
+                let ids = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i === value.length - 1) {
+                        ids = ids + value[i]
+                    } else {
+                        ids = ids + value[i] + ","
+                    }
+                }
+                axios.post("change/admin/role", "rids=" + ids + "&aid=" + this.aid).then(res => {
+                    let data = res.data;
+                    if (data.code === 0) {
+                        this.$message({
+                            message: data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$message({
+                            message: data.message,
+                            type: 'success'
+                        })
+
+                    }
+
+                }).catch(err => {
+                    let data = err.response.data;
+                    this.$message({
+                        message: data.msg,
+                        type: 'error'
+                    });
+                })
+
+
+            }
+        }
+    });
+</script>
+
+</html>

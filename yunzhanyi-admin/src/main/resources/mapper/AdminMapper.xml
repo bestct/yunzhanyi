@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.admin.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="net.yunzhanyi.common.model.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="account_non_expired" jdbcType="BIT" property="accountNonExpired" />
+    <result column="account_non_Locked" jdbcType="BIT" property="accountNonLocked" />
+    <result column="credentials_non_expired" jdbcType="BIT" property="credentialsNonExpired" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, admin_id, password, name, phone, email, account_non_expired, account_non_Locked, 
+    credentials_non_expired, enabled
+  </sql>
+  <select id="selectByExample" parameterType="net.yunzhanyi.common.model.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.yunzhanyi.common.model.AdminExample">
+    delete from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <delete id="deleteByAdminIds">
+    delete from admin
+    where id in
+    <foreach collection="adminIds" open="(" close=")" separator="," index="" item="item">
+      #{item}
+    </foreach>
+  </delete>
+  <delete id="deleteRelationshipByAid">
+    delete from admin_role
+    where admin_id=#{aid}
+  </delete>
+  <delete id="deleteRelationshipByAdminIds">
+    delete from admin_role
+    where admin_id in
+    <foreach collection="adminIds" open="(" close=")" separator="," index="" item="item">
+      #{item}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="net.yunzhanyi.common.model.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (admin_id, password, name, 
+      phone, email, account_non_expired, 
+      account_non_Locked, credentials_non_expired, enabled
+      )
+    values (#{adminId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{accountNonExpired,jdbcType=BIT}, 
+      #{accountNonLocked,jdbcType=BIT}, #{credentialsNonExpired,jdbcType=BIT}, #{enabled,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.yunzhanyi.common.model.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="accountNonExpired != null">
+        account_non_expired,
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_Locked,
+      </if>
+      <if test="credentialsNonExpired != null">
+        credentials_non_expired,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNonExpired != null">
+        #{accountNonExpired,jdbcType=BIT},
+      </if>
+      <if test="accountNonLocked != null">
+        #{accountNonLocked,jdbcType=BIT},
+      </if>
+      <if test="credentialsNonExpired != null">
+        #{credentialsNonExpired,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertRoleRelationship">
+    insert into admin_role(admin_id,role_id)
+    values <foreach collection="rids" item="item" separator=",">
+    (#{aid},#{item})
+  </foreach>
+  </insert>
+  <select id="countByExample" parameterType="net.yunzhanyi.common.model.AdminExample" resultType="java.lang.Long">
+    select count(*) from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByAdminId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from admin
+    where admin_id=#{username}
+  </select>
+    <select id="selectBySearchVal" resultMap="BaseResultMap">
+      select id, admin_id, name, phone, email
+        from admin
+        <if test="searchVal!=''">
+          where admin_id like CONCAT('%',#{searchVal},'%') OR
+                name like CONCAT('%',#{searchVal},'%') OR
+                 phone like CONCAT('%',#{searchVal},'%')
+        </if>
+    </select>
+  <select id="selectByAid" resultMap="BaseResultMap">
+    select id, admin_id, name, phone, email
+    from admin;
+  </select>
+  <select id="selectByRoleIdByAid" resultType="java.lang.Integer">
+    select role_id from admin_role
+    where admin_id=#{aid}
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update admin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null">
+        admin_id = #{record.adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNonExpired != null">
+        account_non_expired = #{record.accountNonExpired,jdbcType=BIT},
+      </if>
+      <if test="record.accountNonLocked != null">
+        account_non_Locked = #{record.accountNonLocked,jdbcType=BIT},
+      </if>
+      <if test="record.credentialsNonExpired != null">
+        credentials_non_expired = #{record.credentialsNonExpired,jdbcType=BIT},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update admin
+    set id = #{record.id,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      account_non_expired = #{record.accountNonExpired,jdbcType=BIT},
+      account_non_Locked = #{record.accountNonLocked,jdbcType=BIT},
+      credentials_non_expired = #{record.credentialsNonExpired,jdbcType=BIT},
+      enabled = #{record.enabled,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.common.model.Admin">
+    update admin
+    <set>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNonExpired != null">
+        account_non_expired = #{accountNonExpired,jdbcType=BIT},
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_Locked = #{accountNonLocked,jdbcType=BIT},
+      </if>
+      <if test="credentialsNonExpired != null">
+        credentials_non_expired = #{credentialsNonExpired,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.common.model.Admin">
+    update admin
+    set admin_id = #{adminId,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      account_non_expired = #{accountNonExpired,jdbcType=BIT},
+      account_non_Locked = #{accountNonLocked,jdbcType=BIT},
+      credentials_non_expired = #{credentialsNonExpired,jdbcType=BIT},
+      enabled = #{enabled,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updatePasswordByPrimaryKey">
+      update admin
+      set password = #{password,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

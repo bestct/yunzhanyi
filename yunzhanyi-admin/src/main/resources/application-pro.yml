@@ -1,0 +1,27 @@
+server:
+  port: 80
+spring:
+  config:
+    activate:
+      on-profile: pro
+  #数据库的信息配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp19a7a4oq8d5nph6.mysql.rds.aliyuncs.com:3306/yzy?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: ct
+    password: Alyct123456
+
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: net.yunzhanyi.admin.mapper
+
+#日志的配置
+logging:
+  level:
+    net:
+      yunzhanyi:
+        admin:
+          mapper: debug

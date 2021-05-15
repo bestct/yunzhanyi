@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <link th:insert="common::common-hand">
+  <title>
+
+  </title>
+</head>
+<body>
+<div id="app">
+  <el-container style="height: 100%; border: 1px solid #ffffff">
+    <el-aside width="200px" style="background-color: rgb(84,92,100)">
+      <div th:insert="common::#aside">
+
+      </div>
+
+    </el-aside>
+
+    <el-container>
+      <el-header th:insert="common::#header">
+
+      </el-header>
+
+      <el-main>
+        <h1>欢迎来到云沾衣管理中心</h1>
+      </el-main>
+    </el-container>
+  </el-container>
+</div>
+<div th:insert="common::#common-script">
+
+</div>
+</body>
+
+<script>
+  new Vue({
+    el: "#app",
+    data:{
+
+    }
+
+  });
+</script>
+
+</html>

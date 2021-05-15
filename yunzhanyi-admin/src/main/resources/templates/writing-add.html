@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link th:insert="common::common-hand">
+    <title>
+        作品添加
+    </title>
+</head>
+<body>
+<div id="app">
+    <el-container style="height: 100%; border: 1px solid #ffffff">
+        <el-aside width="200px" style="background-color: rgb(84,92,100)">
+            <div th:insert="common::#aside">
+
+            </div>
+
+        </el-aside>
+
+        <el-container>
+            <el-header th:insert="common::#header">
+
+            </el-header>
+
+            <el-main>
+                <div style="margin-top: 23px;">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item><a href="index">首页</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>作品管理</el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="writing/manager">作品列表</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>作品添加</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
+                <div style="margin: 20px;"></div>
+                <el-col span="10" offset="4">
+                    <el-form :label-position="right" label-width="80px" :model="writingFrom">
+                        <el-form-item label="标题">
+                            <el-input v-model="writingForm.title"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="朝代">
+                            <el-select v-model="writingForm.dynasty" @change="changeDynasty">
+                                <el-option  v-for="item in dynasties"
+                                            :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+
+                        <el-form-item label="作者">
+                            <el-input v-model="writingForm.author"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="文集">
+                            <el-input v-model="writingForm.corpus"></el-input>
+                            <el-alert
+                                    title="填写文集名,没有所属文集可不填"
+                                    type="warning"
+                                    :closable="false"
+                                    show-icon>
+                            </el-alert>
+                        </el-form-item>
+
+                        <el-form-item label="体裁">
+                            <el-select v-model="writingForm.type">
+                                <el-option  v-for="item in types"
+                                            :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="标签">
+
+                            <el-input v-model="writingForm.tags"></el-input>
+                        </el-form-item>
+                        <el-form-item label="片段">
+                            <el-input v-model="writingForm.part"></el-input>
+                            <el-alert
+                                    title="填此作品比较有名的句子,一句即可"
+                                    type="warning"
+                                    :closable="false"
+                                    show-icon>
+                            </el-alert>
+                        </el-form-item>
+                        <el-form-item label="内容">
+
+                            <el-input type="textarea" v-model="writingForm.content"
+                                      :autosize="{ minRows: 4, maxRows: 7}">
+                            </el-input>
+
+                        </el-form-item>
+                        <div style="text-align: center">
+                        <el-button @click="addWriting" type="success">添加</el-button>
+                        <el-button type="primary">重置</el-button>
+                        </div>
+                    </el-form>
+                </el-col>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:insert="common::#common-script">
+
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data:{
+            writingForm:{
+                title:'',
+                dynasty:'',
+                author:'',
+                corpus:'',
+                type:'',
+                tags:'',
+                part:'',
+                content:''
+            },
+            types:["诗","词","曲","赋","散文","骈文"],
+            dynasties:["先秦","秦","汉","魏晋","南北朝","隋","唐","五代十国","宋","金","元","明","清","近现代"]
+        },
+        methods:{
+            addWriting:function () {
+                let writingForm = this.writingForm;
+                if (writingForm.title === '' || writingForm.author === '' || writingForm.content === '') {
+                    this.$message({
+                        message: "请填写完整",
+                        type: 'warning'
+                    })
+                } else {
+                    axios.post("/writing/add", Qs.stringify(writingForm)).then(res => {
+                        let data = res.data;
+                        if (data === 0) {
+                            this.$message({
+                                message: data.message,
+                                type: 'error'
+                            })
+                        } else {
+                            this.$message({
+                                message: data.message,
+                                type: 'success'
+                            })
+
+                        }
+                    }).
+                    catch(err => {
+                        let data = err.response.data;
+                        this.$message({
+                            message: data.msg,
+                            type: 'error'
+                        });
+                    })
+                }
+            }
+        }
+
+    });
+</script>
+
+
