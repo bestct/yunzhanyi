@@ -17,7 +17,7 @@
 
 ### 表结构
 
-![Snipaste_2021-05-15_15-31-47](D:\java\project\yunzhanyi\image\Snipaste_2021-05-15_15-31-47.png)
+![Snipaste_2021-05-15_15-31-47](yunzhanyi\image\Snipaste_2021-05-15_15-31-47.png)
 
 
 
