@@ -11,16 +11,7 @@
 
 ## 数据库
 
-云沾衣共收录八十万余首诗词古文，数据库sql脚本在document目录下
-
-### 表结构
-
-![Snipaste_2021-05-15_15-31-47](image/Snipaste_2021-05-15_15-31-47.png)
-
-
-
-![logo](https://github.com/bestct/yunzhanyi/tree/master/imagelogo.jpg)
-
+云沾衣共收录八十万余首诗词古文
 
 
 ### 组织结构
@@ -82,18 +73,4 @@ yunzhanyi
 ## 友情提示
 
 > 1. **快速体验项目**：[在线访问地址](http://www.yunzhanyi.net/login.html)。游客账号: yzy111111  	密码:123456
-> 5. **项目交流**：想要加群交流项目的朋友，可以加入[云沾衣技术交流群]
-
-![image-20210515142952602](https://github.com/bestct/yunzhanyi/tree/master/imageimage-20210515142952602.png)
-
-
-
-## 赞助
-
-
-
-####  几缕青丝易凋零，给点赞助行不行。
-
-![image-20210515151436426](https://github.com/bestct/yunzhanyi/tree/master/image-20210515151436426.png)
-
-![image-20210515151518689](https://github.com/bestct/yunzhanyi/tree/master/image-20210515151518689.png)
+> 5. **项目交流**：想要加群交流项目的朋友，可以加入[云沾衣技术交流群]: 1056424843
