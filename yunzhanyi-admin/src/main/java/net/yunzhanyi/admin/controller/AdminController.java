@@ -91,6 +91,8 @@ public class AdminController {
         modelMap.addAttribute("aid",id);
         return "admin-edit";
     }
+
+    @PreAuthorize("hasAuthority('admin_add')")
     @GetMapping("/admin/{aid}")
     @ResponseBody
     public CommonResult<Admin> loadAdmin(

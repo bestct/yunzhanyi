@@ -228,7 +228,8 @@
     </select>
   <select id="selectByAid" resultMap="BaseResultMap">
     select id, admin_id, name, phone, email
-    from admin;
+    from admin
+    where id =#{aid}
   </select>
   <select id="selectByRoleIdByAid" resultType="java.lang.Integer">
     select role_id from admin_role
