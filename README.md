@@ -10,22 +10,29 @@
 
 **纵使晴明无雨色,入云深处亦沾衣**  ——【唐】张旭
 
+## 友情提示
+
+> 1. **快速体验项目**：[在线访问地址](http://www.yunzhanyi.net/login.html)。游客账号: yzy111111  	密码:123456
+> 2. **项目交流**：想要加群交流项目的朋友，可以加入[云沾衣技术交流群]: 1056424843
+> 3. **联系我** :
+     > 邮箱:977961764@qq.com
+>
 
 ## 数据库
 
 云沾衣共收录八十万余首诗词古文
-
-![logo](D:\java\project\yunzhanyi\image\logo.jpg)
-
+sql脚本:
+链接：https://pan.baidu.com/s/1YYF134MyQq1La6ZSiBPwPw
+提取码：sn54
 
 
 ### 组织结构
 
 ``` lua
 yunzhanyi
+├── yunzhanyi-admin -- 后台诗词古文管理
 ├── yuanzhanyi-common -- 工具类及通用代码
 ├── yunzhanyi-opposite -- MyBatisGenerator生成的数据库操作代码
-├── yunzhanyi-admin -- 后台诗词古文管理
 ├── yunzhanyi-search -- 基于Elasticsearch的诗词搜索系统 // 未开始
 ```
 
@@ -63,7 +70,6 @@ yunzhanyi
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | | X-shell       | Linux远程连接工具   | http://www.netsarang.com/download/software.html |
 | Navicat       | 数据库连接工具      | http://www.formysql.com/xiazai.html             |
-| Snipaste      | 屏幕截图工具        | https://www.snipaste.com/                       |
 | Postman       | API接口调试工具      | https://www.postman.com/                        |
 | Typora        | Markdown编辑器      | https://typora.io/                              |
 
@@ -75,10 +81,3 @@ yunzhanyi
 | JDK   | 11     | https://www.oracle.com/java/technologies/javase-jdk11-downloads.html |
 | MySQL | 8.0    | https://www.mysql.com/                                       |
 
-## 友情提示
-
-> 1. **快速体验项目**：[在线访问地址](http://www.yunzhanyi.net/login.html)。游客账号: yzy111111  	密码:123456
-> 2. **项目交流**：想要加群交流项目的朋友，可以加入[云沾衣技术交流群]: 1056424843
-> 3. **联系我** : 
-> 邮箱:977961764@qq.com
-> 
