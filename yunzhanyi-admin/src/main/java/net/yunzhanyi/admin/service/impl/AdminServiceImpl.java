@@ -36,11 +36,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addAdmin(Admin admin) {
-        String encodePassword = passwordEncoder.encode(admin.getPassword());
         admin.setAccountNonExpired(true);
         admin.setCredentialsNonExpired(true);
         admin.setAccountNonLocked(true);
         admin.setEnabled(true);
+        String encodePassword = passwordEncoder.encode(admin.getPassword());
         admin.setPassword(encodePassword);
         adminMapper.insert(admin);
     }
@@ -68,7 +68,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void editAdmin(Admin admin) {
-
+        String encodePassword = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(encodePassword);
         adminMapper.updateByPrimaryKeySelective(admin);
     }
 
