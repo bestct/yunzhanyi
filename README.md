@@ -13,6 +13,10 @@
 
 云沾衣共收录八十万余首诗词古文
 
+sql脚本:
+链接：https://pan.baidu.com/s/1YYF134MyQq1La6ZSiBPwPw 
+提取码：sn54 
+复制这段内容后打开百度网盘手机App，操作更方便哦
 
 ### 组织结构
 
