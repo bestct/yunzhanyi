@@ -22,9 +22,9 @@ sql脚本:
 
 ``` lua
 yunzhanyi
+├── yunzhanyi-admin -- 后台诗词古文管理
 ├── yuanzhanyi-common -- 工具类及通用代码
 ├── yunzhanyi-opposite -- MyBatisGenerator生成的数据库操作代码
-├── yunzhanyi-admin -- 后台诗词古文管理
 ├── yunzhanyi-search -- 基于Elasticsearch的诗词搜索系统 // 未开始
 ```
 
