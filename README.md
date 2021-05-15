@@ -30,7 +30,7 @@ yunzhanyi
 
 
 
-### 技术选型
+### 技术栈
 
 #### 后端技术
 
@@ -62,7 +62,6 @@ yunzhanyi
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | | X-shell       | Linux远程连接工具   | http://www.netsarang.com/download/software.html |
 | Navicat       | 数据库连接工具      | http://www.formysql.com/xiazai.html             |
-| Snipaste      | 屏幕截图工具        | https://www.snipaste.com/                       |
 | Postman       | API接口调试工具      | https://www.postman.com/                        |
 | Typora        | Markdown编辑器      | https://typora.io/                              |
 
