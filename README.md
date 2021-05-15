@@ -15,7 +15,7 @@
 
 ### 表结构
 
-![Snipaste_2021-05-15_15-31-47](https://github.com/bestct/yunzhanyi/tree/master/image/Snipaste_2021-05-15_15-31-47.png)
+![Snipaste_2021-05-15_15-31-47](image/Snipaste_2021-05-15_15-31-47.png)
 
 
 
