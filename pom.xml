@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.yunzhanyi</groupId>
+    <artifactId>yunzhanyi</artifactId>
+    <packaging>pom</packaging>
+    <version>1.5.0</version>
+    <modules>
+        <module>client</module>
+        <module>admin</module>
+        <module>common</module>
+        <module>domain</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <yunzhanyi.version>1.5.0</yunzhanyi.version>
+        <spring-boot.version>2.7.10</spring-boot.version>
+        <mybatis-boot.version>2.3.0</mybatis-boot.version>
+        <hutool.version>5.8.1</hutool.version>
+        <druid.version>1.2.16</druid.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot 依赖配置 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
+                <artifactId>core</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
+                <artifactId>domain</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
+                <artifactId>web</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
