@@ -21,6 +21,7 @@
         <yunzhanyi.version>1.5.0</yunzhanyi.version>
         <spring-boot.version>2.7.10</spring-boot.version>
         <mybatis-boot.version>2.3.0</mybatis-boot.version>
+        <knife4j-boot.version>4.1.0</knife4j-boot.version>
         <hutool.version>5.8.1</hutool.version>
         <druid.version>1.2.16</druid.version>
     </properties>
@@ -55,6 +56,12 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j-boot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>net.yunzhanyi</groupId>
                 <artifactId>core</artifactId>
@@ -71,6 +78,12 @@
                 <artifactId>web</artifactId>
                 <version>${yunzhanyi.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
+                <artifactId>swagger</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

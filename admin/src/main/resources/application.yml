@@ -11,3 +11,12 @@ mybatis:
 logging:
   file:
     name: logs\admin.log
+
+swagger:
+  description: 云沾衣后台管理系统统一管理网站的一切
+  title: 云沾衣后台管理系统API
+  version: 1.5.0
+  base-package: net.yunzhanyi.admin.controller
+  contact:
+    email: 977961764@qq.com
+    name: bestct
