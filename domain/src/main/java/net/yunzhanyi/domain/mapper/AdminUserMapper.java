@@ -69,4 +69,5 @@ public interface AdminUserMapper {
      * @return {@link AdminUser}
      */
     AdminUser selectByUsername(@Param("username") String username);
+
 }

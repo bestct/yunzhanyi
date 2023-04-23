@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public class SecurityUtils {
 
+
+
     /**
      * 生成BCryptPasswordEncoder密码
      *

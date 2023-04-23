@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.GroupedOpenApi;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +71,6 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("后台")
                 .pathsToMatch(paths)
-                .addOperationCustomizer((operation, handlerMethod) -> operation.addParametersItem(new HeaderParameter().name("groupCode").example("测试").description("集团code").schema(new StringSchema()._default("BR").name("groupCode").description("集团code"))))
                 .packagesToScan(swaggerProperties.getBasePackage()).build();
     }
     @Bean
@@ -87,7 +88,19 @@ public class SwaggerConfig {
                         .license(new License().name(swaggerProperties.getLicense())
                                 .url("http://doc.xiaominfo.com"))).externalDocs(new ExternalDocumentation()
                 .description(swaggerProperties.getDescription())
-                .url(swaggerProperties.getLicenseUrl()));
+                .url(swaggerProperties.getLicenseUrl()))
+                .schemaRequirement(HttpHeaders.AUTHORIZATION,this.securityScheme())
+                ;
     }
 
+    private SecurityScheme securityScheme() {
+        SecurityScheme securityScheme = new SecurityScheme();
+        //类型
+        securityScheme.setType(SecurityScheme.Type.APIKEY);
+        //请求头的name
+        securityScheme.setName(HttpHeaders.AUTHORIZATION);
+        //token所在未知
+        securityScheme.setIn(SecurityScheme.In.HEADER);
+        return securityScheme;
+    }
 }

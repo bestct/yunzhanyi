@@ -24,6 +24,9 @@
         <knife4j-boot.version>4.1.0</knife4j-boot.version>
         <hutool.version>5.8.1</hutool.version>
         <druid.version>1.2.16</druid.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <transmittable-thread-local.version>2.12.2</transmittable-thread-local.version>
     </properties>
     <dependencies>
         <dependency>
@@ -62,6 +65,25 @@
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j-boot.version}</version>
             </dependency>
+            <!-- 线程传递值 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!-- Alibaba Fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>net.yunzhanyi</groupId>
                 <artifactId>core</artifactId>
@@ -75,19 +97,27 @@
             </dependency>
             <dependency>
                 <groupId>net.yunzhanyi</groupId>
+                <artifactId>redis</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
                 <artifactId>web</artifactId>
                 <version>${yunzhanyi.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>net.yunzhanyi</groupId>
                 <artifactId>swagger</artifactId>
                 <version>${yunzhanyi.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>net.yunzhanyi</groupId>
                 <artifactId>security</artifactId>
                 <version>${yunzhanyi.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

@@ -1,9 +1,9 @@
 package net.yunzhanyi.admin.service.impl;
 
 import net.yunzhanyi.admin.service.LoginService;
-import net.yunzhanyi.common.core.exception.NotPermissionException;
 import net.yunzhanyi.domain.mapper.AdminUserMapper;
 import net.yunzhanyi.domain.pojo.AdminUser;
+import net.yunzhanyi.security.model.LoginUser;
 import net.yunzhanyi.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +25,20 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      * 登录
-     *
-     * @param username 用户名
+     *  @param username 用户名
      * @param password 密码
+     * @return
      */
     @Override
-    public void login(String username, String password) {
+    public LoginUser login(String username, String password) {
 
         AdminUser adminUser = userMapper.selectByUsername(username);
-
-        if (Objects.isNull(adminUser) || SecurityUtils.matchesPassword(password, adminUser.getPassword())) {
-            throw new NotPermissionException("空指针");
+        if (Objects.isNull(adminUser) || !SecurityUtils.matchesPassword(password, adminUser.getPassword())) {
+            throw new RuntimeException("用户名或密码错误");
         }
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUserid(adminUser.getUserid().longValue());
+        loginUser.setUsername(adminUser.getUsername());
+        return loginUser;
     }
 }

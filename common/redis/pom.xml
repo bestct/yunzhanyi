@@ -9,28 +9,21 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>security</artifactId>
+    <artifactId>redis</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
     <dependencies>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-crypto</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
         <dependency>
             <groupId>net.yunzhanyi</groupId>
-            <artifactId>redis</artifactId>
+            <artifactId>core</artifactId>
         </dependency>
-        <!-- Apache Lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
     </dependencies>
-
 </project>
