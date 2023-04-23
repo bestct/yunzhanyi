@@ -5,63 +5,70 @@
 <mapper namespace="net.yunzhanyi.domain.mapper.AdminUserMapper">
 
     <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.AdminUser">
-            <id property="userid" column="userid" jdbcType="INTEGER"/>
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
+        <id property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        userid,username,password
+        userid
+        ,username,password
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from admin_user
-        where  userid = #{userid,jdbcType=INTEGER}
+        where userid = #{userid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select userid, username, password
+        from admin_user
+        where username=#{username}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from admin_user
-        where  userid = #{userid,jdbcType=INTEGER}
+        delete
+        from admin_user
+        where userid = #{userid,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="userid" keyProperty="userid" parameterType="net.yunzhanyi.domain.pojo.AdminUser" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="userid" keyProperty="userid" parameterType="net.yunzhanyi.domain.pojo.AdminUser"
+            useGeneratedKeys="true">
         insert into admin_user
-        ( userid,username,password
-        )
-        values (#{userid,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
-        )
+            (userid, username, password)
+        values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="userid" keyProperty="userid" parameterType="net.yunzhanyi.domain.pojo.AdminUser" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="userid" keyProperty="userid"
+            parameterType="net.yunzhanyi.domain.pojo.AdminUser" useGeneratedKeys="true">
         insert into admin_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="userid != null">userid,</if>
-                <if test="username != null">username,</if>
-                <if test="password != null">password,</if>
+            <if test="userid != null">userid,</if>
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="userid != null">#{userid,jdbcType=INTEGER},</if>
-                <if test="username != null">#{username,jdbcType=VARCHAR},</if>
-                <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="userid != null">#{userid,jdbcType=INTEGER},</if>
+            <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.AdminUser">
         update admin_user
         <set>
-                <if test="username != null">
-                    username = #{username,jdbcType=VARCHAR},
-                </if>
-                <if test="password != null">
-                    password = #{password,jdbcType=VARCHAR},
-                </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
         </set>
-        where   userid = #{userid,jdbcType=INTEGER}
+        where userid = #{userid,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.AdminUser">
         update admin_user
-        set
-            username =  #{username,jdbcType=VARCHAR},
-            password =  #{password,jdbcType=VARCHAR}
-        where   userid = #{userid,jdbcType=INTEGER}
+        set username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR}
+        where userid = #{userid,jdbcType=INTEGER}
     </update>
 </mapper>

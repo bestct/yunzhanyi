@@ -2,6 +2,7 @@ package net.yunzhanyi.domain.mapper;
 
 import net.yunzhanyi.domain.pojo.AdminUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author bestct
@@ -61,4 +62,11 @@ public interface AdminUserMapper {
      */
     int updateByPrimaryKey(AdminUser record);
 
+    /**
+     * 选择用户名
+     *
+     * @param username 用户名
+     * @return {@link AdminUser}
+     */
+    AdminUser selectByUsername(@Param("username") String username);
 }

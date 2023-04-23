@@ -83,7 +83,11 @@
                 <artifactId>swagger</artifactId>
                 <version>${yunzhanyi.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>net.yunzhanyi</groupId>
+                <artifactId>security</artifactId>
+                <version>${yunzhanyi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -15,6 +15,7 @@
         <module>core</module>
         <module>web</module>
         <module>swagger</module>
+        <module>security</module>
     </modules>
 
     <properties>
