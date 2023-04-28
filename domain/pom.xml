@@ -20,5 +20,9 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.yunzhanyi</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
     </dependencies>
 </project>

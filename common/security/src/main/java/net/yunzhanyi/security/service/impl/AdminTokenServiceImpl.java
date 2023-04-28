@@ -5,24 +5,28 @@ import net.yunzhanyi.common.core.constants.CacheConstants;
 import net.yunzhanyi.common.core.constants.SecurityConstants;
 import net.yunzhanyi.common.core.utils.JwtUtils;
 import net.yunzhanyi.common.redis.service.RedisService;
+import net.yunzhanyi.common.web.utils.ServletUtils;
 import net.yunzhanyi.security.model.LoginUser;
 import net.yunzhanyi.security.service.TokenService;
+import net.yunzhanyi.security.utils.SecurityUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 管理令牌服务impl
+ *
  * @author bestct
- * @date 2023/4/23
- * description: TODO
+ * @date 2023/04/27
  */
 
 @Component
 public class AdminTokenServiceImpl implements TokenService {
-
 
     @Autowired
     private RedisService redisService;
@@ -44,6 +48,7 @@ public class AdminTokenServiceImpl implements TokenService {
     @Override
     public Map<String, Object> createToken(LoginUser loginUser) {
         String token = UUID.fastUUID().toString();
+        loginUser.setToken(token);
         refreshToken(loginUser);
         // Jwt存储信息
         Map<String, Object> claimsMap = new HashMap<String, Object>();
@@ -74,9 +79,65 @@ public class AdminTokenServiceImpl implements TokenService {
     private String getTokenKey(String token) {
         return ACCESS_TOKEN + token;
     }
-
+    /**
+     * 获取用户身份信息
+     *
+     * @return 用户信息
+     */
     @Override
-    public LoginUser getLoginUser() {
+    public LoginUser getLoginUser()
+    {
+        return getLoginUser(ServletUtils.getRequest());
+    }
+
+    /**
+     * 获取用户身份信息
+     *
+     * @return 用户信息
+     */
+    @Override
+    public LoginUser getLoginUser(HttpServletRequest request)
+    {
+        // 获取请求携带的令牌
+        String token = SecurityUtils.getToken(request);
+        return getLoginUser(token);
+    }
+
+    /**
+     * 验证令牌有效期，相差不足20分钟，自动刷新缓存
+     *
+     * @param loginUser
+     */
+    @Override
+    public void verifyRefreshToken(LoginUser loginUser) {
+        long expireTime = loginUser.getExpireTime();
+        long currentTime = System.currentTimeMillis();
+        if (expireTime - currentTime <= MILLIS_MINUTE_TEN)
+        {
+            refreshToken(loginUser);
+        }
+    }
+
+    /**
+     * 获取用户身份信息
+     *
+     * @return 用户信息
+     */
+    @Override
+    public LoginUser getLoginUser(String token)
+    {
+        LoginUser user;
+        try
+        {
+            if (StringUtils.isNotEmpty(token))
+            {
+                String userkey = JwtUtils.getUserKey(token);
+                user = redisService.getCacheObject(getTokenKey(userkey));
+                return user;
+            }
+        } catch (Exception ignored)
+        {
+        }
         return null;
     }
 

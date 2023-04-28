@@ -30,26 +30,37 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>net.yunzhanyi</groupId>
             <artifactId>domain</artifactId>
         </dependency>
+
         <dependency>
             <groupId>net.yunzhanyi</groupId>
             <artifactId>web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>net.yunzhanyi</groupId>
             <artifactId>swagger</artifactId>
         </dependency>
+
         <dependency>
             <groupId>net.yunzhanyi</groupId>
             <artifactId>security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.anji-plus</groupId>
+            <artifactId>spring-boot-starter-captcha</artifactId>
+            <version>1.3.0</version>
         </dependency>
     </dependencies>
 </project>

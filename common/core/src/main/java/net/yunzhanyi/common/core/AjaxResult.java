@@ -1,31 +1,37 @@
 package net.yunzhanyi.common.core;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * @author bestct
  * @date 2023/4/22
  * description: TODO
  */
-public class AjaxResult {
+@Schema(description = "统一返回结果")
+public class AjaxResult<T> {
 
     /**
      * 代码
      */
+    @Schema(description = "相应码")
     private int code;
 
     /**
      * 信息
      */
+    @Schema(description = "消息")
     private String msg;
     /**
      * 数据
      */
-    private Object data;
+    @Schema(description = "数据")
+    private T data;
 
     private AjaxResult() {
 
     }
 
-    private AjaxResult(int code, String msg, Object data) {
+    private AjaxResult(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -38,7 +44,7 @@ public class AjaxResult {
      * @param data 数据
      * @return {@link AjaxResult}
      */
-    public static AjaxResult success(String msg, Object data) {
+    public static <T> AjaxResult<T> success(String msg, T data) {
         return createAjaxResult(200, msg, data);
     }
 
@@ -48,8 +54,8 @@ public class AjaxResult {
      * @param data 数据
      * @return {@link AjaxResult}
      */
-    public static AjaxResult successWithoutMsg(Object data) {
-        return success(null, data);
+    public static <T> AjaxResult<T> successWithoutMsg(T data) {
+        return success("请求成功", data);
     }
 
     /**
@@ -58,8 +64,8 @@ public class AjaxResult {
      * @param msg 消息
      * @return {@link AjaxResult}
      */
-    public static AjaxResult error(String msg) {
-        return error(500,msg);
+    public static <T> AjaxResult<T> error(String msg) {
+        return error(500, msg);
     }
 
     /**
@@ -69,8 +75,8 @@ public class AjaxResult {
      * @param msg  消息
      * @return {@link AjaxResult}
      */
-    public static AjaxResult error(int code, String msg) {
-       return createAjaxResult(code,msg, null);
+    public static <T> AjaxResult<T> error(int code, String msg) {
+        return createAjaxResult(code, msg, null);
     }
 
     /**
@@ -81,8 +87,8 @@ public class AjaxResult {
      * @param data 数据
      * @return {@link AjaxResult}
      */
-    public static AjaxResult createAjaxResult(int code, String msg, Object data) {
-        return new AjaxResult(code,msg,data);
+    public static <T> AjaxResult<T> createAjaxResult(int code, String msg, T data) {
+        return new AjaxResult<>(code, msg, data);
     }
 
     public int getCode() {
@@ -105,7 +111,7 @@ public class AjaxResult {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

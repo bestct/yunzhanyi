@@ -6,8 +6,6 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.media.StringSchema;
-import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.GroupedOpenApi;
@@ -30,7 +28,7 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfig  {
 
     @Bean
     @ConditionalOnMissingBean

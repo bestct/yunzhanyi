@@ -1,8 +1,13 @@
 package net.yunzhanyi.common.swagger.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +16,10 @@ import java.util.List;
  * @date 2023/4/22
  * description: TODO
  */
+@Slf4j
 @Component
 @ConfigurationProperties("swagger")
-public class SwaggerProperties {
+public class SwaggerProperties implements ApplicationListener<WebServerInitializedEvent> {
     private Boolean enabled;
     private String basePackage = "";
     private List<String> basePath = new ArrayList();
@@ -133,6 +139,26 @@ public class SwaggerProperties {
 
     public void setAuthorization(SwaggerProperties.Authorization authorization) {
         this.authorization = authorization;
+    }
+
+    @Override
+    public void onApplicationEvent(WebServerInitializedEvent event) {
+        // 打印 swagger 文档地址
+        // 获取端口号
+        int port = event.getWebServer().getPort();
+        // 获取应用名
+        String applicationName = event.getApplicationContext().getApplicationName();
+        String hostAddress = "";
+        try {
+            hostAddress = Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        log.info("\n-----------------------------------------" +
+                "\nswagger 接口文档地址:" + "\n http://"+hostAddress+":" + port + applicationName + "/doc.html" +
+                "\n-----------------------------------------");
+
     }
 
     public static class AuthorizationScope {

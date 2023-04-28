@@ -1,6 +1,6 @@
 package net.yunzhanyi.domain.pojo;
 
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
@@ -9,20 +9,24 @@ import java.io.Serializable;
  * @author bestct
  * @TableName admin_user
  */
+@Schema(description = "管理端用户")
 public class AdminUser implements Serializable {
     /**
      *
      */
+    @Schema(description = "userid")
     private Integer userid;
 
     /**
      *
      */
+    @Schema(description = "用户名")
     private String username;
 
     /**
      *
      */
+    @Schema(description = "密码")
     private String password;
 
     private static final long serialVersionUID = 1L;

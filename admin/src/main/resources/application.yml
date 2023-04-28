@@ -20,3 +20,18 @@ swagger:
   contact:
     email: 977961764@qq.com
     name: bestct
+security:
+  ignore:
+    whites:
+      - /login
+      - /doc.html
+      - /webjars/**
+      - /v3/**
+      - /captcha/**
+
+aj:
+  captcha:
+    jigsaw: classpath:images/jigsaw
+    cache-type: local
+    type: blockpuzzle
+    water-mark: 云沾衣
