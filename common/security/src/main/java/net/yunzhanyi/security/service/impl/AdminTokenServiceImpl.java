@@ -118,6 +118,16 @@ public class AdminTokenServiceImpl implements TokenService {
         }
     }
 
+    @Override
+    public void removeLoginUserToken(String token) {
+        if (StringUtils.isNotEmpty(token))
+        {
+            String userkey = JwtUtils.getUserKey(token);
+            redisService.deleteObject(getTokenKey(userkey));
+        }
+
+    }
+
     /**
      * 获取用户身份信息
      *

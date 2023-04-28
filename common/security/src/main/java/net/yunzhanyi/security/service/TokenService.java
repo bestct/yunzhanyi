@@ -49,4 +49,12 @@ public interface TokenService {
      * @param loginUser 登录用户
      */
     void verifyRefreshToken(LoginUser loginUser);
+
+    /**
+     * 删除登录用户令牌
+     *
+     * @param token 令牌
+     */
+    void removeLoginUserToken(String token);
+
 }

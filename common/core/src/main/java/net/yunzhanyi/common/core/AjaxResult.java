@@ -37,6 +37,9 @@ public class AjaxResult<T> {
         this.data = data;
     }
 
+    public static <T> AjaxResult<T> success(){
+        return success("",null);
+    }
     /**
      * 成功
      *

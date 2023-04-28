@@ -24,6 +24,7 @@ security:
   ignore:
     whites:
       - /login
+      - /logout
       - /doc.html
       - /webjars/**
       - /v3/**

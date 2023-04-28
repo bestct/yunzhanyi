@@ -10,11 +10,13 @@ import net.yunzhanyi.admin.service.LoginService;
 import net.yunzhanyi.common.core.AjaxResult;
 import net.yunzhanyi.security.model.LoginUser;
 import net.yunzhanyi.security.service.TokenService;
+import net.yunzhanyi.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -48,5 +50,12 @@ public class LoginController {
         }
         LoginUser loginUser = loginService.login(loginBody.getUsername(), loginBody.getPassword());
         return AjaxResult.success("登录成功", tokenService.createToken(loginUser));
+    }
+
+    @PostMapping("/logout")
+    public AjaxResult<String> logout(HttpServletRequest request){
+        String token = SecurityUtils.getToken(request);
+        tokenService.removeLoginUserToken(token);
+        return AjaxResult.success();
     }
 }
