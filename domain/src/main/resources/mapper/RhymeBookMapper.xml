@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.RhymeBookMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.RhymeBook">
+            <id property="rhymeBookId" column="rhyme_book_id" jdbcType="INTEGER"/>
+            <result property="rhymeBookName" column="rhyme_book_name" jdbcType="VARCHAR"/>
+            <result property="rhymeBookInfo" column="rhyme_book_info" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rhyme_book_id,rhyme_book_name,rhyme_book_info
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from rhyme_book
+        where  rhyme_book_id = #{rhymeBookId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from rhyme_book
+        where  rhyme_book_id = #{rhymeBookId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="rhyme_book_id" keyProperty="rhymeBookId" parameterType="net.yunzhanyi.domain.pojo.RhymeBook" useGeneratedKeys="true">
+        insert into rhyme_book
+        ( rhyme_book_id,rhyme_book_name,rhyme_book_info
+        )
+        values (#{rhymeBookId,jdbcType=INTEGER},#{rhymeBookName,jdbcType=VARCHAR},#{rhymeBookInfo,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="rhyme_book_id" keyProperty="rhymeBookId" parameterType="net.yunzhanyi.domain.pojo.RhymeBook" useGeneratedKeys="true">
+        insert into rhyme_book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="rhymeBookId != null">rhyme_book_id,</if>
+                <if test="rhymeBookName != null">rhyme_book_name,</if>
+                <if test="rhymeBookInfo != null">rhyme_book_info,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="rhymeBookId != null">#{rhymeBookId,jdbcType=INTEGER},</if>
+                <if test="rhymeBookName != null">#{rhymeBookName,jdbcType=VARCHAR},</if>
+                <if test="rhymeBookInfo != null">#{rhymeBookInfo,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.RhymeBook">
+        update rhyme_book
+        <set>
+                <if test="rhymeBookName != null">
+                    rhyme_book_name = #{rhymeBookName,jdbcType=VARCHAR},
+                </if>
+                <if test="rhymeBookInfo != null">
+                    rhyme_book_info = #{rhymeBookInfo,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   rhyme_book_id = #{rhymeBookId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.RhymeBook">
+        update rhyme_book
+        set 
+            rhyme_book_name =  #{rhymeBookName,jdbcType=VARCHAR},
+            rhyme_book_info =  #{rhymeBookInfo,jdbcType=VARCHAR}
+        where   rhyme_book_id = #{rhymeBookId,jdbcType=INTEGER} 
+    </update>
+</mapper>

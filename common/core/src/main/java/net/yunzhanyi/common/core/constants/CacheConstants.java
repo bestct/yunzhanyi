@@ -17,4 +17,8 @@ public class CacheConstants {
     public final static long REFRESH_TIME = 30;
 
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
+    public static final String REDIS_INDEX_DYNASTIES="yunzhanyi:index:dynasties";
+    public static final String REDIS_INDEX_PARTS = "yunzhanyi:index:parts";
+    public static final String REDIS_INDEX_POETRY = "yunzhanyi:index:poetry";
+
 }

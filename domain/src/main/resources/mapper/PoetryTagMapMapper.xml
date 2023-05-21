@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PoetryTagMapMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.PoetryTagMap">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="tagId" column="tag_id" jdbcType="INTEGER"/>
+            <result property="poetryId" column="poetry_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tag_id,poetry_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from poetry_tag_map
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from poetry_tag_map
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.PoetryTagMap" useGeneratedKeys="true">
+        insert into poetry_tag_map
+        ( id,tag_id,poetry_id
+        )
+        values (#{id,jdbcType=BIGINT},#{tagId,jdbcType=INTEGER},#{poetryId,jdbcType=BIGINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.PoetryTagMap" useGeneratedKeys="true">
+        insert into poetry_tag_map
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tagId != null">tag_id,</if>
+                <if test="poetryId != null">poetry_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="tagId != null">#{tagId,jdbcType=INTEGER},</if>
+                <if test="poetryId != null">#{poetryId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.PoetryTagMap">
+        update poetry_tag_map
+        <set>
+                <if test="tagId != null">
+                    tag_id = #{tagId,jdbcType=INTEGER},
+                </if>
+                <if test="poetryId != null">
+                    poetry_id = #{poetryId,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.PoetryTagMap">
+        update poetry_tag_map
+        set 
+            tag_id =  #{tagId,jdbcType=INTEGER},
+            poetry_id =  #{poetryId,jdbcType=BIGINT}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

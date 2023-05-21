@@ -2,7 +2,7 @@ package net.yunzhanyi.common.web.handler;
 
 import cn.hutool.http.HttpStatus;
 import lombok.extern.slf4j.Slf4j;
-import net.yunzhanyi.common.core.AjaxResult;
+import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.core.exception.NotLoginException;
 import net.yunzhanyi.common.core.exception.NotPermissionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

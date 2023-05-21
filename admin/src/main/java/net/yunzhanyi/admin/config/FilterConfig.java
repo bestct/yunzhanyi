@@ -8,9 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.Filter;
 
 /**
+ * 过滤器配置
+ *
  * @author bestct
- * @date 2023/4/28
- * description: TODO
+ * @date 2023/05/08
  */
 @Configuration
 public class FilterConfig {
@@ -24,5 +25,4 @@ public class FilterConfig {
         bean.addUrlPatterns("/*");
         return bean;
     }
-
 }

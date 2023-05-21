@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
+<head>
+    <title>云沾衣诗词网-入云深处亦沾衣</title>
+    <meta name="description" content="在这读几首诗，采几片云"/>
+    <meta name="author" content="长亭残木"/>
+    <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" href="https://res.yunzhanyi.net/static/css/swiper-bundle.min.css">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+
+<div class="container">
+    <div style="padding: 10px">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" th:each="part : ${partList}">
+                            <div class="part-card bg-body" th:onclick="|toDetail(${part.poetryId})|">
+                                <div class="part">
+                                    <div class="content">
+                                            <span style="white-space: pre-wrap;"
+                                                  th:text="${ part.partContent }"></span>
+                                    </div>
+                                </div>
+
+                                <div class="source">
+                                    <div class="content" th:text="${part.source}">
+                                    </div>
+                                    <img style="width: 20px;height: 20px" th:src="@{/ic_launcher.png}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+                <div style="height:28rem" class="card">
+                    <div class="card-header stress">
+                        今日诗词
+                    </div>
+                    <div class="card-body">
+                        <a th:href="'/poetry/'+${indexPoetry.poetryId}" style="font-size: x-large"
+                           th:text="${indexPoetry.poetryTitle}"></a>
+                        <div style="margin-top: 20px;margin-bottom: 20px ">
+                            [<a style="color: #580000" target="_blank"
+                                th:href="@{/index/poetry/(dynasty=${indexPoetry.dynastyId})}"
+                                th:text="${indexPoetry.poetryDynasty}"></a>]
+                            <a style="color: #580000" th:href="@{'/author/'+${indexPoetry.authorId}}"
+                               th:text="${indexPoetry.poetryAuthor}"
+                            ></a>
+                        </div>
+                        <div class="poetry-content">
+                            <span  style="white-space: pre-wrap;"
+                                   th:text="${indexPoetry.poetryContent}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" charset="utf-8" src="https://res.yunzhanyi.net/static/js/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        effect: "cards",
+        grabCursor: true,
+        autoplay: {
+            delay: 5000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+        },
+    });
+</script>
+<script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>

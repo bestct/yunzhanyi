@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.AuthorMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Author">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="authorName" column="author_name" jdbcType="VARCHAR"/>
+            <result property="authorDynasty" column="author_dynasty" jdbcType="VARCHAR"/>
+            <result property="info" column="info" jdbcType="VARCHAR"/>
+            <result property="dynastyId" column="dynasty_id" jdbcType="INTEGER"/>
+            <result property="recordCount" column="record_count" jdbcType="OTHER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,author_name,author_dynasty,
+        info,dynasty_id,record_count
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from author
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from author
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.Author" useGeneratedKeys="true">
+        insert into author
+        ( id,author_name,author_dynasty
+        ,info,dynasty_id,record_count
+        )
+        values (#{id,jdbcType=BIGINT},#{authorName,jdbcType=VARCHAR},#{authorDynasty,jdbcType=VARCHAR}
+        ,#{info,jdbcType=VARCHAR},#{dynastyId,jdbcType=INTEGER},#{recordCount,jdbcType=OTHER}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.Author" useGeneratedKeys="true">
+        insert into author
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="authorName != null">author_name,</if>
+                <if test="authorDynasty != null">author_dynasty,</if>
+                <if test="info != null">info,</if>
+                <if test="dynastyId != null">dynasty_id,</if>
+                <if test="recordCount != null">record_count,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="authorName != null">#{authorName,jdbcType=VARCHAR},</if>
+                <if test="authorDynasty != null">#{authorDynasty,jdbcType=VARCHAR},</if>
+                <if test="info != null">#{info,jdbcType=VARCHAR},</if>
+                <if test="dynastyId != null">#{dynastyId,jdbcType=INTEGER},</if>
+                <if test="recordCount != null">#{recordCount,jdbcType=OTHER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Author">
+        update author
+        <set>
+                <if test="authorName != null">
+                    author_name = #{authorName,jdbcType=VARCHAR},
+                </if>
+                <if test="authorDynasty != null">
+                    author_dynasty = #{authorDynasty,jdbcType=VARCHAR},
+                </if>
+                <if test="info != null">
+                    info = #{info,jdbcType=VARCHAR},
+                </if>
+                <if test="dynastyId != null">
+                    dynasty_id = #{dynastyId,jdbcType=INTEGER},
+                </if>
+                <if test="recordCount != null">
+                    record_count = #{recordCount,jdbcType=OTHER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Author">
+        update author
+        set 
+            author_name =  #{authorName,jdbcType=VARCHAR},
+            author_dynasty =  #{authorDynasty,jdbcType=VARCHAR},
+            info =  #{info,jdbcType=VARCHAR},
+            dynasty_id =  #{dynastyId,jdbcType=INTEGER},
+            record_count =  #{recordCount,jdbcType=OTHER}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

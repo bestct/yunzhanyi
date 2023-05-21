@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PoetryDetailMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.PoetryDetail">
+            <id property="detailId" column="detail_id" jdbcType="BIGINT"/>
+            <result property="detailType" column="detail_type" jdbcType="VARCHAR"/>
+            <result property="detailContent" column="detail_content" jdbcType="VARCHAR"/>
+            <result property="poetryId" column="poetry_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        detail_id,detail_type,detail_content,
+        poetry_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from poetry_detail
+        where  detail_id = #{detailId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPoetryId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from poetry_detail
+        where  poetry_id = #{poetryId,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from poetry_detail
+        where  detail_id = #{detailId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="detail_id" keyProperty="detailId" parameterType="net.yunzhanyi.domain.pojo.PoetryDetail" useGeneratedKeys="true">
+        insert into poetry_detail
+        ( detail_id,detail_type,detail_content
+        ,poetry_id)
+        values (#{detailId,jdbcType=BIGINT},#{detailType,jdbcType=VARCHAR},#{detailContent,jdbcType=VARCHAR}
+        ,#{poetryId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="detail_id" keyProperty="detailId" parameterType="net.yunzhanyi.domain.pojo.PoetryDetail" useGeneratedKeys="true">
+        insert into poetry_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="detailId != null">detail_id,</if>
+                <if test="detailType != null">detail_type,</if>
+                <if test="detailContent != null">detail_content,</if>
+                <if test="poetryId != null">poetry_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="detailId != null">#{detailId,jdbcType=BIGINT},</if>
+                <if test="detailType != null">#{detailType,jdbcType=VARCHAR},</if>
+                <if test="detailContent != null">#{detailContent,jdbcType=VARCHAR},</if>
+                <if test="poetryId != null">#{poetryId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.PoetryDetail">
+        update poetry_detail
+        <set>
+                <if test="detailType != null">
+                    detail_type = #{detailType,jdbcType=VARCHAR},
+                </if>
+                <if test="detailContent != null">
+                    detail_content = #{detailContent,jdbcType=VARCHAR},
+                </if>
+                <if test="poetryId != null">
+                    poetry_id = #{poetryId,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   detail_id = #{detailId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.PoetryDetail">
+        update poetry_detail
+        set
+            detail_type =  #{detailType,jdbcType=VARCHAR},
+            detail_content =  #{detailContent,jdbcType=VARCHAR},
+            poetry_id =  #{poetryId,jdbcType=BIGINT}
+        where   detail_id = #{detailId,jdbcType=BIGINT}
+    </update>
+</mapper>

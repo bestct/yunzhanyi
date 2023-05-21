@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
+<head>
+    <title>格律检测-云沾衣诗词网</title>
+    <meta name="description" content="在这读几首诗，采几片云"/>
+    <meta name="author" content="长亭残木"/>
+    <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
+    <th:block th:insert="~{common/header::head}"></th:block>
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container ">
+    <div class="row" style="padding: 10px">
+        <div class="col-lg-4">
+
+        </div>
+        <div class="col-lg-5">
+            <div class="card" style="align-content: center">
+                <h4 style="margin: 10px"> 诗格律检测</h4>
+                <div class="card-body">
+                    <textarea class="form-control" id="content" rows="8"
+                              placeholder="请输入要检测的诗词正文"></textarea>
+                </div>
+                <div class="row" style="padding: 10px">
+                    <div class="col">
+                        <select class="form-select" aria-label="Default select example" id="selectedForm">
+                            <option selected value="1">五律</option>
+                            <option value="2">五绝</option>
+                            <option value="3">七律</option>
+                            <option value="4">七绝</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-select" aria-label="Default select example" id="selectedFirst">
+                            <option value="1" selected>仄起首句不入韵</option>
+                            <option value="2">仄起首句入韵</option>
+                            <option value="3">平起首句不入韵</option>
+                            <option value="4">平起首句入韵</option>
+                        </select>
+                    </div>
+                </div>
+                <div align="center" style="padding: 10px;">
+                    <div class="form-check form-check-inline">
+                        <input checked class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio1"
+                               value="1">
+                        <label class="form-check-label" for="inlineRadio1">平水韵</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio2"
+                               value="2">
+                        <label class="form-check-label" for="inlineRadio2">中华新韵</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio3"
+                               value="3">
+                        <label class="form-check-label" for="inlineRadio3">中华通韵</label>
+                    </div>
+                </div>
+                <div class="d-grid gap-2" style="padding: 10px">
+                    <button id="checkBtn" class="btn btn-primary" type="button">开始检测</button>
+                </div>
+                <div id="alert" style="padding: 10px" >
+                    <div id="checkSuccess" class="alert" hidden role="alert">
+                        <h4 class="alert-heading">检测成功</h4>
+                        <div id="codeResult"></div>
+                        <hr>
+                        <p id="suggest" class="mb-0"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" charset="utf-8" th:src="@{/js/axios.min.js}"></script>
+<script type="text/javascript" charset="utf-8" th:src="@{/js/message.min.js}"></script>
+<script type="module" charset="utf-8" th:src="@{/js/check.js}"></script>
+
+</html>

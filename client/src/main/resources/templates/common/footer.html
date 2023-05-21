@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="home-footer" class="footer bg-dark small text-center text-white-50">
+    <div class="container">
+        <div class="row" style="padding-top: 20px ;text-align: center;">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a target="_blank" class="text-white-50 link-light" href="/show#about">关于我们</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a target="_blank" class="text-white-50 link-light" href="/show#connect">联系我们</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a target="_blank" class="text-white-50 link-light" href="/advise">意见反馈</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a data-bs-toggle="popover"
+                   data-bs-placement="top"
+                   data-bs-html="true" title="<img width='100px' height='100px' src='/img/qrcode_gzh.jpg'/>"
+                   class="mx-2 link-light text-white" href="javascript:"><i class="fa-brands fa-weixin"></i> 微信公众号 </a>
+                <a class="mx-2 link-light text-white" target="_blank" href="https://github.com/bestct/yunzhanyi"><i class="fab fa-github"></i> GitHub </a>
+            </div>
+        </div>
+    </div>
+    <hr style="border: 1px  solid #e2e2e2;">
+    <div class="container pb-2 px-4 px-lg-5">Copyright© <a
+            href="/">云沾衣</a>
+        2022
+        <br>
+        <a class="text-white-50 link-light" href="https://beian.miit.gov.cn/" target="_blank">
+            浙ICP备2021006675号-1</a>
+        <a class="text-white-50 link-light" target="_blank"
+           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41148102000248">
+            <img style="margin-right: 2px;" th:src="@{/img/gongan.png}">豫公网安备 41148102000248</a>
+    </div>
+    <th:block th:insert="~{common/footer::tail}"></th:block>
+</footer>
+<th:block th:fragment="tail">
+    <script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type="text/javascript" charset="utf-8" th:src="@{/js/message.min.js}"></script>
+    <script type="text/javascript" charset="utf-8" th:src="@{/js/axios.min.js}"></script>
+    <script type="text/javascript" charset="utf-8" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" charset="utf-8" th:src="@{/js/all.min.js}"></script>
+    <script type="application/javascript">
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
+</th:block>
+<footer th:fragment="noblank-footer" class="footer bg-dark small text-center text-white-50">
+    <div class="container">
+        <div class="row" style="padding-top: 20px ;text-align: center;">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a class="text-white-50 link-light" href="/show#about">关于我们</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a class="text-white-50 link-light" href="/show#connect">联系我们</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a class="text-white-50 link-light" href="/advise">意见反馈</a>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <a data-bs-toggle="popover"
+                   data-bs-placement="top"
+                   data-bs-html="true" title="<img width='100px' height='100px' src='/img/qrcode_gzh.jpg'/>"
+                   class="mx-2 link-light text-white" href="javascript:"><i class="fa-brands fa-weixin"></i> 微信公众号 </a>
+                <a class="mx-2 link-light text-white" target="_blank" href="https://github.com/bestct/yunzhanyi"><i class="fab fa-github"></i> GitHub </a>
+            </div>
+
+        </div>
+        <hr style="border: 1px  solid #e2e2e2;">
+        <div class="container pb-2 px-4 px-lg-5">Copyright© <a
+                href="/">云沾衣</a>
+            2022
+            <br>
+            <a class="text-white-50 link-light" href="https://beian.miit.gov.cn/" target="_blank">
+                浙ICP备2021006675号-1</a>
+            <a class="text-white-50 link-light" target="_blank"
+               href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41148102000248">
+                <img style="margin-right: 2px;" th:src="@{/img/gongan.png}">豫公网安备 41148102000248</a>
+        </div>
+    </div>
+    <th:block th:insert="~{common/footer::tail}"></th:block>
+
+</footer>
+</html>

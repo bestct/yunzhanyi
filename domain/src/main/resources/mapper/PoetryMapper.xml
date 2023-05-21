@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PoetryMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Poetry">
+        <id property="poetryId" column="poetry_id" jdbcType="BIGINT"/>
+        <result property="poetryTitle" column="poetry_title" jdbcType="VARCHAR"/>
+        <result property="poetryDynasty" column="poetry_dynasty" jdbcType="VARCHAR"/>
+        <result property="poetryType" column="poetry_type" jdbcType="VARCHAR"/>
+        <result property="poetryAuthor" column="poetry_author" jdbcType="VARCHAR"/>
+        <result property="poetryContent" column="poetry_content" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR"/>
+        <result property="dynastyId" column="dynasty_id" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        poetry_id
+        ,poetry_title,poetry_dynasty,
+        poetry_type,poetry_author,poetry_content,
+        author_id,tags,dynasty_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from poetry
+        where poetry_id = #{poetryId,jdbcType=BIGINT}
+    </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM poetry
+        <where>
+            <if test="poetry.poetryTitle != null ">and poetry_title like concat('%',#{poetry.poetryTitle},'%')</if>
+            <if test="poetry.poetryType != null ">and poetry_type = #{poetry.poetryType}</if>
+            <if test="poetry.dynastyId != null and poetry.dynastyId != 0">and dynasty_id = #{poetry.dynastyId}</if>
+            <if test="poetry.poetryContent != null ">and poetry_content like concat('%',#{poetry.poetryContent},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectRandomPoetry" resultMap="BaseResultMap">
+        select poetry_id, poetry_title, poetry_dynasty, poetry_author, author_id, dynasty_id,
+               poetry_content
+        from poetry limit #{offset},1
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(poetry_id)
+        from poetry
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from poetry
+        where poetry_id = #{poetryId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="poetry_id" keyProperty="poetryId" parameterType="net.yunzhanyi.domain.pojo.Poetry"
+            useGeneratedKeys="true">
+        insert into poetry
+        ( poetry_id, poetry_title, poetry_dynasty
+        , poetry_type, poetry_author, poetry_content
+        , author_id, tags, dynasty_id)
+        values ( #{poetryId,jdbcType=BIGINT}, #{poetryTitle,jdbcType=VARCHAR}, #{poetryDynasty,jdbcType=VARCHAR}
+               , #{poetryType,jdbcType=VARCHAR}, #{poetryAuthor,jdbcType=VARCHAR}, #{poetryContent,jdbcType=VARCHAR}
+               , #{authorId,jdbcType=BIGINT}, #{tags,jdbcType=VARCHAR}, #{dynastyId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="poetry_id" keyProperty="poetryId"
+            parameterType="net.yunzhanyi.domain.pojo.Poetry" useGeneratedKeys="true">
+        insert into poetry
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="poetryId != null">poetry_id,</if>
+            <if test="poetryTitle != null">poetry_title,</if>
+            <if test="poetryDynasty != null">poetry_dynasty,</if>
+            <if test="poetryType != null">poetry_type,</if>
+            <if test="poetryAuthor != null">poetry_author,</if>
+            <if test="poetryContent != null">poetry_content,</if>
+            <if test="authorId != null">author_id,</if>
+            <if test="tags != null">tags,</if>
+            <if test="dynastyId != null">dynasty_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="poetryId != null">#{poetryId,jdbcType=BIGINT},</if>
+            <if test="poetryTitle != null">#{poetryTitle,jdbcType=VARCHAR},</if>
+            <if test="poetryDynasty != null">#{poetryDynasty,jdbcType=VARCHAR},</if>
+            <if test="poetryType != null">#{poetryType,jdbcType=VARCHAR},</if>
+            <if test="poetryAuthor != null">#{poetryAuthor,jdbcType=VARCHAR},</if>
+            <if test="poetryContent != null">#{poetryContent,jdbcType=VARCHAR},</if>
+            <if test="authorId != null">#{authorId,jdbcType=BIGINT},</if>
+            <if test="tags != null">#{tags,jdbcType=VARCHAR},</if>
+            <if test="dynastyId != null">#{dynastyId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Poetry">
+        update poetry
+        <set>
+            <if test="poetryTitle != null">
+                poetry_title = #{poetryTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="poetryDynasty != null">
+                poetry_dynasty = #{poetryDynasty,jdbcType=VARCHAR},
+            </if>
+            <if test="poetryType != null">
+                poetry_type = #{poetryType,jdbcType=VARCHAR},
+            </if>
+            <if test="poetryAuthor != null">
+                poetry_author = #{poetryAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="poetryContent != null">
+                poetry_content = #{poetryContent,jdbcType=VARCHAR},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=BIGINT},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="dynastyId != null">
+                dynasty_id = #{dynastyId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where poetry_id = #{poetryId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Poetry">
+        update poetry
+        set poetry_title   = #{poetryTitle,jdbcType=VARCHAR},
+            poetry_dynasty = #{poetryDynasty,jdbcType=VARCHAR},
+            poetry_type    = #{poetryType,jdbcType=VARCHAR},
+            poetry_author  = #{poetryAuthor,jdbcType=VARCHAR},
+            poetry_content = #{poetryContent,jdbcType=VARCHAR},
+            author_id      = #{authorId,jdbcType=BIGINT},
+            tags           = #{tags,jdbcType=VARCHAR},
+            dynasty_id     = #{dynastyId,jdbcType=INTEGER}
+        where poetry_id = #{poetryId,jdbcType=BIGINT}
+    </update>
+</mapper>

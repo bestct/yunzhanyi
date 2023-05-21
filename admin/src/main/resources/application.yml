@@ -29,7 +29,7 @@ security:
       - /webjars/**
       - /v3/**
       - /captcha/**
-
+      - /poetry/list
 aj:
   captcha:
     jigsaw: classpath:images/jigsaw

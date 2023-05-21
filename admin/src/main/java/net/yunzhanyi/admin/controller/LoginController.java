@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.yunzhanyi.admin.body.LoginBody;
 import net.yunzhanyi.admin.service.LoginService;
-import net.yunzhanyi.common.core.AjaxResult;
+import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.security.model.LoginUser;
 import net.yunzhanyi.security.service.TokenService;
 import net.yunzhanyi.security.utils.SecurityUtils;

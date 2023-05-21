@@ -14,3 +14,11 @@ logging:
   file:
     name: logs\client.log
 
+swagger:
+  description: 云沾衣门户网站Api
+  title: 云沾衣门户网站API
+  version: 1.5.0
+  base-package: net.yunzhanyi.client.controller
+  contact:
+    email: 977961764@qq.com
+    name: bestct

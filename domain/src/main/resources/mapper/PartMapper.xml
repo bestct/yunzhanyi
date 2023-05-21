@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PartMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Part">
+            <id property="partId" column="part_id" jdbcType="BIGINT"/>
+            <result property="partContent" column="part_content" jdbcType="VARCHAR"/>
+            <result property="source" column="source" jdbcType="VARCHAR"/>
+            <result property="poetryId" column="poetry_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        part_id,part_content,source,
+        poetry_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from part
+        where  part_id = #{partId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from part
+        where part_id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from part
+        where  part_id = #{partId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="part_id" keyProperty="partId" parameterType="net.yunzhanyi.domain.pojo.Part" useGeneratedKeys="true">
+        insert into part
+        ( part_id,part_content,source
+        ,poetry_id)
+        values (#{partId,jdbcType=BIGINT},#{partContent,jdbcType=VARCHAR},#{source,jdbcType=VARCHAR}
+        ,#{poetryId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="part_id" keyProperty="partId" parameterType="net.yunzhanyi.domain.pojo.Part" useGeneratedKeys="true">
+        insert into part
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="partId != null">part_id,</if>
+                <if test="partContent != null">part_content,</if>
+                <if test="source != null">source,</if>
+                <if test="poetryId != null">poetry_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="partId != null">#{partId,jdbcType=BIGINT},</if>
+                <if test="partContent != null">#{partContent,jdbcType=VARCHAR},</if>
+                <if test="source != null">#{source,jdbcType=VARCHAR},</if>
+                <if test="poetryId != null">#{poetryId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Part">
+        update part
+        <set>
+                <if test="partContent != null">
+                    part_content = #{partContent,jdbcType=VARCHAR},
+                </if>
+                <if test="source != null">
+                    source = #{source,jdbcType=VARCHAR},
+                </if>
+                <if test="poetryId != null">
+                    poetry_id = #{poetryId,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   part_id = #{partId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Part">
+        update part
+        set
+            part_content =  #{partContent,jdbcType=VARCHAR},
+            source =  #{source,jdbcType=VARCHAR},
+            poetry_id =  #{poetryId,jdbcType=BIGINT}
+        where   part_id = #{partId,jdbcType=BIGINT}
+    </update>
+</mapper>

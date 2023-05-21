@@ -1,0 +1,64 @@
+package net.yunzhanyi.domain.mapper;
+
+import net.yunzhanyi.domain.pojo.Author;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+* @author bestct
+* @description 针对表【author】的数据库操作Mapper
+* @createDate 2023-05-05 13:52:27
+* @Entity net.yunzhanyi.domain.pojo.Author
+*/
+
+@Mapper
+public interface AuthorMapper {
+
+    /**
+     * 按主键删除
+     *
+     * @param id id
+     * @return int
+     */
+    int deleteByPrimaryKey(Long id);
+
+    /**
+     * 插入
+     *
+     * @param record 记录
+     * @return int
+     */
+    int insert(Author record);
+
+    /**
+     * 插入选择性
+     *
+     * @param record 记录
+     * @return int
+     */
+    int insertSelective(Author record);
+
+    /**
+     * 选择通过主键
+     *
+     * @param id id
+     * @return {@link Author}
+     */
+    Author selectByPrimaryKey(Long id);
+
+    /**
+     * 更新主键选择性
+     *
+     * @param record 记录
+     * @return int
+     */
+    int updateByPrimaryKeySelective(Author record);
+
+    /**
+     * 更新主键
+     *
+     * @param record 记录
+     * @return int
+     */
+    int updateByPrimaryKey(Author record);
+
+}

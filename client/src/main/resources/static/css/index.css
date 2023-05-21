@@ -1,0 +1,119 @@
+.stress{
+    color: #b40000;
+    font-weight: bold;
+}
+.mySwiper {
+    width: 18rem;
+    height: 28rem;
+}
+
+.part-card {
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    width: 18rem;
+    height: 27rem;
+    border-radius: 4px;
+    text-align: center;
+    margin: auto;
+}
+
+.part {
+    margin: 1px;
+    height: 240px;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+}
+
+.part .content {
+    line-height: 2;
+    margin: 0 auto;
+    font-size: 1.4em;
+    letter-spacing: 5px;
+    font-family: "楷体", "楷体_GB2312", serif;
+    writing-mode: vertical-rl; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+}
+
+.source {
+    margin: 1px;
+    left: 10px;
+    bottom: 10px;
+    position: absolute;
+}
+
+.source .content {
+    font-size: 16px;
+    max-height: 200px;
+    letter-spacing: 2px;
+    font-family: KaiTi, serif;
+    writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.poetry-content{
+    display: -webkit-box;  /*  display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示  */
+    -webkit-box-orient: vertical; /*  -webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式  */
+    -webkit-line-clamp: 10; /*  -webkit-line-clamp用来限制在一个块元素显示的文本的行数 */
+    overflow: hidden;
+    font-size: large;
+    line-height: 1.5;
+}
+.top-10 {
+}
+
+.top-10 ul {
+    counter-reset: section;
+}
+
+.top-10 li {
+    width: 260px;
+    line-height: 30px;
+    height: 35px;
+    overflow: hidden;
+    color: #525C66;
+    font-size: 14px;
+}
+
+.top-10 li:before {
+    width: 40px;
+    text-align: center;
+    counter-increment: section;
+    content: counter(section);
+    display: inline-block;
+    padding: 0 12px;
+    height: 18px;
+    line-height: 18px;
+    background: #b8c2cc;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 9px
+}
+
+.top-10 li:nth-child(1):before {
+    background: red;
+}
+
+.top-10 li:nth-child(2):before {
+    background: orange;
+}
+
+.top-10 li:nth-child(3):before {
+    background: yellow;
+}
+
+.top-10 li a {
+    margin-left: 11px;
+}
+
+.poetry-a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #22075a;
+}

@@ -52,5 +52,13 @@
             <groupId>net.yunzhanyi</groupId>
             <artifactId>domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.yunzhanyi</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.yunzhanyi</groupId>
+            <artifactId>swagger</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.DynastyMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Dynasty">
+            <id property="dynastyId" column="dynasty_id" jdbcType="INTEGER"/>
+            <result property="dynastyName" column="dynasty_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        dynasty_id,dynasty_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from dynasty
+        where  dynasty_id = #{dynastyId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from dynasty
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from dynasty
+        where  dynasty_id = #{dynastyId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="dynasty_id" keyProperty="dynastyId" parameterType="net.yunzhanyi.domain.pojo.Dynasty" useGeneratedKeys="true">
+        insert into dynasty
+        ( dynasty_id,dynasty_name)
+        values (#{dynastyId,jdbcType=INTEGER},#{dynastyName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="dynasty_id" keyProperty="dynastyId" parameterType="net.yunzhanyi.domain.pojo.Dynasty" useGeneratedKeys="true">
+        insert into dynasty
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="dynastyId != null">dynasty_id,</if>
+                <if test="dynastyName != null">dynasty_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="dynastyId != null">#{dynastyId,jdbcType=INTEGER},</if>
+                <if test="dynastyName != null">#{dynastyName,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Dynasty">
+        update dynasty
+        <set>
+                <if test="dynastyName != null">
+                    dynasty_name = #{dynastyName,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   dynasty_id = #{dynastyId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Dynasty">
+        update dynasty
+        set
+            dynasty_name =  #{dynastyName,jdbcType=VARCHAR}
+        where   dynasty_id = #{dynastyId,jdbcType=INTEGER}
+    </update>
+</mapper>

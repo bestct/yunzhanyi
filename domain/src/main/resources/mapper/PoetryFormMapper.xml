@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PoetryFormMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.PoetryForm">
+        <id property="formsId" column="forms_id" jdbcType="INTEGER"/>
+        <result property="formsName" column="forms_name" jdbcType="VARCHAR"/>
+        <result property="formType" column="form_type" jdbcType="INTEGER"/>
+        <result property="firstType" column="first_type" jdbcType="INTEGER"/>
+        <result property="formsCode" column="forms_code" jdbcType="VARCHAR"/>
+        <result property="formsExample" column="forms_example" jdbcType="VARCHAR"/>
+        <result property="formsNum" column="forms_num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        forms_id
+        ,forms_name,form_type,
+        first_type,forms_code,forms_example,
+        forms_num
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from poetry_form
+        where forms_id = #{formsId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByType" resultMap="BaseResultMap">
+        select forms_code, forms_num
+        from poetry_form
+        where form_type = #{formType,jdbcType=INTEGER}
+          and first_type = #{firstType,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from poetry_form
+        where forms_id = #{formsId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="forms_id" keyProperty="formsId" parameterType="net.yunzhanyi.domain.pojo.PoetryForm"
+            useGeneratedKeys="true">
+        insert into poetry_form
+        ( forms_id, forms_name, form_type
+        , first_type, forms_code, forms_example
+        , forms_num)
+        values ( #{formsId,jdbcType=INTEGER}, #{formsName,jdbcType=VARCHAR}, #{formType,jdbcType=INTEGER}
+               , #{firstType,jdbcType=INTEGER}, #{formsCode,jdbcType=VARCHAR}, #{formsExample,jdbcType=VARCHAR}
+               , #{formsNum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="forms_id" keyProperty="formsId"
+            parameterType="net.yunzhanyi.domain.pojo.PoetryForm" useGeneratedKeys="true">
+        insert into poetry_form
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="formsId != null">forms_id,</if>
+            <if test="formsName != null">forms_name,</if>
+            <if test="formType != null">form_type,</if>
+            <if test="firstType != null">first_type,</if>
+            <if test="formsCode != null">forms_code,</if>
+            <if test="formsExample != null">forms_example,</if>
+            <if test="formsNum != null">forms_num,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="formsId != null">#{formsId,jdbcType=INTEGER},</if>
+            <if test="formsName != null">#{formsName,jdbcType=VARCHAR},</if>
+            <if test="formType != null">#{formType,jdbcType=INTEGER},</if>
+            <if test="firstType != null">#{firstType,jdbcType=INTEGER},</if>
+            <if test="formsCode != null">#{formsCode,jdbcType=VARCHAR},</if>
+            <if test="formsExample != null">#{formsExample,jdbcType=VARCHAR},</if>
+            <if test="formsNum != null">#{formsNum,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.PoetryForm">
+        update poetry_form
+        <set>
+            <if test="formsName != null">
+                forms_name = #{formsName,jdbcType=VARCHAR},
+            </if>
+            <if test="formType != null">
+                form_type = #{formType,jdbcType=INTEGER},
+            </if>
+            <if test="firstType != null">
+                first_type = #{firstType,jdbcType=INTEGER},
+            </if>
+            <if test="formsCode != null">
+                forms_code = #{formsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="formsExample != null">
+                forms_example = #{formsExample,jdbcType=VARCHAR},
+            </if>
+            <if test="formsNum != null">
+                forms_num = #{formsNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where forms_id = #{formsId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.PoetryForm">
+        update poetry_form
+        set forms_name    = #{formsName,jdbcType=VARCHAR},
+            form_type     = #{formType,jdbcType=INTEGER},
+            first_type    = #{firstType,jdbcType=INTEGER},
+            forms_code    = #{formsCode,jdbcType=VARCHAR},
+            forms_example = #{formsExample,jdbcType=VARCHAR},
+            forms_num     = #{formsNum,jdbcType=INTEGER}
+        where forms_id = #{formsId,jdbcType=INTEGER}
+    </update>
+</mapper>

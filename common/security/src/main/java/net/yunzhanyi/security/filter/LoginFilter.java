@@ -2,7 +2,7 @@ package net.yunzhanyi.security.filter;
 
 import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
-import net.yunzhanyi.common.core.AjaxResult;
+import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.web.utils.BeanUtils;
 import net.yunzhanyi.common.web.utils.ServletUtils;
