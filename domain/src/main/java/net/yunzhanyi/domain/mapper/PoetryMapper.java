@@ -86,4 +86,13 @@ public interface PoetryMapper {
      * @return {@link Poetry}
      */
     Poetry selectRandomPoetry(@Param("offset") int offset);
+
+    /**
+     * 选择简单诗
+     *
+     * @param offset 抵消
+     * @param size   大小
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> selectPoetrySimple(@Param("offset") int offset, @Param("size") int size);
 }

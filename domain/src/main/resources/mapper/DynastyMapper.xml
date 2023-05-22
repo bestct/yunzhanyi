@@ -24,6 +24,12 @@
         from dynasty
     </select>
 
+    <select id="selectInit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from dynasty
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from dynasty
         where  dynasty_id = #{dynastyId,jdbcType=INTEGER}

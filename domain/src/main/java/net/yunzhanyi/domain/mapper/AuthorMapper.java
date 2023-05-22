@@ -2,6 +2,9 @@ package net.yunzhanyi.domain.mapper;
 
 import net.yunzhanyi.domain.pojo.Author;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author bestct
@@ -61,4 +64,19 @@ public interface AuthorMapper {
      */
     int updateByPrimaryKey(Author record);
 
+    /**
+     * 选择作者简单
+     *
+     * @param offset   抵消
+     * @param pageSize 页面大小
+     * @return {@link List}<{@link Author}>
+     */
+    List<Author> selectAuthorSimple(@Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    /**
+     * 选择数
+     *
+     * @return {@link Integer}
+     */
+    Integer selectCount();
 }

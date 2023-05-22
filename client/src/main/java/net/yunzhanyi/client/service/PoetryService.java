@@ -1,6 +1,9 @@
 package net.yunzhanyi.client.service;
 
+import net.yunzhanyi.domain.pojo.Dynasty;
 import net.yunzhanyi.domain.pojo.Poetry;
+
+import java.util.List;
 
 /**
  * @author bestct
@@ -16,4 +19,7 @@ public interface PoetryService {
      */
     Poetry getPoetryByRandom();
 
+    List<Poetry> searchPoetryRandom(int i);
+
+    List<Dynasty> initDynasty();
 }

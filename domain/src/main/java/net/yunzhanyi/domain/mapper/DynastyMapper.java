@@ -40,4 +40,11 @@ public interface DynastyMapper {
      */
     List<Dynasty> selectAll();
 
+    /**
+     * 选择初始化
+     *
+     * @return {@link List}<{@link Dynasty}>
+     */
+    List<Dynasty> selectInit();
+
 }

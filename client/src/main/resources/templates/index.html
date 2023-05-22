@@ -5,16 +5,18 @@
     <meta name="description" content="在这读几首诗，采几片云"/>
     <meta name="author" content="长亭残木"/>
     <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <th:block th:insert="~{common/header::head}"></th:block>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <link rel="stylesheet" type="text/css" href="https://res.yunzhanyi.net/static/css/swiper-bundle.min.css">
 </head>
 <body class="bg-body-secondary">
 <div th:insert="~{common/header :: main_nav}"></div>
 
-<div class="container">
+<div class="container" style="padding-top: 80px">
     <div style="padding: 10px">
         <div class="row">
+            <!--诗词名句-->
             <div class="col-lg-4 col-md-6">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
@@ -37,7 +39,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--     今日诗词       -->
             <div class="col-lg-5 col-md-6">
                 <div style="height:28rem" class="card">
                     <div class="card-header stress">
@@ -55,9 +57,76 @@
                             ></a>
                         </div>
                         <div class="poetry-content">
-                            <span  style="white-space: pre-wrap;"
-                                   th:text="${indexPoetry.poetryContent}"></span>
+                            <span style="white-space: pre-wrap;"
+                                  th:text="${indexPoetry.poetryContent}"></span>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!--      诗词搜索排行      -->
+            <div class="col-lg-3 col-md-12">
+                <div class="card" style="height: 28rem;">
+                    <div class="card-header stress">
+                        搜索排行榜
+                    </div>
+                    <div class="card-body">
+                        <div class="top-10">
+                            <ul>
+                                <li th:each="hotWord:${hotWordList}"><a th:text="${hotWord.value}"
+                                                                        th:href="@{/search/(keyword=${hotWord.value})}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--     推荐诗词       -->
+            <div class="col-lg-9 col-md-7 col-sm-12">
+                <div style="min-height:44rem" class="card">
+                    <div class="card-header stress">
+                        推荐诗词
+                    </div>
+                    <div class="card-body row">
+                        <div th:each="poetry: ${poetryList}" class="col-md-6 col-lg-6 col-sm-12 text-truncate">
+                            [<a class="poetry-a" th:text="${poetry.poetryDynasty}"
+                                th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}">唐代</a>]·
+                            <a class="poetry-a" th:text="${poetry.poetryAuthor}"
+                               th:href="'/author/'+${poetry.authorId}">卢纶</a>
+                            《<a class="poetry-a" th:text="${poetry.poetryTitle}"
+                                th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5 col-sm-12">
+                <div class="card">
+                    <div class="card-header stress">
+                        著名诗人
+                    </div>
+                    <div class="card-body p-2">
+                        <ul class="p-1 list-unstyled d-flex flex-wrap">
+                            <li th:each="author:${hotAuthorList}" class="p-1">
+                                <a class="link-success"
+                                   th:href="'/author/'+${author.id}"
+                                   th:text="${author.authorName}"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header stress">
+                        推荐诗人
+                    </div>
+                    <div class="card-body">
+                        <ul class="p-1 list-unstyled d-flex flex-wrap">
+                            <li class="p-1" th:each="author:${authorList}">
+                                <a th:href="'/author/'+${author.id}" class="link-info"
+                                   th:text="${author.authorName}"></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

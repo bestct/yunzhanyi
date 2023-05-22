@@ -17,12 +17,18 @@
         select
         <include refid="Base_Column_List" />
         from tag
-        where  tag_id = #{tagId,jdbcType=INTEGER} 
+        where  tag_id = #{tagId,jdbcType=INTEGER}
     </select>
 
+    <select id="selectInit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tag
+        limit 20;
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from tag
-        where  tag_id = #{tagId,jdbcType=INTEGER} 
+        where  tag_id = #{tagId,jdbcType=INTEGER}
     </delete>
     <insert id="insert" keyColumn="tag_id" keyProperty="tagId" parameterType="net.yunzhanyi.domain.pojo.Tag" useGeneratedKeys="true">
         insert into tag
@@ -47,12 +53,12 @@
                     tag_name = #{tagName,jdbcType=VARCHAR},
                 </if>
         </set>
-        where   tag_id = #{tagId,jdbcType=INTEGER} 
+        where   tag_id = #{tagId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Tag">
         update tag
-        set 
+        set
             tag_name =  #{tagName,jdbcType=VARCHAR}
-        where   tag_id = #{tagId,jdbcType=INTEGER} 
+        where   tag_id = #{tagId,jdbcType=INTEGER}
     </update>
 </mapper>

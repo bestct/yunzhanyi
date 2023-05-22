@@ -3,6 +3,8 @@ package net.yunzhanyi.domain.mapper;
 import net.yunzhanyi.domain.pojo.Tag;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author bestct
 * @description 针对表【tag】的数据库操作Mapper
@@ -59,5 +61,7 @@ public interface TagMapper {
      * @return int
      */
     int updateByPrimaryKey(Tag record);
+
+    List<Tag> selectInit();
 
 }
