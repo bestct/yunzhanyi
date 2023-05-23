@@ -6,10 +6,11 @@
     <meta name="author" content="长亭残木"/>
     <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
     <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
 </head>
 <body class="bg-body-secondary">
 <div th:insert="~{common/header :: main_nav}"></div>
-<div class="container ">
+<div class="container full">
     <div class="row" style="padding: 10px">
         <div class="col-lg-4">
 
@@ -75,6 +76,7 @@
         </div>
     </div>
 </div>
+<div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" charset="utf-8" th:src="@{/js/axios.min.js}"></script>

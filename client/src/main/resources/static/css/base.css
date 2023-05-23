@@ -1,0 +1,8 @@
+.full{
+    padding-top: 80px;
+    min-height: calc(100% - 125px);
+}
+body {
+    margin: 0;
+    height: 100vh;
+}
