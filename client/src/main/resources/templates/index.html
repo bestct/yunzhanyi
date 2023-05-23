@@ -31,7 +31,7 @@
                                 <div class="source">
                                     <div class="content" th:text="${part.source}">
                                     </div>
-                                    <img style="width: 20px;height: 20px" th:src="@{/ic_launcher.png}">
+                                    <img style="width: 20px;height: 20px" th:src="@{/img/ic_launcher.png}">
                                 </div>
                             </div>
                         </div>
@@ -134,6 +134,7 @@
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
+<script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" charset="utf-8" src="https://res.yunzhanyi.net/static/js/swiper-bundle.min.js"></script>
 
 <script>
@@ -147,5 +148,4 @@
         },
     });
 </script>
-<script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </html>
