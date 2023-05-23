@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <title>云沾衣诗词网-入云深处亦沾衣</title>
+    <meta name="description" content="读几首诗，采几片云"/>
+    <meta name="author" content="长亭残木"/>
+    <meta name="keywords" content="诗词平台,传统文化">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/about.css}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a style="width: 120px" href="/" class="navbar-brand">
+            <img class="img-fluid" th:src="@{/logo.svg}" /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            导航
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#about">关于</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">展示</a></li>
+                <li class="nav-item"><a class="nav-link" href="#connect">联系我们</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="masthead">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center item">
+                <h1 class="mx-auto my-1 text-uppercase">纵使晴明无雨色</h1>
+                <h1 class="mx-auto my-1 text-uppercase">入云深处亦沾衣</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 item1" >
+                <h2 class="text-white mb-4">读几首诗 采几片云</h2>
+                <p class="text-white">
+                    云沾衣 出自唐代的书法家，诗人张旭《山中留客》一诗中的
+                    <br>
+                    “纵使晴明无雨色，入云深处亦沾衣。”
+                </p>
+
+                <div class="text-white-75">
+                    即使天气晴朗没有阴雨迷蒙，去到山中云雾深处衣服也会沾湿。
+                    <br>
+                    何不缓下你那忙碌的脚步，留下来欣赏一下这里的美景呢？
+                </div>
+            </div>
+        </div>
+        <div style="height: 200px"></div>
+    </div>
+</section>
+<!-- Contact-->
+<section id="connect" class="contact-section bg-black">
+    <div class="container py-5 px-4 px-lg-5">
+        <div class="row gx-4 py-5 gx-lg-5">
+            <div class="col-lg-6 col-md-4 mb-3 mb-md-0">
+                <div class="card py-5 h-100 item2">
+                    <div class="card-body text-center ">
+                        <i class="fas fa-envelope text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">电子邮箱</h4>
+                        <hr class="my-4 mx-auto"/>
+                        <div class="text-black-50"><a style="color: #1d1d1d"
+                                                      href="javascript:">ct@yunzhanyi.ntesmail.com</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-4 mb-3  mb-md-0">
+                <div class="card py-5 h-100 item2">
+                    <div class="card-body text-center ">
+                        <i class="fa-solid fa-face-smile text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">社交账号</h4>
+                        <hr class="my-4 mx-auto"/>
+                        <div class="text-black-50">
+                            <a class="mx-2"
+                               style="color: #1d1d1d"
+                               href="javascript:"
+                               data-bs-toggle="popover"
+                               data-bs-placement="top"
+                               data-bs-html="true" title="<img width='100px' height='100px' src='https://res.yunzhanyi.net/static/img/qrcode_gzh.jpg'/>"
+                            ><i class="fa-brands fa-weixin"></i></a>
+                            <a class="mx-2"
+                               style="color: #1d1d1d"
+                               href="javascript:"
+                               data-bs-toggle="popover"
+                               data-bs-placement="top"
+                               data-bs-html="true"
+                               title="<img width='200px' height='400px' src='https://res.yunzhanyi.net/static/img/qqqun.jpg'/>"
+                            ><i class="fa-brands fa-qq"></i></a>
+                            <a class="mx-2" style="color: #1d1d1d"
+                               target="_blank" href="https://github.com/bestct"><i
+                                    class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</body>
+<script th:src="@{/js/scrollreveal.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script>
+    var navbarShrink = function () {
+        const navbarCollapsible = document.body.querySelector('#mainNav');
+        if (!navbarCollapsible) {
+            return;
+        }
+        if (window.scrollY === 0) {
+            navbarCollapsible.classList.remove('navbar-shrink')
+        } else {
+            navbarCollapsible.classList.add('navbar-shrink')
+        }
+
+    };
+
+    // Shrink the navbar
+    navbarShrink();
+
+    // Shrink the navbar when page is scrolled
+    document.addEventListener('scroll', navbarShrink);
+
+    // Activate Bootstrap scrollspy on the main nav element
+    const mainNav = document.body.querySelector('#mainNav');
+    if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#mainNav',
+            offset: 74,
+        });
+    }
+
+    // Collapse responsive navbar when toggler is visible
+    const navbarToggler = document.body.querySelector('.navbar-toggler');
+    const responsiveNavItems = [].slice.call(
+        document.querySelectorAll('#navbarResponsive .nav-link')
+    );
+    responsiveNavItems.map(function (responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+    ScrollReveal().reveal('.item', {
+        reset: true, // 滚动鼠标时，动画开关
+        origin: 'right', // 动画开始的方向
+        duration: 2000, // 动画持续时间
+        delay: 0, // 延迟
+        rotate: { x: 0, y: 0, z: 0 }, // 过度到0的初始角度
+        opacity: 0.3, // 初始透明度
+        scale: 0.4, //缩放
+        easing: 'ease', // 缓动'ease', 'ease-in-out'，'linear'...
+    });
+    ScrollReveal().reveal('.item1', {
+        reset: true, // 滚动鼠标时，动画开关
+        origin: 'bottom', // 动画开始的方向
+        duration: 1000, // 动画持续时间
+        delay: 0, // 延迟
+        distance: '300px',
+        opacity: 0.3, // 初始透明度
+        easing: 'ease', // 缓动'ease', 'ease-in-out'，'linear'...
+    });
+    ScrollReveal().reveal('.item2', {
+        reset: true, // 滚动鼠标时，动画开关
+        origin: 'bottom', // 动画开始的方向
+        duration: 1000, // 动画持续时间
+        delay: 0, // 延迟
+        distance: '300px',
+        opacity: 0.3, // 初始透明度
+        easing: 'ease', // 缓动'ease', 'ease-in-out'，'linear'...
+    });
+
+
+</script>
+
+</html>

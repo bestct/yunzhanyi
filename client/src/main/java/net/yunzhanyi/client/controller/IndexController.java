@@ -27,4 +27,8 @@ public class IndexController {
         model.addAllAttributes(map);
         return "index";
     }
+    @GetMapping("/show")
+    public String about() {
+        return "about";
+    }
 }
