@@ -1,14 +1,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
-
 <th:block th:fragment="head">
+    <meta name="description" content="在这读几首诗，采几片云"/>
+    <meta name="author" content="长亭残木"/>
+    <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="applicable-device" content="pc,mobile">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/message.min.css}">
-</th:block>，
+    <link rel="stylesheet" type="text/css" th:href="@{/css/toastify.min.css}">
+</th:block>
 <th:block th:fragment="main_nav">
-    <nav class="navbar fixed-top navbar-expand-lg bg-body ">
+    <nav class="navbar fixed-top navbar-expand-lg bg-body">
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="check2" viewBox="0 0 16 16">
                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -38,7 +40,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">导航</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -61,10 +64,10 @@
                             <a class="nav-link" href="/rhyme/check">格律检测</a>
                         </li>
                     </ul>
-                    <form action="/search" class="navbar" target="_blank">
+                    <form class="navbar">
                         <div class="input-group input-group-sm px-sm-5">
-                            <input name="keyword" class="form-control" type="search" placeholder="搜索诗词/诗人">
-                            <button type="submit" class="btn btn-primary btn-sm">搜索</button>
+                            <input id="keyword" name="keyword" class="form-control" type="search" placeholder="搜索诗词/诗人">
+                            <button id="searchBtn" type="button" class="btn btn-primary btn-sm">搜索</button>
                         </div>
                     </form>
                     <div class="mx-xl-5">
@@ -125,64 +128,6 @@
             </div>
         </div>
     </nav>
-    <script>
-        (() => {
-            'use strict'
-
-            const storedTheme = localStorage.getItem('theme')
-
-            const getPreferredTheme = () => {
-                if (storedTheme) {
-                    return storedTheme
-                }
-
-                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-            }
-
-            const setTheme = function (theme) {
-                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.setAttribute('data-bs-theme', 'dark')
-                } else {
-                    document.documentElement.setAttribute('data-bs-theme', theme)
-                }
-            }
-
-            setTheme(getPreferredTheme())
-
-            const showActiveTheme = theme => {
-                const activeThemeIcon = document.querySelector('.theme-icon-active use')
-                const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-                const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
-
-                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-                    element.classList.remove('active')
-                })
-
-                btnToActive.classList.add('active')
-                activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-            }
-
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                if (storedTheme !== 'light' || storedTheme !== 'dark') {
-                    setTheme(getPreferredTheme())
-                }
-            })
-
-            window.addEventListener('DOMContentLoaded', () => {
-                showActiveTheme(getPreferredTheme())
-
-                document.querySelectorAll('[data-bs-theme-value]')
-                    .forEach(toggle => {
-                        toggle.addEventListener('click', () => {
-                            const theme = toggle.getAttribute('data-bs-theme-value')
-                            localStorage.setItem('theme', theme)
-                            setTheme(theme)
-                            showActiveTheme(theme)
-                        })
-                    })
-            })
-        })()
-    </script>
 </th:block>
 
 </html>

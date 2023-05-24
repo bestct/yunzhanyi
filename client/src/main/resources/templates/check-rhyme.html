@@ -2,9 +2,6 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
 <head>
     <title>格律检测-云沾衣诗词网</title>
-    <meta name="description" content="在这读几首诗，采几片云"/>
-    <meta name="author" content="长亭残木"/>
-    <meta name="keywords" content="诗词平台,传统文化,诗词,古诗">
     <th:block th:insert="~{common/header::head}"></th:block>
     <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
 </head>
@@ -78,9 +75,7 @@
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
-<script type="text/javascript" charset="utf-8" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script type="text/javascript" charset="utf-8" th:src="@{/js/axios.min.js}"></script>
-<script type="text/javascript" charset="utf-8" th:src="@{/js/message.min.js}"></script>
+<th:block th:insert="~{common/footer::tail}"></th:block>
 <script type="module" charset="utf-8" th:src="@{/js/check.js}"></script>
 
 </html>
