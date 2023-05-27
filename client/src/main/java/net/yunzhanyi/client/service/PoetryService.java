@@ -1,5 +1,7 @@
 package net.yunzhanyi.client.service;
 
+import com.github.pagehelper.PageInfo;
+import net.yunzhanyi.common.core.vo.PageVo;
 import net.yunzhanyi.domain.pojo.Dynasty;
 import net.yunzhanyi.domain.pojo.Poetry;
 
@@ -22,4 +24,20 @@ public interface PoetryService {
     List<Poetry> searchPoetryRandom(int i);
 
     List<Dynasty> initDynasty();
+
+    /**
+     * 搜索诗歌
+     *
+     * @param keyword 关键字
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> searchPoetry(String keyword);
+
+    /**
+     * 复制页面信息
+     *
+     * @param poetryPageInfo 诗歌页面信息
+     * @return {@link PageVo}
+     */
+    PageVo copyPageInfo(PageInfo<Poetry> poetryPageInfo);
 }

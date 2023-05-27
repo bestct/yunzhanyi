@@ -6,3 +6,78 @@ body {
     margin: 0;
     height: 100vh;
 }
+.switch-label {
+    width: 60px;
+    height: 26px;
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 20px;
+    box-shadow: inset 0 5px 15px rgba(27, 27, 29, 0.4), inset 0 -5px 15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: .3s
+}
+
+.switch-label:after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    background: linear-gradient(20deg, #ffcc89, #d8860b);
+    border-radius: 20px;
+    box-shadow: 0 5px 2px rgba(0, 0, 0, 0.2);
+    transition: .3s
+}
+
+.switch-label svg {
+    position: absolute;
+    width: 16px;
+    top: 5px;
+    z-index: 100
+}
+
+.switch-label svg.sun {
+    left: 7px;
+    fill: #fff;
+    transition: .3s
+}
+
+.switch-label svg.moon {
+    left: 37px;
+    fill: #7e7e7e;
+    transition: .3s
+}
+
+.check-box {
+    width: 0;
+    height: 0;
+    visibility: hidden
+}
+
+.check-box:checked+label {
+    background: #242424
+}
+
+.check-box:checked+label:after {
+    left: 55px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #777, #3a3a3a)
+}
+
+.check-box:checked+label svg.sun {
+    fill: #7e7e7e
+}
+
+.check-box:checked+label svg.moon {
+    fill: #fff
+}
+
+.check-box:checked+label+.background {
+    background: #242424
+}
+
+.check-box:active:after {
+    width: 26px
+}

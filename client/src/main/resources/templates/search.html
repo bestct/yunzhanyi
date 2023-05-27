@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
+<head>
+  <title th:text="${keyword+' 搜索-云沾衣诗词网'}">搜索_云沾衣诗词网</title>
+  <th:block th:insert="~{common/header::head}"></th:block>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container full">
+  <div class="row">
+    <div class="col-lg-9 col-sm-12">
+      <ul class="nav nav-tabs">
+        <li class="nav-item mx-3">
+          <a th:class="${searchType=='poetry'?'nav-link active':'nav-link'}"
+             th:href="@{/search(keyword=${keyword},searchType=${'poetry'})}">诗词</a>
+        </li>
+        <li class="nav-item mx-3">
+          <a th:class="${searchType=='author'?'nav-link active ':'nav-link'}"
+             th:href="@{/search(keyword=${keyword},searchType=${'author'})}">诗人</a>
+        </li>
+      </ul>
+
+      <div th:if="${searchType=='poetry'}">
+        <th:block th:each="poetry : ${dataInfo.getList()}">
+          <div class="card" style="padding: 5px">
+            <div class="card-body">
+              <a target="_blank" th:href="@{'/poetry/'+${poetry.poetryId}}">
+                <div style="font-size: x-large" th:text="${poetry.poetryTitle}"></div>
+              </a>
+              <div style="margin-top: 20px;margin-bottom: 20px ">
+                [<a style="color: #580000" target="_blank"
+                    th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}"
+                    th:text="${poetry.poetryDynasty}"></a>]
+                <a style="color: #580000" target="_blank" th:href="@{'/author/'+${poetry.authorId}}"
+                   th:text="${poetry.poetryAuthor}"
+                ></a>
+              </div>
+              <div style="font-size: large; line-height: 1.5;">
+                    <span th:text="${poetry.poetryContent}" style="white-space: pre-wrap;">
+                    </span>
+              </div>
+              <div style="margin-top: 20px">
+                <th:block th:each="tag : ${poetry.tagList}">
+                  <a target="_blank" th:href="@{/index/poetry(tag=${tag.tagId})}"
+                     th:text="${tag.tagName}">成功</a>
+                </th:block>
+              </div>
+            </div>
+          </div>
+        </th:block>
+      </div>
+
+      <div th:if="${searchType=='author'}">
+        <th:block th:each="author : ${dataInfo.getList()}">
+          <div class="card">
+            <div class="card-body">
+              <div style="margin: 5px">
+                <div>
+                  <a target="_blank" th:href="@{'/author/'+${author.id}}"
+                     th:text="${author.authorName}"
+                     style="font-size: 22px;"> </a>
+                </div>
+                <div>
+                  朝代 : <a style="color: #580000" target="_blank"
+                          th:href="@{/index/author/(dynasty=${author.dynastyId})}"
+                          th:text="${author.authorDynasty}"></a>
+                </div>
+              </div>
+              <span th:text="${author.info}"></span> <a target="_blank"
+                                                        th:href="@{'/author/poetry/'+${author.id}}">共收录<span
+                    th:text="${author.recordCount}"></span> 首作品></a>
+            </div>
+          </div>
+        </th:block>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:insert="~{common/footer::home-footer}"></div>
+</body>
+<th:block th:insert="~{common/footer::tail}"></th:block>
+</html>

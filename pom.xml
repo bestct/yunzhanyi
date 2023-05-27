@@ -21,6 +21,7 @@
         <yunzhanyi.version>1.5.0</yunzhanyi.version>
         <spring-boot.version>2.7.10</spring-boot.version>
         <mybatis-boot.version>2.3.0</mybatis-boot.version>
+        <pagehelper-starter.version>1.4.6</pagehelper-starter.version>
         <knife4j-boot.version>4.1.0</knife4j-boot.version>
         <hutool.version>5.8.1</hutool.version>
         <druid.version>1.2.16</druid.version>
@@ -55,6 +56,11 @@
                 <version>${mybatis-boot.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
@@ -71,6 +77,7 @@
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${transmittable-thread-local.version}</version>
             </dependency>
+
             <!-- JWT -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>

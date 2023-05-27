@@ -1,13 +1,21 @@
 package net.yunzhanyi.client.service.impl;
 
+import com.github.pagehelper.PageInfo;
+import net.yunzhanyi.client.domain.dto.PoetryDto;
 import net.yunzhanyi.client.service.PoetryService;
+import net.yunzhanyi.common.core.utils.StringUtils;
+import net.yunzhanyi.common.core.vo.PageVo;
 import net.yunzhanyi.domain.mapper.DynastyMapper;
 import net.yunzhanyi.domain.mapper.PoetryMapper;
+import net.yunzhanyi.domain.mapper.TagMapper;
 import net.yunzhanyi.domain.pojo.Dynasty;
 import net.yunzhanyi.domain.pojo.Poetry;
+import net.yunzhanyi.domain.pojo.Tag;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +31,9 @@ public class PoetryServiceImpl implements PoetryService {
 
     @Autowired
     private DynastyMapper dynastyMapper;
+
+    @Autowired
+    private TagMapper tagMapper;
 
     /**
      * 被随机诗歌
@@ -64,6 +75,39 @@ public class PoetryServiceImpl implements PoetryService {
     public List<Dynasty> initDynasty() {
         List<Dynasty> dynasties = dynastyMapper.selectInit();
         return dynasties;
+    }
+
+    @Override
+    public List<Poetry> searchPoetry(String keyword) {
+        return poetryMapper.selectByKeyword(keyword);
+    }
+    @Override
+    public PageVo copyPageInfo(PageInfo<Poetry> poetryInfo) {
+        List<Poetry> poetries = poetryInfo.getList();
+        List<PoetryDto> poetryDtos = new ArrayList<>();
+        if (poetries != null) {
+            for (Poetry poetry : poetries) {
+                PoetryDto poetryDto = new PoetryDto();
+                BeanUtils.copyProperties(poetry, poetryDto);
+                String tags = poetry.getTags();
+                if (StringUtils.isNotEmpty(tags)) {
+                    String[] split = tags.split(";");
+                    List<Tag> tagList = new ArrayList<>();
+                    for (String name : split) {
+                        Tag tag = tagMapper.selectByName(name);
+                        tagList.add(tag);
+                    }
+                    poetryDto.setTagList(tagList);
+                }
+                poetryDtos.add(poetryDto);
+            }
+        }
+        PageVo poetryPageVo = new PageVo(poetryDtos);
+        poetryPageVo.setPageNum(poetryInfo.getPageNum());
+        poetryPageVo.setPages(poetryInfo.getPages());
+        poetryPageVo.setNavigatepageNums(poetryInfo.getNavigatepageNums());
+        poetryPageVo.setPageSize(poetryInfo.getPageSize());
+        return poetryPageVo;
     }
 
 }

@@ -79,4 +79,12 @@ public interface AuthorMapper {
      * @return {@link Integer}
      */
     Integer selectCount();
+
+    /**
+     * 选择通过关键字
+     *
+     * @param keyword 关键字
+     * @return {@link List}<{@link Author}>
+     */
+    List<Author> selectByKeyword(@Param("keyword") String keyword);
 }

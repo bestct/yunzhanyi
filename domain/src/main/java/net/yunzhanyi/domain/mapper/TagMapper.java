@@ -2,6 +2,7 @@ package net.yunzhanyi.domain.mapper;
 
 import net.yunzhanyi.domain.pojo.Tag;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -64,4 +65,5 @@ public interface TagMapper {
 
     List<Tag> selectInit();
 
+    Tag selectByName(@Param("name") String name);
 }

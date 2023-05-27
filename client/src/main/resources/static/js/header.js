@@ -15,41 +15,51 @@
             document.documentElement.setAttribute('data-bs-theme', theme)
         }
     }
+    if (storedTheme === 'dark') {
+        document.getElementById("darkmode-toggle").checked = true;
+    }
 
     setTheme(getPreferredTheme())
 
-    const showActiveTheme = theme => {
-        const activeThemeIcon = document.querySelector('.theme-icon-active use')
-        const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-        const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
+    document.getElementById("darkmode-toggle").addEventListener("click", function (event) {
+        const theme = event.target.checked ? 'dark' : 'light'
+        localStorage.setItem('theme', theme)
+        setTheme(theme)
+    })
+    /*
 
-        document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-            element.classList.remove('active')
+        const showActiveTheme = theme => {
+            const activeThemeIcon = document.querySelector('.theme-icon-active use')
+            const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+            const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
+
+            document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                element.classList.remove('active')
+            })
+
+            btnToActive.classList.add('active')
+            activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                setTheme(getPreferredTheme())
+            }
         })
 
-        btnToActive.classList.add('active')
-        activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-    }
+        window.addEventListener('DOMContentLoaded', () => {
+            showActiveTheme(getPreferredTheme())
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (storedTheme !== 'light' || storedTheme !== 'dark') {
-            setTheme(getPreferredTheme())
-        }
-    })
-
-    window.addEventListener('DOMContentLoaded', () => {
-        showActiveTheme(getPreferredTheme())
-
-        document.querySelectorAll('[data-bs-theme-value]')
-            .forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    const theme = toggle.getAttribute('data-bs-theme-value')
-                    localStorage.setItem('theme', theme)
-                    setTheme(theme)
-                    showActiveTheme(theme)
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                        showActiveTheme(theme)
+                    })
                 })
-            })
-    })
+        })*/
 })()
 
 document.getElementById('searchBtn').addEventListener('click', function () {
@@ -72,7 +82,13 @@ document.getElementById('searchBtn').addEventListener('click', function () {
                 background: "linear-gradient(to right, #f2994a, #f2c94c)",
             },
         }).showToast();
-    }else {
+    } else {
+        let searchType = document.getElementById('searchType').value
+        if ('/search' === window.location.pathname) {
+            window.location.href = `/search?keyword=${keyword}&searchType=${searchType}&hotWord=true`
+        } else {
+            window.open(`/search?keyword=${keyword}&searchType=${searchType}&hotWord=true`)
+        }
 
     }
 })

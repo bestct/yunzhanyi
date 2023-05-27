@@ -95,4 +95,12 @@ public interface PoetryMapper {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> selectPoetrySimple(@Param("offset") int offset, @Param("size") int size);
+
+    /**
+     * 选择通过关键字
+     *
+     * @param keyword 关键字
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> selectByKeyword(@Param("keyword") String keyword);
 }

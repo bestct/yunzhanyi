@@ -30,4 +30,11 @@ public class AuthorServiceImpl implements AuthorService {
         return authors;
     }
 
+    @Override
+    public List<Author> searchAuthor(String keyword) {
+
+        List<Author> authors = authorMapper.selectByKeyword(keyword);
+        return authors;
+    }
+
 }

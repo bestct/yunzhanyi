@@ -58,6 +58,12 @@
         select poetry_id, poetry_title, poetry_dynasty, poetry_author, author_id, dynasty_id
         from poetry limit #{offset},#{size}
     </select>
+    <select id="selectByKeyword" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from poetry
+        where poetry_title like CONCAT(#{keyword},'%')
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
