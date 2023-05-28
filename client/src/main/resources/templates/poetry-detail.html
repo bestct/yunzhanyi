@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<head>
+    <title th:text="'《'+${poetry.poetryTitle}+'》诗词详情-云沾衣诗词网'">云沾衣诗词网-入云深处亦沾衣</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container full">
+    <div class="row">
+        <div class="col-sm-12 col-lg-9">
+            <div class="card">
+                <div class="card-header stress">
+                    诗词原文
+                </div>
+                <div class="card-body">
+                    <div style="font-weight: bold;font-size: x-large" th:text="${poetry.poetryTitle}"></div>
+                    <div style="margin-top: 20px;margin-bottom: 20px ">
+                        [<a style="color: #580000" target="_blank"
+                            th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}"
+                            th:text="${poetry.poetryDynasty}"></a>]
+                        <a style="color: #580000" th:href="@{'/author/'+${poetry.authorId}}"
+                           th:text="${poetry.poetryAuthor}"
+                        ></a>
+                    </div>
+                    <div style="font-size: large; line-height: 1.5;">
+                    <span th:text="${poetry.poetryContent}" style="white-space: pre-wrap;">
+                    </span>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <th:block th:each="tag : ${poetry.tagList}">
+                            <a th:href="@{/index/poetry(tag=${tag.tagId})}" th:text="${tag.tagName}"
+                               class="badge rounded-pill btn-primary">成功</a>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+
+                    <div class="float">
+                        <div th:text="${poetry.collection}?'已收藏':'收藏'" th:onclick="|collection(${poetry.poetryId})|"
+                             id="collection" class="float-btn">
+                            收藏
+                        </div>
+                        <div class="float-btn" onclick="showPerfectModel()">
+                            完善
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <th:block th:each="item : ${poetry.poetryDetails}">
+                <div style="margin-top: 4px;margin-bottom: 4px;" class="card">
+                    <div th:text="${item.detailType}" class="card-header stress">
+                    </div>
+                    <div class="card-body">
+                  <span th:text="${item.detailContent}" style="white-space: pre-wrap; line-height: 1.5;">
+                    </span>
+                    </div>
+
+                </div>
+            </th:block>
+
+        </div>
+        <div class="col-lg-3 col-sm-auto">
+            <div class="card">
+                <div class="card-header stress">
+                    作者卡片
+                </div>
+                <div class="card-body">
+                    <div style="text-align: center;margin: 5px">
+                        <div>
+                            <a th:href="@{'/author/'+${poetry.author.id}}"
+                               th:text="${poetry.author.authorName}"
+                               style="font-size: 22px;"> </a>
+                        </div>
+                        <div>
+                            朝代 : <a style="color: #580000"
+                                    th:href="@{/index/author/(dynasty=${poetry.author.dynastyId})}"
+                                    th:text="${poetry.author.authorDynasty}"></a>
+                        </div>
+                    </div>
+                    <span th:text="${poetry.author.info}"></span> <a
+                        th:href="@{'/author/poetry/'+${poetry.author.id}}">共收录<span
+                        th:text="${poetry.author.recordCount}"></span> 首作品></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{common/footer::home-footer}"></div>
+</body>
+<th:block th:insert="~{common/footer::tail}"></th:block>
+</html>

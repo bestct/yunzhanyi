@@ -55,6 +55,9 @@ public class Poetry implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 诗歌细节
+     */
     private List<PoetryDetail> poetryDetails;
 
     /**

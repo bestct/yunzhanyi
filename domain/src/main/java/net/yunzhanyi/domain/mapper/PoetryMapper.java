@@ -103,4 +103,12 @@ public interface PoetryMapper {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> selectByKeyword(@Param("keyword") String keyword);
+
+    /**
+     * 通过主键来选择细节
+     *
+     * @param poetryId 诗歌id
+     * @return {@link Poetry}
+     */
+    Poetry selectWithDetailsByPrimaryKey(@Param("poetryId") Long poetryId);
 }

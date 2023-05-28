@@ -15,6 +15,15 @@
         <result property="tags" column="tags" jdbcType="VARCHAR"/>
         <result property="dynastyId" column="dynasty_id" jdbcType="INTEGER"/>
     </resultMap>
+
+    <resultMap id="ResultMapWithDetails" type="net.yunzhanyi.domain.pojo.Poetry" extends="BaseResultMap">
+        <collection property="poetryDetails" ofType="net.yunzhanyi.domain.pojo.PoetryDetail">
+            <id column="detail_id" jdbcType="BIGINT" property="detailId"/>
+            <result column="detail_type" jdbcType="VARCHAR" property="detailType"/>
+            <result column="poetry_id" jdbcType="BIGINT" property="poetryId"/>
+            <result column="detail_content" jdbcType="LONGVARCHAR" property="detailContent"/>
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List">
         poetry_id
         ,poetry_title,poetry_dynasty,
@@ -63,6 +72,13 @@
         <include refid="Base_Column_List"/>
         from poetry
         where poetry_title like CONCAT(#{keyword},'%')
+    </select>
+
+    <select id="selectWithDetailsByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithDetails">
+        select p.*, pd.detail_id, pd.detail_content, pd.detail_type
+        from poetry p
+                 LEFT JOIN poetry_detail pd on p.poetry_id = pd.poetry_id
+        where p.poetry_id = #{poetryId,jdbcType=BIGINT}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

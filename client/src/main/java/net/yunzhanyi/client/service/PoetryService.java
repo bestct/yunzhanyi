@@ -1,6 +1,7 @@
 package net.yunzhanyi.client.service;
 
 import com.github.pagehelper.PageInfo;
+import net.yunzhanyi.client.domain.vo.PoetryVo;
 import net.yunzhanyi.common.core.vo.PageVo;
 import net.yunzhanyi.domain.pojo.Dynasty;
 import net.yunzhanyi.domain.pojo.Poetry;
@@ -40,4 +41,12 @@ public interface PoetryService {
      * @return {@link PageVo}
      */
     PageVo copyPageInfo(PageInfo<Poetry> poetryPageInfo);
+
+    /**
+     * 通过id搜索网络诗歌
+     *
+     * @param poetryId 诗歌id
+     * @return {@link PoetryVo}
+     */
+    PoetryVo searchWebPoetryById(Long poetryId);
 }
