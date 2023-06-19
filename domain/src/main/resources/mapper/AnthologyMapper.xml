@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.AnthologyMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Anthology">
+        <id property="anthologyId" column="anthology_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="anthologyName" column="anthology_name" jdbcType="VARCHAR"/>
+        <result property="anthologyInfo" column="anthology_info" jdbcType="VARCHAR"/>
+        <result property="subtitle" column="subtitle" jdbcType="VARCHAR"/>
+        <collection property="anthologyPoetryList" ofType="net.yunzhanyi.domain.pojo.AnthologyPoetry">
+            <result column="poetry_title" property="poetryTitle"/>
+            <result column="poetry_id" property="poetryId"/>
+            <result column="id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        anthology_id
+        ,parent_id,anthology_name,
+        anthology_info,subtitle
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from anthology
+        where anthology_id = #{anthologyId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByParentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from anthology
+        where parent_id = #{parentId}
+    </select>
+    <select id="selectListByParentId" resultMap="BaseResultMap">
+        SELECT a.anthology_id,a.anthology_info,a.anthology_name,a.subtitle, ap.id,ap.poetry_title,ap.poetry_id
+        FROM `anthology` a LEFT JOIN `anthology_poetry` ap ON a.anthology_id=ap.anthology_id
+        WHERE a.parent_id=#{parentId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from anthology
+        where anthology_id = #{anthologyId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="anthology_id" keyProperty="anthologyId"
+            parameterType="net.yunzhanyi.domain.pojo.Anthology" useGeneratedKeys="true">
+        insert into anthology
+        ( anthology_id, parent_id, anthology_name
+        , anthology_info, subtitle)
+        values ( #{anthologyId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{anthologyName,jdbcType=VARCHAR}
+               , #{anthologyInfo,jdbcType=VARCHAR}, #{subtitle,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="anthology_id" keyProperty="anthologyId"
+            parameterType="net.yunzhanyi.domain.pojo.Anthology" useGeneratedKeys="true">
+        insert into anthology
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="anthologyId != null">anthology_id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="anthologyName != null">anthology_name,</if>
+            <if test="anthologyInfo != null">anthology_info,</if>
+            <if test="subtitle != null">subtitle,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="anthologyId != null">#{anthologyId,jdbcType=INTEGER},</if>
+            <if test="parentId != null">#{parentId,jdbcType=INTEGER},</if>
+            <if test="anthologyName != null">#{anthologyName,jdbcType=VARCHAR},</if>
+            <if test="anthologyInfo != null">#{anthologyInfo,jdbcType=VARCHAR},</if>
+            <if test="subtitle != null">#{subtitle,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Anthology">
+        update anthology
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="anthologyName != null">
+                anthology_name = #{anthologyName,jdbcType=VARCHAR},
+            </if>
+            <if test="anthologyInfo != null">
+                anthology_info = #{anthologyInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="subtitle != null">
+                subtitle = #{subtitle,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where anthology_id = #{anthologyId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Anthology">
+        update anthology
+        set parent_id      = #{parentId,jdbcType=INTEGER},
+            anthology_name = #{anthologyName,jdbcType=VARCHAR},
+            anthology_info = #{anthologyInfo,jdbcType=VARCHAR},
+            subtitle       = #{subtitle,jdbcType=VARCHAR}
+        where anthology_id = #{anthologyId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -117,3 +117,29 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.mod-text {
+    margin-top: 10px;
+    writing-mode: vertical-rl;
+}
+
+.mod-text span {
+    display: block;
+}
+
+.tag {
+    width: 23%;
+    justify-content: center;
+    display: flex;
+}
+
+.tag-name {
+    font-size: 20px;
+    margin-top: 5px;
+    letter-spacing: 5px;
+}
+
+.up-bar {
+    width: 45px;
+    height: 4px;
+    background-color: #b40000;
+}

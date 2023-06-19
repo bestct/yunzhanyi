@@ -66,9 +66,7 @@ public class PoetryServiceImpl implements PoetryService {
         Random rand = new Random();
         int pageNum = rand.nextInt(count / size) + 1;
         int offset = (pageNum - 1) * size;
-        System.out.println("offset = " + offset);
         List<Poetry> poetries = poetryMapper.selectPoetrySimple(offset, size);
-        System.out.println(poetries);
         return poetries;
     }
 

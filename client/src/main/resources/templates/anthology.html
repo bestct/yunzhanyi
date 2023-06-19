@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
+<head>
+    <title th:text="${anthologyVo.anthologyName+'-云沾衣诗词网'}">诗集-云沾衣诗词网</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container full">
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <h3 th:text="${anthologyVo.anthologyName}"></h3>
+            <h5 th:text="${anthologyVo.subtitle}"></h5>
+            <th:block th:each="anthology : ${anthologyVo.subAnthologyList}">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 th:text="${anthology.anthologyName}"></h5>
+                    </div>
+                    <div class="card-body row">
+                        <div th:each="poetry: ${anthology.anthologyPoetryList}" class="col-md-4 col-lg-4 col-sm-6 text-truncate">
+                            《<a  class="link-secondary" th:text="${poetry.poetryTitle}"
+                                 th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<div th:insert="~{common/footer::home-footer}"></div>
+</body>
+<th:block th:insert="~{common/footer::tail}"></th:block>

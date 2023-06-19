@@ -80,23 +80,43 @@
         <div class="row">
             <!--     推荐诗词       -->
             <div class="col-lg-9 col-md-7 col-sm-12">
-                <div style="min-height:44rem" class="card">
+                <div class="card">
                     <div class="card-header stress">
                         推荐诗词
                     </div>
-                    <div class="card-body row">
+                    <div class="card-body row text-body-tertiary">
                         <div th:each="poetry: ${poetryList}" class="col-md-6 col-lg-6 col-sm-12 text-truncate">
-                            [<a class="poetry-a" th:text="${poetry.poetryDynasty}"
+                            [<a  class="link-body-emphasis" th:text="${poetry.poetryDynasty}"
                                 th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}">唐代</a>]·
-                            <a class="poetry-a" th:text="${poetry.poetryAuthor}"
+                            <a class="link-secondary" th:text="${poetry.poetryAuthor}"
                                th:href="'/author/'+${poetry.authorId}">卢纶</a>
-                            《<a class="poetry-a" th:text="${poetry.poetryTitle}"
+                            《<a  class="link-secondary" th:text="${poetry.poetryTitle}"
                                 th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header stress">
+                        课本诗词
+                    </div>
+                    <div class="card-body row">
+                        <th:block th:each="anthology:${anthologyList}">
+                            <div class="col-md-3 col-lg-2 col-sm-6" style="justify-content: center;display: flex;">
+                                <div class="m-2">
+                                    <div class="up-bar"></div>
+                                    <div class="mod-text">
+                                        <span style="font-size: 12px; margin-top: 3px;" th:text="${anthology.subtitle}">收录四十余万首</span>
+                                        <a  class="tag-name" th:href="'/anthology/'+${anthology.anthologyId}" th:text="${anthology.anthologyName}">全部诗词</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-3 col-md-5 col-sm-12">
+
                 <div class="card">
                     <div class="card-header stress">
                         著名诗人

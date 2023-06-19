@@ -41,6 +41,9 @@ public class IndexServiceImpl implements IndexService {
     @Autowired
     private HotWordsService hotWordsService;
 
+    @Autowired
+    private AnthologyService anthologyService;
+
     @PostConstruct
     private void init() {
         List<Object> cacheList;
@@ -79,8 +82,13 @@ public class IndexServiceImpl implements IndexService {
         }
         cacheList = redisService.getCacheList(CacheConstants.REDIS_INDEX_POETRIES);
         if (CollectionUtils.isEmpty(cacheList)) {
-            List<Poetry> poetry = poetryService.searchPoetryRandom(40);
+            List<Poetry> poetry = poetryService.searchPoetryRandom(30);
             redisService.setCacheList(CacheConstants.REDIS_INDEX_POETRIES, poetry);
+        }
+        cacheList=redisService.getCacheList(CacheConstants.REDIS_INDEX_ANTHOLOGY);
+        if (CollectionUtils.isEmpty(cacheList)) {
+            List<Anthology> anthologies = anthologyService.searchIndexAnthology();
+            redisService.setCacheList(CacheConstants.REDIS_INDEX_ANTHOLOGY, anthologies);
         }
 
         Object cacheObject = redisService.getCacheObject(CacheConstants.REDIS_INDEX_POETRY);
@@ -100,12 +108,14 @@ public class IndexServiceImpl implements IndexService {
         List<Poetry> poetryList = redisService.getCacheList(CacheConstants.REDIS_INDEX_POETRIES);
         Poetry poetry = redisService.getCacheObject(CacheConstants.REDIS_INDEX_POETRY);
         List<HotWord> hotWords = hotWordsService.getHotWord(10);
+        List<Anthology> anthologies=redisService.getCacheList(CacheConstants.REDIS_INDEX_ANTHOLOGY);
         map.put("indexPoetry", poetry);
         map.put("partList", partList);
         map.put("authorList", authorList);
         map.put("hotAuthorList", hotAuthorList);
         map.put("poetryList", poetryList);
         map.put("hotWordList", hotWords);
+        map.put("anthologyList",anthologies);
         return map;
     }
 }

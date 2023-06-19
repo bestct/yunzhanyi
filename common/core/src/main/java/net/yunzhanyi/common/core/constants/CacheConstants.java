@@ -50,8 +50,12 @@ public class CacheConstants {
      */
     public static final String REDIS_INDEX_POETRIES = "yunzhanyi:index:poetries";
     /**
+     * 复述,指数选集
+     */
+    public static final String REDIS_INDEX_ANTHOLOGY = "yunzhanyi:index:anthology";
+    /**
      * 热词
      */
-    public static String HOT_WORD_KEY = "yunzhanyi.index.hotWords";
+    public static String HOT_WORD_KEY = "yunzhanyi:index:hotWords";
 
 }

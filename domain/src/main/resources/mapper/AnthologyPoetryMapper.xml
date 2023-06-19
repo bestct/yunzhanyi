@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.AnthologyPoetryMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.AnthologyPoetry">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="anthologyId" column="anthology_id" jdbcType="INTEGER"/>
+            <result property="poetryId" column="poetry_id" jdbcType="BIGINT"/>
+            <result property="poetryTitle" column="poetry_title" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,anthology_id,poetry_id,
+        poetry_title
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from anthology_poetry
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from anthology_poetry
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.AnthologyPoetry" useGeneratedKeys="true">
+        insert into anthology_poetry
+        ( id,anthology_id,poetry_id
+        ,poetry_title)
+        values (#{id,jdbcType=INTEGER},#{anthologyId,jdbcType=INTEGER},#{poetryId,jdbcType=BIGINT}
+        ,#{poetryTitle,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.AnthologyPoetry" useGeneratedKeys="true">
+        insert into anthology_poetry
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="anthologyId != null">anthology_id,</if>
+                <if test="poetryId != null">poetry_id,</if>
+                <if test="poetryTitle != null">poetry_title,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="anthologyId != null">#{anthologyId,jdbcType=INTEGER},</if>
+                <if test="poetryId != null">#{poetryId,jdbcType=BIGINT},</if>
+                <if test="poetryTitle != null">#{poetryTitle,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.AnthologyPoetry">
+        update anthology_poetry
+        <set>
+                <if test="anthologyId != null">
+                    anthology_id = #{anthologyId,jdbcType=INTEGER},
+                </if>
+                <if test="poetryId != null">
+                    poetry_id = #{poetryId,jdbcType=BIGINT},
+                </if>
+                <if test="poetryTitle != null">
+                    poetry_title = #{poetryTitle,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.AnthologyPoetry">
+        update anthology_poetry
+        set 
+            anthology_id =  #{anthologyId,jdbcType=INTEGER},
+            poetry_id =  #{poetryId,jdbcType=BIGINT},
+            poetry_title =  #{poetryTitle,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>
