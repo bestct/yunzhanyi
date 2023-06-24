@@ -3,7 +3,7 @@ package net.yunzhanyi.domain.pojo;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * @TableName author
  */
 public class Author implements Serializable {
@@ -35,7 +35,7 @@ public class Author implements Serializable {
     /**
      * 收录数目
      */
-    private Object recordCount;
+    private Integer recordCount;
 
     private static final long serialVersionUID = 1L;
 
@@ -112,14 +112,14 @@ public class Author implements Serializable {
     /**
      * 收录数目
      */
-    public Object getRecordCount() {
+    public Integer getRecordCount() {
         return recordCount;
     }
 
     /**
      * 收录数目
      */
-    public void setRecordCount(Object recordCount) {
+    public void setRecordCount(Integer recordCount) {
         this.recordCount = recordCount;
     }
 

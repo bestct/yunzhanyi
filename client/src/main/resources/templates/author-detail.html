@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
+<head>
+    <title th:text="${author.authorName}+'详情-云沾衣诗词网'">云沾衣诗词网-入云深处亦沾衣</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container full">
+    <div class="row">
+        <div class="col-sm-12 col-lg-9">
+            <div class="card">
+                <div class="card-header stress">
+                    作者卡片
+                </div>
+                <div class="card-body">
+                    <div style="text-align: center;margin: 5px">
+                        <div>
+                            <span th:text="${author.authorName}"
+                                  style="font-weight: bold;font-size: 22px;"> </span>
+                        </div>
+                        <div>
+                            朝代 : <a style="color: #580000" target="_blank" th:href="@{/index/author/(dynasty=${author.dynastyId})}" th:text="${author.authorDynasty}"></a>
+                        </div>
+                    </div>
+                    <div class="mx-lg-5">
+                        <span  th:text="${author.info}"></span>  <a th:href="@{'/author/poetry/'+${author.id}}">共收录<span
+                            th:text="${author.recordCount}"></span> 首作品></a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="float">
+                        <div th:text="${author.collection}?'已收藏':'收藏'" th:onclick="|collectionAuthor(${author.id})|"
+                             id="collection" class="float-btn">
+                            收藏
+                        </div>
+                        <div class="float-btn" onclick="showPerfectModel()">
+                            完善
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header stress">
+                    部分作品
+                </div>
+                <div class="card-body">
+                    <th:block th:each="poetry : ${author.poetryList}">
+                        <a style="color: #b40000" class="mx-1" th:href="@{'/poetry/'+${poetry.poetryId}}" th:text="${poetry.poetryTitle}">
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-auto">
+            <div th:insert="~{common/common::ghcard}"></div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{common/footer::home-footer}"></div>
+</body>
+<th:block th:insert="~{common/footer::tail}"></th:block>
+</html>
+

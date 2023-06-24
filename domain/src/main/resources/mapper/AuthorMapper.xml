@@ -41,6 +41,11 @@
         from author
         where author_name like CONCAT(#{keyword},'%')
     </select>
+    <select id="selectAuthorNameById" resultType="java.lang.String">
+        select author_name
+        from author
+        where id = #{authorId,jdbcType=INTEGER}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete

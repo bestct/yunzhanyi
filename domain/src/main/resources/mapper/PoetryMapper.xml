@@ -81,6 +81,18 @@
         where p.poetry_id = #{poetryId,jdbcType=BIGINT}
     </select>
 
+    <select id="selectByAuthorIdLimit" resultMap="BaseResultMap">
+        select poetry_id, poetry_title, poetry_dynasty, dynasty_id
+        from poetry
+        where author_id = #{authorId,jdbcType=BIGINT} limit #{limit}
+    </select>
+    <select id="selectByAuthorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from poetry
+        where author_id = #{authorId,jdbcType=BIGINT}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from poetry

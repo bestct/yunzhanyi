@@ -87,4 +87,6 @@ public interface AuthorMapper {
      * @return {@link List}<{@link Author}>
      */
     List<Author> selectByKeyword(@Param("keyword") String keyword);
+
+    String selectAuthorNameById(@Param("authorId") Long authorId);
 }

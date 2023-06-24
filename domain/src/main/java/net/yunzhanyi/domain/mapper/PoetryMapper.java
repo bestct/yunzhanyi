@@ -111,4 +111,8 @@ public interface PoetryMapper {
      * @return {@link Poetry}
      */
     Poetry selectWithDetailsByPrimaryKey(@Param("poetryId") Long poetryId);
+
+    List<Poetry> selectByAuthorIdLimit(@Param("authorId") Long authorId, @Param("limit") Integer limit);
+
+    List<Poetry> selectByAuthorId(@Param("authorId") Long authorId);
 }

@@ -147,4 +147,10 @@ public class PoetryServiceImpl implements PoetryService {
         return poetryVo;
     }
 
+    @Override
+    public List<Poetry> getPoetryByAuthorId(Long authorId) {
+        List<Poetry> poetries = poetryMapper.selectByAuthorId(authorId);
+        return poetries;
+    }
+
 }

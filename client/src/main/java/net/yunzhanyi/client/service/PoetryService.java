@@ -49,4 +49,6 @@ public interface PoetryService {
      * @return {@link PoetryVo}
      */
     PoetryVo searchWebPoetryById(Long poetryId);
+
+    List<Poetry> getPoetryByAuthorId(Long authorId);
 }

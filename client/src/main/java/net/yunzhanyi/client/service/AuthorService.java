@@ -1,5 +1,6 @@
 package net.yunzhanyi.client.service;
 
+import net.yunzhanyi.client.domain.vo.AuthorVo;
 import net.yunzhanyi.domain.pojo.Author;
 
 import java.util.List;
@@ -26,4 +27,8 @@ public interface AuthorService {
      * @return {@link List}<{@link Author}>
      */
     List<Author> searchAuthor(String keyword);
+
+    AuthorVo searchWebAuthorById(Long authorId);
+
+    String searchAuthorNameById(Long authorId);
 }
