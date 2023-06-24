@@ -1,5 +1,7 @@
 package net.yunzhanyi.client.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import net.yunzhanyi.client.domain.vo.*;
 import net.yunzhanyi.client.service.RhymeService;
 import net.yunzhanyi.domain.mapper.PoetryFormMapper;
@@ -29,6 +31,7 @@ public class RhymeServiceImpl implements RhymeService {
     private static final char ZA = '3';
     private static final char PY = '4';
     private static final char ZY = '5';
+    private static final String[] rhymeBookName = {"平水韵", "词林正韵", "中华新韵", "中华通韵"};
     @Autowired
     private RhymeBookMapper rhymeBookMapper;
 
@@ -50,6 +53,31 @@ public class RhymeServiceImpl implements RhymeService {
         String formsCode = poetryForm.getFormsCode();
         return analysePoetry(formsCode, rhymeList, contentFilter);
     }
+
+    @Override
+    public Map<Integer, RhymeBookVo> searchRhyme(String hanZi) {
+        String contentFilter = contentFilter(hanZi);
+        if (contentFilter.length() != 1) {
+            throw new RuntimeException("只能输入一个汉字");
+        }
+        List<Rhyme> rhymeList = rhymeMapper.selectByHanZi(hanZi);
+        Map<Integer, RhymeBookVo> rhymeBookVoMap = new HashMap<>();
+        for (Rhyme rhyme : rhymeList) {
+            Integer rhymeBookId = rhyme.getRhymeBookId();
+            String rhymeName = rhymeBookName[rhymeBookId - 1];
+            RhymeBookVo orDefault = rhymeBookVoMap.getOrDefault(rhymeBookId, null);
+            if (ObjectUtil.isEmpty(orDefault)) {
+                orDefault = new RhymeBookVo();
+                orDefault.setRhymeBookName(rhymeName);
+                rhymeBookVoMap.put(rhymeBookId, orDefault);
+            }
+            String replace = rhyme.getRhymeCharacter().replace(hanZi, "<span  style='color:#b40000'>" + hanZi + "</span>");
+            rhyme.setRhymeCharacter(replace);
+            orDefault.getRhymeList().add(rhyme);
+        }
+        return rhymeBookVoMap;
+    }
+
 
     private CheckResultVo analysePoetry(String formsCode, List<Rhyme> rhymeList, String contentFilter) {
         List<YunZi> shiList = new ArrayList<>();

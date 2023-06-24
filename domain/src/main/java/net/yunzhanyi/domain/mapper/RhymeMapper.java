@@ -2,6 +2,7 @@ package net.yunzhanyi.domain.mapper;
 
 import net.yunzhanyi.domain.pojo.Rhyme;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface RhymeMapper {
     int updateByPrimaryKey(Rhyme record);
 
     List<Rhyme> selectByRhymeBookId(Integer rhymeBookId);
+
+    List<Rhyme> selectByHanZi(@Param("hanZi") String hanZi);
 }

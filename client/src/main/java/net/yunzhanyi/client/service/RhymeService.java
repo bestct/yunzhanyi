@@ -1,7 +1,10 @@
 package net.yunzhanyi.client.service;
 
 import net.yunzhanyi.client.domain.vo.CheckResultVo;
+import net.yunzhanyi.client.domain.vo.RhymeBookVo;
 import net.yunzhanyi.client.domain.vo.RhymeCheckVo;
+
+import java.util.Map;
 
 /**
  * @author bestct
@@ -17,4 +20,12 @@ public interface RhymeService {
      * @return {@link CheckResultVo}
      */
     CheckResultVo checkRhyme(RhymeCheckVo rhymeCheckVo);
+
+    /**
+     * 搜索押韵
+     *
+     * @param hanZi 汉滋
+     * @return {@link Map}<{@link String}, {@link RhymeBookVo}>
+     */
+    Map<Integer, RhymeBookVo> searchRhyme(String hanZi);
 }

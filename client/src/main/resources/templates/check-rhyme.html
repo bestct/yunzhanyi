@@ -10,14 +10,11 @@
 <div class="container full">
     <div class="row" style="padding: 10px">
         <div class="col-lg-4">
-
-        </div>
-        <div class="col-lg-5">
             <div class="card" style="align-content: center">
                 <h4 style="margin: 10px"> 诗格律检测</h4>
                 <div class="card-body">
                     <textarea class="form-control" id="content" rows="8"
-                              placeholder="请输入要检测的诗词正文"></textarea>
+                    placeholder="请输入要检测的诗词正文"></textarea>
                 </div>
                 <div class="row" style="padding: 10px">
                     <div class="col">
@@ -57,7 +54,8 @@
                 <div class="d-grid gap-2" style="padding: 10px">
                     <button id="checkBtn" class="btn btn-primary" type="button">开始检测</button>
                 </div>
-                <div id="alert" style="padding: 10px" >
+
+                <div id="alert" style="padding: 10px">
                     <div id="checkSuccess" class="alert" hidden role="alert">
                         <h4 class="alert-heading">检测成功</h4>
                         <div id="codeResult"></div>
@@ -68,8 +66,21 @@
             </div>
 
         </div>
-        <div class="col-lg-3">
-
+        <div class="col-lg-8">
+            <div class="card" style="align-content: center">
+                <h4 style="margin: 10px">韵部检索</h4>
+                <div class="card-body">
+                    <div class="input-group" style="padding: 11px">
+                        <input type="text" id="searchHanZi" class="form-control" placeholder="请输入要搜索的汉字" >
+                        <button id="searchZiBtn" type="button" class="btn btn-primary btn-sm">搜索</button>
+                    </div>
+                    <div id="alertSearch" style="padding: 10px">
+                        <div id="searchSuccess" class="alert" hidden role="alert">
+                            <div id="searchResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
