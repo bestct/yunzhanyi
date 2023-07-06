@@ -114,5 +114,12 @@ public interface PoetryMapper {
 
     List<Poetry> selectByAuthorIdLimit(@Param("authorId") Long authorId, @Param("limit") Integer limit);
 
-    List<Poetry> selectByAuthorId(@Param("authorId") Long authorId);
+    /**
+     * 选择作者id
+     *
+     * @param authorId  作者id
+     * @param searchVal 搜索值
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> selectByAuthorId(@Param("authorId") Long authorId, @Param("searchVal") String searchVal);
 }

@@ -43,7 +43,7 @@
                             <div style="margin-top: 20px">
                                 <th:block th:each="tag : ${poetry.tagList}">
                                     <a target="_blank" th:href="@{/index/poetry(tag=${tag.tagId})}"
-                                       th:text="${tag.tagName}">成功</a>
+                                       th:text="${tag.tagName}" class="badge rounded-pill text-bg-primary">成功</a>
                                 </th:block>
                             </div>
                         </div>
@@ -97,9 +97,8 @@
                                class="page-link">上一页</a>
                         </li>
 
-                        <li class="page-item">
-                            <a th:href="@{/search(keyword=${keyword},searchType=${searchType},pageNum=${dataInfo.getPageNum()})}"
-                               class="page-link" th:text="${'第'+dataInfo.getPageNum()+'页'}"></a>
+                        <li class="page-item disabled">
+                            <a class="page-link" th:text="${'第'+dataInfo.getPageNum()+'页'}"></a>
                         </li>
 
                         <li th:class="${dataInfo.getPages()== dataInfo.getPageNum() ? 'page-item disabled' : 'page-item'}">

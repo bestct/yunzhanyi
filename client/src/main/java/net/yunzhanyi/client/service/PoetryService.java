@@ -50,5 +50,12 @@ public interface PoetryService {
      */
     PoetryVo searchWebPoetryById(Long poetryId);
 
-    List<Poetry> getPoetryByAuthorId(Long authorId);
+    /**
+     * 诗歌作者id
+     *
+     * @param authorId  作者id
+     * @param searchVal 搜索瓦尔
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> getPoetryByAuthorId(Long authorId, String searchVal);
 }

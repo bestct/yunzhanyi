@@ -40,14 +40,16 @@ public class AuthorController {
 
     @GetMapping("/author/poetry/{authorId}")
     public String authorPoetry(@PathVariable Long authorId,
+                               @RequestParam(value = "searchVal",defaultValue = "") String searchVal,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                Model model) {
         String authorName = authorService.searchAuthorNameById(authorId);
         model.addAttribute("authorName",authorName);
         model.addAttribute("authorId",authorId);
+        model.addAttribute("searchVal",searchVal);
         PageHelper.startPage(pageNum, pageSize);
-        List<Poetry> poetryList = poetryService.getPoetryByAuthorId(authorId);
+        List<Poetry> poetryList = poetryService.getPoetryByAuthorId(authorId,searchVal);
         PageVo pageVo = poetryService.copyPageInfo(new PageInfo<>(poetryList));
         model.addAttribute("dataInfo", pageVo);
         return "author-poetry";

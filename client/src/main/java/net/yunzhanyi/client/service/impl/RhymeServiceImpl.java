@@ -1,7 +1,6 @@
 package net.yunzhanyi.client.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import net.yunzhanyi.client.domain.vo.*;
 import net.yunzhanyi.client.service.RhymeService;
 import net.yunzhanyi.domain.mapper.PoetryFormMapper;
@@ -71,7 +70,7 @@ public class RhymeServiceImpl implements RhymeService {
                 orDefault.setRhymeBookName(rhymeName);
                 rhymeBookVoMap.put(rhymeBookId, orDefault);
             }
-            String replace = rhyme.getRhymeCharacter().replace(hanZi, "<span  style='color:#b40000'>" + hanZi + "</span>");
+            String replace = rhyme.getRhymeCharacter().replace(hanZi, "<span  style='color:#057748'>" + hanZi + "</span>");
             rhyme.setRhymeCharacter(replace);
             orDefault.getRhymeList().add(rhyme);
         }

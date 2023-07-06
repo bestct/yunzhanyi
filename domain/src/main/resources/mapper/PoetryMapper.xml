@@ -90,7 +90,13 @@
         select
         <include refid="Base_Column_List"/>
         from poetry
-        where author_id = #{authorId,jdbcType=BIGINT}
+        <where>
+            <if test="searchVal != null and searchVal != ''">
+              and  poetry_title like CONCAT(#{searchVal},'%')
+            </if>
+            and author_id = #{authorId,jdbcType=BIGINT}
+        </where>
+
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

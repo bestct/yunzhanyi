@@ -148,8 +148,8 @@ public class PoetryServiceImpl implements PoetryService {
     }
 
     @Override
-    public List<Poetry> getPoetryByAuthorId(Long authorId) {
-        List<Poetry> poetries = poetryMapper.selectByAuthorId(authorId);
+    public List<Poetry> getPoetryByAuthorId(Long authorId, String searchVal) {
+        List<Poetry> poetries = poetryMapper.selectByAuthorId(authorId,searchVal);
         return poetries;
     }
 
