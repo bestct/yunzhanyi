@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import net.yunzhanyi.client.domain.vo.AuthorVo;
 import net.yunzhanyi.client.service.AuthorService;
 import net.yunzhanyi.client.service.PoetryService;
+import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.core.vo.PageVo;
 import net.yunzhanyi.domain.pojo.Poetry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 /**
  * @author bestct
  * @date 2022/9/30
- * @type 类
+ * @type 类 http://localhost:8081/author/poetry/4265
  */
 @Controller
 public class AuthorController {
@@ -37,21 +39,24 @@ public class AuthorController {
         return "author-detail";
     }
 
+    @GetMapping("/api/author/poetry/{authorId}")
+    @ResponseBody
+    public AjaxResult<PageVo> authorPoetry(@PathVariable Long authorId,
+                                           @RequestParam(value = "searchVal", defaultValue = "") String searchVal,
+                                           @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                           @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Poetry> poetryList = poetryService.getPoetryByAuthorId(authorId, searchVal);
+        PageVo pageVo = poetryService.copyPageInfo(new PageInfo<>(poetryList));
+        return AjaxResult.successWithoutMsg(pageVo);
+    }
 
     @GetMapping("/author/poetry/{authorId}")
     public String authorPoetry(@PathVariable Long authorId,
-                               @RequestParam(value = "searchVal",defaultValue = "") String searchVal,
-                               @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                Model model) {
         String authorName = authorService.searchAuthorNameById(authorId);
-        model.addAttribute("authorName",authorName);
-        model.addAttribute("authorId",authorId);
-        model.addAttribute("searchVal",searchVal);
-        PageHelper.startPage(pageNum, pageSize);
-        List<Poetry> poetryList = poetryService.getPoetryByAuthorId(authorId,searchVal);
-        PageVo pageVo = poetryService.copyPageInfo(new PageInfo<>(poetryList));
-        model.addAttribute("dataInfo", pageVo);
+        model.addAttribute("authorName", authorName);
+        model.addAttribute("authorId", authorId);
         return "author-poetry";
     }
 }
