@@ -1,5 +1,6 @@
-package net.yunzhanyi.client.service;
+package net.yunzhanyi.client.service.impl;
 
+import net.yunzhanyi.client.service.TagService;
 import net.yunzhanyi.domain.mapper.TagMapper;
 import net.yunzhanyi.domain.pojo.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
