@@ -31,4 +31,6 @@ public interface AuthorService {
     AuthorVo searchWebAuthorById(Long authorId);
 
     String searchAuthorNameById(Long authorId);
+
+    List<Author> selectAllAuthor(Integer dynasty);
 }

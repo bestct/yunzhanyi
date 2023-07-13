@@ -46,7 +46,16 @@
         from author
         where id = #{authorId,jdbcType=INTEGER}
     </select>
-
+    <select id="selectAllAuthor" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from author
+        <where>
+            <if test="dynasty != 0">
+                AND dynasty_id = #{dynasty}
+            </if>
+        </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from author

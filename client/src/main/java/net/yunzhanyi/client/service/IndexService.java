@@ -1,5 +1,8 @@
 package net.yunzhanyi.client.service;
 
+import net.yunzhanyi.domain.pojo.Author;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,4 +41,11 @@ public interface IndexService {
      */
     Map<String, Object> authorIndex(Integer dynasty, Integer pageNum, Integer pageSize);
 
+    /**
+     * 指数api作者
+     *
+     * @param dynasty 王朝
+     * @return {@link List}<{@link Author}>
+     */
+    List<Author> indexApiAuthor(Integer dynasty);
 }

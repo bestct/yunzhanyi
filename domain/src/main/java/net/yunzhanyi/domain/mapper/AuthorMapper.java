@@ -89,4 +89,6 @@ public interface AuthorMapper {
     List<Author> selectByKeyword(@Param("keyword") String keyword);
 
     String selectAuthorNameById(@Param("authorId") Long authorId);
+
+    List<Author> selectAllAuthor(@Param("dynasty") Integer dynasty);
 }

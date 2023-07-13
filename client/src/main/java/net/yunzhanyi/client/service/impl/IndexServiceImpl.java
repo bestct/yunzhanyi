@@ -139,4 +139,9 @@ public class IndexServiceImpl implements IndexService {
     public Map<String, Object> authorIndex(Integer dynasty, Integer pageNum, Integer pageSize) {
         return null;
     }
+
+    @Override
+    public List<Author> indexApiAuthor(Integer dynasty) {
+        return authorService.selectAllAuthor(dynasty);
+    }
 }

@@ -60,4 +60,9 @@ public class AuthorServiceImpl implements AuthorService {
         String s = authorMapper.selectAuthorNameById(authorId);
         return s;
     }
+
+    @Override
+    public List<Author> selectAllAuthor(Integer dynasty) {
+        return   authorMapper.selectAllAuthor(dynasty);
+    }
 }
