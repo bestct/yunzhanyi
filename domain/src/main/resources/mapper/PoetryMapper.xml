@@ -98,6 +98,19 @@
         </where>
 
     </select>
+    <select id="selectApiAllPoetry" resultMap="BaseResultMap">
+        select
+        poetry_id, poetry_title, poetry_dynasty, poetry_author,poetry_content
+        from poetry
+        <where>
+            <if test="dynasty != 0">
+                AND dynasty_id = #{dynasty}
+            </if>
+            <if test="tagId != 0">
+                AND poetry_id IN (SELECT poetry_id FROM poetry_tag_map WHERE tag_id=#{tagId})
+            </if>
+        </where>
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete

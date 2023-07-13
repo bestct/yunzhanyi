@@ -32,7 +32,7 @@
                     <div style="margin-top: 20px">
                         <th:block th:each="tag : ${poetry.tagList}">
                             <a th:href="@{/index/poetry(tag=${tag.tagId})}" th:text="${tag.tagName}"
-                               class="badge rounded-pill btn-primary">成功</a>
+                               class="badge rounded-pill text-bg-primary">成功</a>
                         </th:block>
                     </div>
                 </div>

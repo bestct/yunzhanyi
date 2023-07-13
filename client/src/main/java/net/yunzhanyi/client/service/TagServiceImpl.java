@@ -23,4 +23,16 @@ public class TagServiceImpl implements TagService {
     public List<Tag> initTag() {
         return tagMapper.selectInit();
     }
+
+    @Override
+    public List<Tag> checkTagId(Integer tagId, List<Tag> tagVos) {
+        for (Tag tag : tagVos) {
+            if (tagId.equals(tag.getTagId())) {
+                return tagVos;
+            }
+        }
+        Tag tag = tagMapper.selectByPrimaryKey(tagId);
+        tagVos.add(0, tag);
+        return tagVos;
+    }
 }

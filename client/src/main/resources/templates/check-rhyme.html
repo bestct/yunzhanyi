@@ -9,12 +9,15 @@
 <div th:insert="~{common/header :: main_nav}"></div>
 <div class="container full">
     <div class="row" style="padding: 10px">
-        <div class="col-lg-4">
+        <div class="col-lg-2 col-sm-auto">
+
+        </div>
+        <div class="col-lg-8">
             <div class="card" style="align-content: center">
                 <h4 style="margin: 10px"> 诗格律检测</h4>
                 <div class="card-body">
                     <textarea class="form-control" id="content" rows="8"
-                    placeholder="请输入要检测的诗词正文"></textarea>
+                              placeholder="请输入要检测的诗词正文"></textarea>
                 </div>
                 <div class="row" style="padding: 10px">
                     <div class="col">
@@ -65,13 +68,11 @@
                 </div>
             </div>
 
-        </div>
-        <div class="col-lg-8">
-            <div class="card" style="align-content: center">
+            <div class="card" style="margin-top: 20px; align-content: center">
                 <h4 style="margin: 10px">韵部检索</h4>
                 <div class="card-body">
                     <div class="input-group" style="padding: 11px">
-                        <input type="text" id="searchHanZi" class="form-control" placeholder="请输入要搜索的汉字" >
+                        <input type="text" id="searchHanZi" class="form-control" placeholder="请输入要搜索的汉字">
                         <button id="searchZiBtn" type="button" class="btn btn-primary btn-sm">搜索</button>
                     </div>
                     <div id="alertSearch" style="padding: 10px">
@@ -82,6 +83,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-lg-2">
+
     </div>
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>

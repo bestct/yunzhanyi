@@ -18,4 +18,12 @@ public interface TagService {
      */
     List<Tag> initTag();
 
+    /**
+     * 检查标签id
+     *
+     * @param tagId  标签id
+     * @param tagVos 标签vos
+     * @return {@link List}<{@link Tag}>
+     */
+    List<Tag> checkTagId(Integer tagId, List<Tag> tagVos);
 }

@@ -144,4 +144,16 @@ public class IndexServiceImpl implements IndexService {
     public List<Author> indexApiAuthor(Integer dynasty) {
         return authorService.selectAllAuthor(dynasty);
     }
+
+    @Override
+    public List<Poetry> indexApiPoetry(Integer dynasty, Integer tagId) {
+        return poetryService.indexApiPoetry(dynasty,tagId);
+    }
+
+    @Override
+    public List<Tag> getTagList(Integer tagId) {
+        List<Tag> tagVos = redisService.getCacheList(CacheConstants.REDIS_INDEX_TAGS);
+        List<Tag> tags = tagService.checkTagId(tagId, tagVos);
+        return tags;
+    }
 }

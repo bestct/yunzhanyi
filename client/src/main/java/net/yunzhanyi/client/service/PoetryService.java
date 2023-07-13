@@ -58,4 +58,13 @@ public interface PoetryService {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> getPoetryByAuthorId(Long authorId, String searchVal);
+
+    /**
+     * 指数api诗歌
+     *
+     * @param dynasty 王朝
+     * @param tagId   标签id
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> indexApiPoetry(Integer dynasty, Integer tagId);
 }

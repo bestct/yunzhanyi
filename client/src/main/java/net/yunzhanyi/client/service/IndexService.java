@@ -1,6 +1,8 @@
 package net.yunzhanyi.client.service;
 
 import net.yunzhanyi.domain.pojo.Author;
+import net.yunzhanyi.domain.pojo.Poetry;
+import net.yunzhanyi.domain.pojo.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -48,4 +50,21 @@ public interface IndexService {
      * @return {@link List}<{@link Author}>
      */
     List<Author> indexApiAuthor(Integer dynasty);
+
+    /**
+     * 指数api诗歌
+     *
+     * @param dynasty 王朝
+     * @param tagId   标签id
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> indexApiPoetry(Integer dynasty, Integer tagId);
+
+    /**
+     * 得到标记列表
+     *
+     * @param tagId 标签id
+     * @return {@link List}<{@link Tag}>
+     */
+    List<Tag> getTagList(Integer tagId);
 }

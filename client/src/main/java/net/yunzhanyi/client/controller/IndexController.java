@@ -4,10 +4,13 @@ import com.github.pagehelper.PageHelper;
 import net.yunzhanyi.client.service.IndexService;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.domain.pojo.Author;
+import net.yunzhanyi.domain.pojo.Poetry;
+import net.yunzhanyi.domain.pojo.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,9 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 指数控制器
+ *
  * @author bestct
- * @date 2023/5/8
- * description: TODO
+ * @date 2023/07/13
  */
 
 @Controller
@@ -40,8 +44,27 @@ public class IndexController {
             @RequestParam(value = "tag", defaultValue = "0") Integer tagId,
             Model model) {
         model.addAttribute("dynasty", dynasty);
-        model.addAttribute("tag", dynasty);
+        model.addAttribute("tag", tagId);
         return "poetry-index";
+    }
+
+    @GetMapping("/api/tag/{tagId}")
+    @ResponseBody
+    public AjaxResult<List<Tag>> getTagList(@PathVariable Integer tagId){
+        List<Tag> tags = indexService.getTagList(tagId);
+        return AjaxResult.successWithoutMsg(tags);
+    }
+
+    @GetMapping("/api/index/poetry")
+    @ResponseBody
+    public AjaxResult<List<Poetry>> indexPoetry(
+            @RequestParam(value = "dynasty", defaultValue = "0") Integer dynasty,
+            @RequestParam(value = "tag", defaultValue = "0") Integer tagId,
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Poetry> poetryList = indexService.indexApiPoetry(dynasty,tagId);
+        return AjaxResult.successWithoutMsg(poetryList);
     }
 
     @GetMapping("/index/author")

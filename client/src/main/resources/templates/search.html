@@ -42,6 +42,7 @@
                                 </div>
                                 <div style="margin-top: 20px">
                                     <a v-for="tag in poetry.tagList" target="_blank"
+                                       :href="'/index/poetry?tag='+tag.tagId"
                                        class="badge rounded-pill text-bg-primary">{{tag.tagName}}</a>
                                 </div>
                             </div>

@@ -122,4 +122,13 @@ public interface PoetryMapper {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> selectByAuthorId(@Param("authorId") Long authorId, @Param("searchVal") String searchVal);
+
+    /**
+     * 选择api所有诗歌
+     *
+     * @param dynasty 王朝
+     * @param tagId   标签id
+     * @return {@link List}<{@link Poetry}>
+     */
+    List<Poetry> selectApiAllPoetry(@Param("dynasty") Integer dynasty, @Param("tagId") Integer tagId);
 }

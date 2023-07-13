@@ -45,7 +45,7 @@ public interface TagMapper {
      * @param id id
      * @return {@link Tag}
      */
-    Tag selectByPrimaryKey(Long id);
+    Tag selectByPrimaryKey(Integer id);
 
     /**
      * 更新主键选择性

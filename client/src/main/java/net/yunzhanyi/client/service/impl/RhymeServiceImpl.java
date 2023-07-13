@@ -70,7 +70,7 @@ public class RhymeServiceImpl implements RhymeService {
                 orDefault.setRhymeBookName(rhymeName);
                 rhymeBookVoMap.put(rhymeBookId, orDefault);
             }
-            String replace = rhyme.getRhymeCharacter().replace(hanZi, "<span  style='color:#057748'>" + hanZi + "</span>");
+            String replace = rhyme.getRhymeCharacter().replace(hanZi, "<span  style='color:#B40000'>" + hanZi + "</span>");
             rhyme.setRhymeCharacter(replace);
             orDefault.getRhymeList().add(rhyme);
         }

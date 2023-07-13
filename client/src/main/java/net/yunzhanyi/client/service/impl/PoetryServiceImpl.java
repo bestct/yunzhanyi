@@ -153,4 +153,10 @@ public class PoetryServiceImpl implements PoetryService {
         return poetries;
     }
 
+    @Override
+    public List<Poetry> indexApiPoetry(Integer dynasty, Integer tagId) {
+        List<Poetry> poetries = poetryMapper.selectApiAllPoetry(dynasty, tagId);
+        return poetries;
+    }
+
 }
