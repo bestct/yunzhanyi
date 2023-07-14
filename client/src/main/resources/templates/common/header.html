@@ -143,11 +143,11 @@
 
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="/login">登录</a>
+                                <a class="nav-link" onclick="toLogin()">登录</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="/login">注册</a>
+                                <a class="nav-link" onclick="toLogin()">注册</a>
                             </li>
                         </ul>
 
@@ -202,6 +202,10 @@
                 setTheme(theme)
             })
         })()
+        function toLogin() {
+            let url ="/login"+"?redirect="+location.pathname+location.search;
+            window.location.href=url
+        }
     </script>
 </th:block>
 

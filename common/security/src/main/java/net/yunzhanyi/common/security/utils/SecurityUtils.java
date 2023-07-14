@@ -1,4 +1,4 @@
-package net.yunzhanyi.security.utils;
+package net.yunzhanyi.common.security.utils;
 
 import net.yunzhanyi.common.core.constants.TokenConstants;
 import net.yunzhanyi.common.web.utils.ServletUtils;

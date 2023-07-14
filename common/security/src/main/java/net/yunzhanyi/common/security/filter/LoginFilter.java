@@ -1,14 +1,14 @@
-package net.yunzhanyi.security.filter;
+package net.yunzhanyi.common.security.filter;
 
 import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.core.utils.StringUtils;
+import net.yunzhanyi.common.security.model.LoginUser;
+import net.yunzhanyi.common.security.service.TokenService;
 import net.yunzhanyi.common.web.utils.BeanUtils;
 import net.yunzhanyi.common.web.utils.ServletUtils;
-import net.yunzhanyi.security.config.IgnoreWhiteProperties;
-import net.yunzhanyi.security.model.LoginUser;
-import net.yunzhanyi.security.service.TokenService;
+import net.yunzhanyi.common.security.config.IgnoreWhiteProperties;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

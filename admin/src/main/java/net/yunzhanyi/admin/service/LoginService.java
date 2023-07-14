@@ -1,6 +1,6 @@
 package net.yunzhanyi.admin.service;
 
-import net.yunzhanyi.security.model.LoginUser;
+import net.yunzhanyi.common.security.model.LoginUser;
 
 /**
  * 登录服务

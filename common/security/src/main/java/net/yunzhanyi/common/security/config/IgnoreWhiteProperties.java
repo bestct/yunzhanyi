@@ -1,7 +1,4 @@
-package net.yunzhanyi.security.config;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+package net.yunzhanyi.common.security.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +9,10 @@ import java.util.List;
  * @author bestct
  * @date 2023/04/24
  */
+/*
 @Configuration
 @ConfigurationProperties(prefix = "security.ignore")
+*/
 public class IgnoreWhiteProperties {
 
     /**

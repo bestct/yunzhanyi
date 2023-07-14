@@ -120,27 +120,6 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public Map<String, Object> poetryIndex(Integer dynasty, Integer tagId, Integer pageNum, Integer pageSize) {
-        Map<String,Object> map=new HashMap<>();
-       /* PageInfo<Poetry> poetryPageInfo = poetryService.indexPoetry(dynasty, tagId, pageNum, pageSize);
-        PageVo<PoetryDto> poetryPageVo = poetryService.copyPageInfo(poetryPageInfo);
-        List<Tag> tagVos = redisService.getCacheList(CacheConstants.REDIS_INDEX_TAGS);
-        List<Tag> tags = poetryService.checkTagId(tagId, tagVos);
-        map.put("dataInfo", poetryPageVo);
-        map.put("tags", tags);
-        List<Dynasty> dynasties = redisService.getCacheList(CacheConstants.REDIS_INDEX_DYNASTIES);
-        map.put("dynasties", dynasties);
-        map.put("tagId", tagId);
-        map.put("indexDynasty", dynasty);
-       */ return map;
-    }
-
-    @Override
-    public Map<String, Object> authorIndex(Integer dynasty, Integer pageNum, Integer pageSize) {
-        return null;
-    }
-
-    @Override
     public List<Author> indexApiAuthor(Integer dynasty) {
         return authorService.selectAllAuthor(dynasty);
     }

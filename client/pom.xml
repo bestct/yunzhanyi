@@ -60,5 +60,10 @@
             <groupId>net.yunzhanyi</groupId>
             <artifactId>swagger</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>net.yunzhanyi</groupId>
+            <artifactId>security</artifactId>
+        </dependency>
     </dependencies>
 </project>

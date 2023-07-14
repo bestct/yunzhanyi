@@ -1,6 +1,6 @@
-package net.yunzhanyi.security.service;
+package net.yunzhanyi.common.security.service;
 
-import net.yunzhanyi.security.model.LoginUser;
+import net.yunzhanyi.common.security.model.LoginUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

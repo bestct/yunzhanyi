@@ -1,6 +1,6 @@
 package net.yunzhanyi.admin.config;
 
-import net.yunzhanyi.security.filter.LoginFilter;
+import net.yunzhanyi.common.security.filter.LoginFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

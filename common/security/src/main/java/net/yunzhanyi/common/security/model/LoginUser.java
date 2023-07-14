@@ -1,4 +1,4 @@
-package net.yunzhanyi.security.model;
+package net.yunzhanyi.common.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,4 +48,18 @@ public class LoginUser {
      */
     private String ipaddr;
 
+    /**
+     * 浏览器
+     */
+    private String browser;
+
+    /**
+     * 登录位置
+     */
+    private String loginLocation;
+
+    /**
+     * 操作系统
+     */
+    private String os;
 }

@@ -2,11 +2,10 @@ package net.yunzhanyi.common.web.handler;
 
 import cn.hutool.http.HttpStatus;
 import lombok.extern.slf4j.Slf4j;
-import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.core.exception.NotLoginException;
 import net.yunzhanyi.common.core.exception.NotPermissionException;
+import net.yunzhanyi.common.core.vo.AjaxResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author bestct
  * @date 2023/04/23
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 

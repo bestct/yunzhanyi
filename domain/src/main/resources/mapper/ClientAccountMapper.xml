@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.ClientAccountMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.ClientAccount">
+            <id property="aid" column="aid" jdbcType="BIGINT"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="openid" column="openid" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+            <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+            <result property="destroyTime" column="destroy_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        aid,password,phone,
+        email,openid,status,
+        created_time,modified_time,last_login_time,
+        destroy_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_account
+        where  aid = #{aid,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByPhone" resultMap="BaseResultMap">
+        select aid, password, status
+        from client_account
+        where phone = #{phone}
+    </select>
+    <select id="selectByEmail" resultMap="BaseResultMap">
+        select aid, password, status
+        from client_account
+        where email = #{email}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_account
+        where  aid = #{aid,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="aid" keyProperty="aid" parameterType="net.yunzhanyi.domain.pojo.ClientAccount" useGeneratedKeys="true">
+        insert into client_account
+        ( aid,password,phone
+        ,email,openid,status
+        ,created_time,modified_time,last_login_time
+        ,destroy_time)
+        values (#{aid,jdbcType=BIGINT},#{password,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR},#{openid,jdbcType=VARCHAR},#{status,jdbcType=TINYINT}
+        ,#{createdTime,jdbcType=TIMESTAMP},#{modifiedTime,jdbcType=TIMESTAMP},#{lastLoginTime,jdbcType=TIMESTAMP}
+        ,#{destroyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="aid" keyProperty="aid" parameterType="net.yunzhanyi.domain.pojo.ClientAccount" useGeneratedKeys="true">
+        insert into client_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="aid != null">aid,</if>
+                <if test="password != null">password,</if>
+                <if test="phone != null">phone,</if>
+                <if test="email != null">email,</if>
+                <if test="openid != null">openid,</if>
+                <if test="status != null">status,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="modifiedTime != null">modified_time,</if>
+                <if test="lastLoginTime != null">last_login_time,</if>
+                <if test="destroyTime != null">destroy_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="aid != null">#{aid,jdbcType=BIGINT},</if>
+                <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+                <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+                <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+                <if test="openid != null">#{openid,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+                <if test="modifiedTime != null">#{modifiedTime,jdbcType=TIMESTAMP},</if>
+                <if test="lastLoginTime != null">#{lastLoginTime,jdbcType=TIMESTAMP},</if>
+                <if test="destroyTime != null">#{destroyTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.ClientAccount">
+        update client_account
+        <set>
+                <if test="password != null">
+                    password = #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="phone != null">
+                    phone = #{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="email != null">
+                    email = #{email,jdbcType=VARCHAR},
+                </if>
+                <if test="openid != null">
+                    openid = #{openid,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="createdTime != null">
+                    created_time = #{createdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="modifiedTime != null">
+                    modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="lastLoginTime != null">
+                    last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="destroyTime != null">
+                    destroy_time = #{destroyTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   aid = #{aid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.ClientAccount">
+        update client_account
+        set
+            password =  #{password,jdbcType=VARCHAR},
+            phone =  #{phone,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            openid =  #{openid,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=TINYINT},
+            created_time =  #{createdTime,jdbcType=TIMESTAMP},
+            modified_time =  #{modifiedTime,jdbcType=TIMESTAMP},
+            last_login_time =  #{lastLoginTime,jdbcType=TIMESTAMP},
+            destroy_time =  #{destroyTime,jdbcType=TIMESTAMP}
+        where   aid = #{aid,jdbcType=BIGINT}
+    </update>
+</mapper>

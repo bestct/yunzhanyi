@@ -8,7 +8,9 @@ spring:
     url: jdbc:mysql://localhost:3306/yunzhanyi_1.5.0?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
 logging:
@@ -23,3 +25,9 @@ swagger:
   contact:
     email: 977961764@qq.com
     name: bestct
+
+security:
+  token:
+    redis-key-prefix: "net:yunzhanyi:client"
+    time-unit: minutes
+    expire-time: 1

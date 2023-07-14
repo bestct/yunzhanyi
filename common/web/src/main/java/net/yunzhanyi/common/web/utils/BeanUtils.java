@@ -34,8 +34,8 @@ public class BeanUtils implements ApplicationContextAware, DisposableBean {
     /**
      *     通过name获取 Bean.
      */
-    public static Object getBean(String name) {
-        return getApplicationContext().getBean(name);
+    public static <T> T getBean(String name) {
+        return (T) getApplicationContext().getBean(name);
     }
 
     /**

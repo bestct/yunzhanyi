@@ -19,7 +19,7 @@ public class CacheConstants {
     /**
      * 登录令牌密钥
      */
-    public static final String LOGIN_TOKEN_KEY = "login_tokens:";
+    public static final String LOGIN_TOKEN_KEY = ":login_tokens:";
 
     /**
      * 复述,指数王朝

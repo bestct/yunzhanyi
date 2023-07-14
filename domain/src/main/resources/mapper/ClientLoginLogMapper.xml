@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.ClientLoginLogMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.ClientLoginLog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="aid" column="aid" jdbcType="BIGINT"/>
+            <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="ipLocation" column="ip_location" jdbcType="VARCHAR"/>
+            <result property="loginDevice" column="login_device" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,aid,login_time,
+        ip,ip_location,login_device
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_login_log
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_login_log
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.ClientLoginLog" useGeneratedKeys="true">
+        insert into client_login_log
+        ( id,aid,login_time
+        ,ip,ip_location,login_device
+        )
+        values (#{id,jdbcType=BIGINT},#{aid,jdbcType=BIGINT},#{loginTime,jdbcType=TIMESTAMP}
+        ,#{ip,jdbcType=VARCHAR},#{ipLocation,jdbcType=VARCHAR},#{loginDevice,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.pojo.ClientLoginLog" useGeneratedKeys="true">
+        insert into client_login_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="aid != null">aid,</if>
+                <if test="loginTime != null">login_time,</if>
+                <if test="ip != null">ip,</if>
+                <if test="ipLocation != null">ip_location,</if>
+                <if test="loginDevice != null">login_device,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="aid != null">#{aid,jdbcType=BIGINT},</if>
+                <if test="loginTime != null">#{loginTime,jdbcType=TIMESTAMP},</if>
+                <if test="ip != null">#{ip,jdbcType=VARCHAR},</if>
+                <if test="ipLocation != null">#{ipLocation,jdbcType=VARCHAR},</if>
+                <if test="loginDevice != null">#{loginDevice,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.ClientLoginLog">
+        update client_login_log
+        <set>
+                <if test="aid != null">
+                    aid = #{aid,jdbcType=BIGINT},
+                </if>
+                <if test="loginTime != null">
+                    login_time = #{loginTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="ip != null">
+                    ip = #{ip,jdbcType=VARCHAR},
+                </if>
+                <if test="ipLocation != null">
+                    ip_location = #{ipLocation,jdbcType=VARCHAR},
+                </if>
+                <if test="loginDevice != null">
+                    login_device = #{loginDevice,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.ClientLoginLog">
+        update client_login_log
+        set 
+            aid =  #{aid,jdbcType=BIGINT},
+            login_time =  #{loginTime,jdbcType=TIMESTAMP},
+            ip =  #{ip,jdbcType=VARCHAR},
+            ip_location =  #{ipLocation,jdbcType=VARCHAR},
+            login_device =  #{loginDevice,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

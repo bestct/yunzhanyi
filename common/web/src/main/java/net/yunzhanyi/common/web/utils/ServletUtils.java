@@ -20,66 +20,55 @@ public class ServletUtils {
     /**
      * 获取request
      */
-    public static HttpServletRequest getRequest()
-    {
-        try
-        {
+    public static HttpServletRequest getRequest() {
+        try {
             return getRequestAttributes().getRequest();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public static ServletRequestAttributes getRequestAttributes()
-    {
-        try
-        {
+    public static ServletRequestAttributes getRequestAttributes() {
+        try {
             RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
             return (ServletRequestAttributes) attributes;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public static String getHeader(HttpServletRequest request, String name) {
+    public static String getHeader(String name) {
+        HttpServletRequest request = getRequest();
         String value = request.getHeader(name);
-        if (StringUtils.isEmpty(value))
-        {
+        if (StringUtils.isEmpty(value)) {
             return StringUtils.EMPTY;
         }
         return urlDecode(value);
     }
+
     /**
      * 内容解码
      *
      * @param str 内容
      * @return 解码后的内容
      */
-    public static String urlDecode(String str)
-    {
+    public static String urlDecode(String str) {
         return URLDecoder.decode(str, StandardCharsets.UTF_8);
     }
+
     /**
      * 将字符串渲染到客户端
      *
      * @param response 渲染对象
-     * @param string 待渲染的字符串
+     * @param string   待渲染的字符串
      */
-    public static void renderString(HttpServletResponse response, String string)
-    {
-        try
-        {
+    public static void renderString(HttpServletResponse response, String string) {
+        try {
             response.setStatus(200);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

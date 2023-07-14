@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.ClientUserMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.ClientUser">
+            <id property="aid" column="aid" jdbcType="BIGINT"/>
+            <result property="uid" column="uid" jdbcType="BIGINT"/>
+            <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="DATE"/>
+            <result property="sex" column="sex" jdbcType="SMALLINT"/>
+            <result property="signature" column="signature" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="province" column="province" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+            <result property="destroyTime" column="destroy_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        aid,uid,avatar_url,
+        nick_name,birthday,sex,
+        signature,city,province,
+        status,created_time,modified_time,
+        destroy_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_user
+        where  aid = #{aid,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_user
+        where  aid = #{aid,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="aid" keyProperty="aid" parameterType="net.yunzhanyi.domain.pojo.ClientUser" useGeneratedKeys="true">
+        insert into client_user
+        ( aid,uid,avatar_url
+        ,nick_name,birthday,sex
+        ,signature,city,province
+        ,status,created_time,modified_time
+        ,destroy_time)
+        values (#{aid,jdbcType=BIGINT},#{uid,jdbcType=BIGINT},#{avatarUrl,jdbcType=VARCHAR}
+        ,#{nickName,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},#{sex,jdbcType=SMALLINT}
+        ,#{signature,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR}
+        ,#{status,jdbcType=TINYINT},#{createdTime,jdbcType=TIMESTAMP},#{modifiedTime,jdbcType=TIMESTAMP}
+        ,#{destroyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="aid" keyProperty="aid" parameterType="net.yunzhanyi.domain.pojo.ClientUser" useGeneratedKeys="true">
+        insert into client_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="aid != null">aid,</if>
+                <if test="uid != null">uid,</if>
+                <if test="avatarUrl != null">avatar_url,</if>
+                <if test="nickName != null">nick_name,</if>
+                <if test="birthday != null">birthday,</if>
+                <if test="sex != null">sex,</if>
+                <if test="signature != null">signature,</if>
+                <if test="city != null">city,</if>
+                <if test="province != null">province,</if>
+                <if test="status != null">status,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="modifiedTime != null">modified_time,</if>
+                <if test="destroyTime != null">destroy_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="aid != null">#{aid,jdbcType=BIGINT},</if>
+                <if test="uid != null">#{uid,jdbcType=BIGINT},</if>
+                <if test="avatarUrl != null">#{avatarUrl,jdbcType=VARCHAR},</if>
+                <if test="nickName != null">#{nickName,jdbcType=VARCHAR},</if>
+                <if test="birthday != null">#{birthday,jdbcType=DATE},</if>
+                <if test="sex != null">#{sex,jdbcType=SMALLINT},</if>
+                <if test="signature != null">#{signature,jdbcType=VARCHAR},</if>
+                <if test="city != null">#{city,jdbcType=VARCHAR},</if>
+                <if test="province != null">#{province,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+                <if test="modifiedTime != null">#{modifiedTime,jdbcType=TIMESTAMP},</if>
+                <if test="destroyTime != null">#{destroyTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.ClientUser">
+        update client_user
+        <set>
+                <if test="uid != null">
+                    uid = #{uid,jdbcType=BIGINT},
+                </if>
+                <if test="avatarUrl != null">
+                    avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+                </if>
+                <if test="nickName != null">
+                    nick_name = #{nickName,jdbcType=VARCHAR},
+                </if>
+                <if test="birthday != null">
+                    birthday = #{birthday,jdbcType=DATE},
+                </if>
+                <if test="sex != null">
+                    sex = #{sex,jdbcType=SMALLINT},
+                </if>
+                <if test="signature != null">
+                    signature = #{signature,jdbcType=VARCHAR},
+                </if>
+                <if test="city != null">
+                    city = #{city,jdbcType=VARCHAR},
+                </if>
+                <if test="province != null">
+                    province = #{province,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="createdTime != null">
+                    created_time = #{createdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="modifiedTime != null">
+                    modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="destroyTime != null">
+                    destroy_time = #{destroyTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   aid = #{aid,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.ClientUser">
+        update client_user
+        set 
+            uid =  #{uid,jdbcType=BIGINT},
+            avatar_url =  #{avatarUrl,jdbcType=VARCHAR},
+            nick_name =  #{nickName,jdbcType=VARCHAR},
+            birthday =  #{birthday,jdbcType=DATE},
+            sex =  #{sex,jdbcType=SMALLINT},
+            signature =  #{signature,jdbcType=VARCHAR},
+            city =  #{city,jdbcType=VARCHAR},
+            province =  #{province,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=TINYINT},
+            created_time =  #{createdTime,jdbcType=TIMESTAMP},
+            modified_time =  #{modifiedTime,jdbcType=TIMESTAMP},
+            destroy_time =  #{destroyTime,jdbcType=TIMESTAMP}
+        where   aid = #{aid,jdbcType=BIGINT} 
+    </update>
+</mapper>

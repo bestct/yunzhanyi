@@ -30,6 +30,8 @@ security:
       - /v3/**
       - /captcha/**
       - /poetry/list
+  token:
+    timeUnit: days
 aj:
   captcha:
     jigsaw: classpath:images/jigsaw

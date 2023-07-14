@@ -3,8 +3,8 @@ package net.yunzhanyi.admin.service.impl;
 import net.yunzhanyi.admin.service.LoginService;
 import net.yunzhanyi.domain.mapper.AdminUserMapper;
 import net.yunzhanyi.domain.pojo.AdminUser;
-import net.yunzhanyi.security.model.LoginUser;
-import net.yunzhanyi.security.utils.SecurityUtils;
+import net.yunzhanyi.common.security.model.LoginUser;
+import net.yunzhanyi.common.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
