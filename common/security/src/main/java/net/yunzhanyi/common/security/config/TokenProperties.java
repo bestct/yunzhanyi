@@ -14,7 +14,7 @@ public class TokenProperties {
     /**
      * redis_key前缀
      */
-    private String redisKeyPrefix="net:yunzhanyi";
+    private String redisKeyPrefix="yunzhanyi";
 
     /**
      * 到期时间

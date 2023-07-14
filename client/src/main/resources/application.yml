@@ -28,6 +28,6 @@ swagger:
 
 security:
   token:
-    redis-key-prefix: "net:yunzhanyi:client"
+    redis-key-prefix: "yunzhanyi:client"
     time-unit: minutes
     expire-time: 1

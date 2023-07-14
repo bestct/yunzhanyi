@@ -75,8 +75,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean checkPhoneUnique(String phone) {
-        return false;
+        ClientAccount account = clientAccountMapper.selectByPhone(phone);
+        return ObjectUtils.isEmpty(account) || ObjectUtils.isEmpty(account.getAid());
     }
+
 
     @Override
     public void register(String phone, String password) {

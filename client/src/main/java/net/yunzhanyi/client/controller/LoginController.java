@@ -46,6 +46,7 @@ public class LoginController {
         Map<String, Object> token = tokenService.createToken(loginUser);
         return AjaxResult.success("",token);
     }
+
     @PostMapping("/api/register")
     @ResponseBody
     public AjaxResult register(@RequestParam("phone") String phone, @RequestParam("password") String password) {

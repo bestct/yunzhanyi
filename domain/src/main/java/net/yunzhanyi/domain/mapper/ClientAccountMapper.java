@@ -25,8 +25,8 @@ public interface ClientAccountMapper {
 
     int updateByPrimaryKey(ClientAccount record);
 
-    ClientAccount selectByPhone(@Param("phone") String accountNumber);
+    ClientAccount selectByPhone(@Param("phone") String phone);
 
-    ClientAccount selectByEmail(@Param("email") String accountNumber);
+    ClientAccount selectByEmail(@Param("email") String email);
 
 }

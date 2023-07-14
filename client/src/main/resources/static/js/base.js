@@ -34,3 +34,33 @@ function getCookies(name) {
         }
     }
 }
+export function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
+export function createToast(text,type) {
+    var typeStyle={
+        "info":"linear-gradient(to right, #2c3e50, #bdc3c7)",
+        "success":"linear-gradient(to right, #56ab2f, #a8e063)",
+        "warning":"linear-gradient(to right, #f2994a, #f2c94c)",
+        "error":"linear-gradient(to right, #ed213a, #93291e)"
+    }
+    Toastify({
+        text: text,
+        duration: 2000,
+        newWindow: true,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: typeStyle[type],
+        },
+    }).showToast();
+
+}
