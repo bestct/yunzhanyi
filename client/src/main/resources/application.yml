@@ -11,6 +11,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
 logging:

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
+<head>
+    <title th:text="${loginUser.username}+'信息管理-云沾衣诗词网'">云沾衣诗词网</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+</head>
+<body class="bg-body-secondary">
+<div th:insert="~{common/header :: main_nav}"></div>
+<div class="container full">
+    <div class="row" style="padding: 10px">
+        <div class="col-lg-3 col-sm-auto">
+
+        </div>
+        <div class="col-lg-6">
+            <div th:insert="~{common/header :: user-head}"></div>
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3 mt-3">
+                            <label for="nickName" class="form-label">昵称</label>
+                            <input type="text" th:value="${clientUser.nickName}" class="form-control" id="nickName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sex" class="form-label">性别</label>
+                            <br>
+                            <div th:each="sexType:${sexTypeList}"
+                                 class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sex" id="sex"
+                                       th:value="${sexType.dictCode}"
+                                       th:id="${'sex'+sexType.dictCode}"
+                                       th:checked="${clientUser.sex == sexType.dictCode}">
+
+                                <label th:text="${sexType.dictName}" class="form-check-label"
+                                       th:for="${'sex'+sexType.dictCode}">
+                                </label>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="uuid" class="form-label">UID</label>
+                                <input type="text" th:value="${clientUser.uid}" class="form-control" readonly
+                                       id="uuid">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="signature" class="form-label">个性签名</label>
+                                <input type="text" th:value="${clientUser.signature}" class="form-control"
+                                       id="signature">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="join-time" class="form-label">加入时间</label>
+                                <input type="text" th:value="${clientUser.createdTime}" class="form-control"
+                                       readonly id="join-time">
+                            </div>
+                            <button type="button" class="w-100 btn btn-primary" onclick="savaUser()">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-sm-auto">
+
+        </div>
+    </div>
+</div>
+<div th:insert="~{common/footer::home-footer}"></div>
+</body>
+<th:block th:insert="~{common/footer::tail}"></th:block>
+</html>

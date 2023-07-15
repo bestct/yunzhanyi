@@ -1,4 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="user-head">
+
+    <ul style="margin-top: 20px;margin-bottom: 20px" class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a th:class="${userType=='account'?'nav-link active':'nav-link'}"  href="/account">账号管理</a>
+        </li>
+        <li class="nav-item">
+            <a th:class="${userType=='profile'?'nav-link active':'nav-link'}" href="/profile">用户管理</a>
+        </li>
+        <li class="nav-item">
+            <a th:class="${userType=='collection'?'nav-link active':'nav-link'}" href="/collection">收藏管理</a>
+        </li>
+    </ul>
+</th:block>
 <th:block th:fragment="head">
     <meta name="description" content="在这读几首诗，采几片云"/>
     <meta name="author" content="长亭残木"/>
