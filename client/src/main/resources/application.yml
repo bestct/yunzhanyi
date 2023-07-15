@@ -30,4 +30,4 @@ security:
   token:
     redis-key-prefix: "yunzhanyi:client"
     time-unit: minutes
-    expire-time: 1
+    expire-time: 30
