@@ -2,6 +2,7 @@ package net.yunzhanyi.common.web.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import net.yunzhanyi.common.core.constants.LoginConstant;
 import net.yunzhanyi.common.core.constants.TokenConstants;
 import net.yunzhanyi.common.core.utils.StringUtils;
@@ -18,6 +19,7 @@ import java.io.IOException;
  * @date 2023/7/15
  * description: TODO
  */
+@Slf4j
 public class AjaxUtils {
     /**
      * 判断网络请求是否为ajax

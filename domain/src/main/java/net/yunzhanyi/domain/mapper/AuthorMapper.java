@@ -88,6 +88,12 @@ public interface AuthorMapper {
      */
     List<Author> selectByKeyword(@Param("keyword") String keyword);
 
+    /**
+     * 选择作者姓名id
+     *
+     * @param authorId 作者id
+     * @return {@link String}
+     */
     String selectAuthorNameById(@Param("authorId") Long authorId);
 
     List<Author> selectAllAuthor(@Param("dynasty") Integer dynasty);

@@ -1,19 +1,17 @@
 package net.yunzhanyi.client.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
 import net.yunzhanyi.client.domain.dto.PoetryDto;
 import net.yunzhanyi.client.domain.vo.PoetryVo;
+import net.yunzhanyi.client.service.CollectionService;
 import net.yunzhanyi.client.service.PoetryService;
+import net.yunzhanyi.client.utils.AuthUtils;
 import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.PageVo;
-import net.yunzhanyi.domain.mapper.AuthorMapper;
-import net.yunzhanyi.domain.mapper.DynastyMapper;
-import net.yunzhanyi.domain.mapper.PoetryMapper;
-import net.yunzhanyi.domain.mapper.TagMapper;
-import net.yunzhanyi.domain.pojo.Author;
-import net.yunzhanyi.domain.pojo.Dynasty;
-import net.yunzhanyi.domain.pojo.Poetry;
-import net.yunzhanyi.domain.pojo.Tag;
+import net.yunzhanyi.common.security.model.LoginUser;
+import net.yunzhanyi.domain.mapper.*;
+import net.yunzhanyi.domain.pojo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +39,9 @@ public class PoetryServiceImpl implements PoetryService {
     @Autowired
     private AuthorMapper authorMapper;
 
+    @Autowired
+    private CollectionService collectionService;
+
     /**
      * 被随机诗歌
      *
@@ -50,7 +51,7 @@ public class PoetryServiceImpl implements PoetryService {
     public Poetry getPoetryByRandom() {
         Integer count = poetryMapper.selectCount();
         Random rand = new Random();
-        int offset = rand.nextInt(count ) + 1;
+        int offset = rand.nextInt(count) + 1;
         return poetryMapper.selectRandomPoetry(offset);
     }
 
@@ -85,6 +86,7 @@ public class PoetryServiceImpl implements PoetryService {
     public List<Poetry> searchPoetry(String keyword) {
         return poetryMapper.selectByKeyword(keyword);
     }
+
     @Override
     public PageVo copyPageInfo(PageInfo<Poetry> poetryInfo) {
         List<Poetry> poetries = poetryInfo.getList();
@@ -119,7 +121,7 @@ public class PoetryServiceImpl implements PoetryService {
     public PoetryVo searchWebPoetryById(Long poetryId) {
         Poetry poetry = poetryMapper.selectWithDetailsByPrimaryKey(poetryId);
         if (poetry == null) {
-            throw  new NullPointerException();
+            throw new NullPointerException();
         }
         PoetryVo poetryVo = new PoetryVo();
         BeanUtils.copyProperties(poetry, poetryVo);
@@ -133,15 +135,12 @@ public class PoetryServiceImpl implements PoetryService {
             }
             poetryVo.setTagList(tagList);
         }
-      //  ClientLoginUser loginUser = AuthUtils.getLoginUser();
+        LoginUser loginUser = AuthUtils.getLoginUser();
         long uid = -1;
-
-        /*if (ObjectUtil.isNotEmpty(loginUser)) {
-            uid = loginUser.getUid();
+        if (ObjectUtil.isNotEmpty(loginUser)) {
+            uid = loginUser.getUserid();
         }
-        */
-        //collectionService.isCollected(uid, poetryId, 1);
-        poetryVo.setCollection(false);
+        poetryVo.setCollection(collectionService.isCollected(uid, poetryId, 1));
         Author author = authorMapper.selectByPrimaryKey(poetry.getAuthorId());
         poetryVo.setAuthor(author);
         return poetryVo;
@@ -149,7 +148,7 @@ public class PoetryServiceImpl implements PoetryService {
 
     @Override
     public List<Poetry> getPoetryByAuthorId(Long authorId, String searchVal) {
-        List<Poetry> poetries = poetryMapper.selectByAuthorId(authorId,searchVal);
+        List<Poetry> poetries = poetryMapper.selectByAuthorId(authorId, searchVal);
         return poetries;
     }
 

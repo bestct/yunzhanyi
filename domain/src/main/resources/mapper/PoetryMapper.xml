@@ -111,6 +111,11 @@
             </if>
         </where>
     </select>
+    <select id="selectTitleById" resultType="java.lang.String">
+        select poetry_title
+        from poetry
+        where poetry_id = #{poetryId,jdbcType=BIGINT}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete

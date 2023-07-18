@@ -1,7 +1,7 @@
 package net.yunzhanyi.client;
 
-import net.yunzhanyi.client.service.LoginService;
-import net.yunzhanyi.common.redis.service.RedisService;
+import net.yunzhanyi.domain.mapper.ClientCollectionMapper;
+import net.yunzhanyi.domain.pojo.ClientCollection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ClientApplicationTest {
 
     @Autowired
-    private RedisService redisService;
-
-    @Autowired
-    private LoginService loginService;
+    private ClientCollectionMapper collectionMapper;
     @Test
     void loadContext(){
-        loginService.register("15660755782","ct123456");
+        ClientCollection clientCollection = collectionMapper.selectByResIdAndUid(1L, 4469L, 1);
+        System.out.println(clientCollection);
     }
 }

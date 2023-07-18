@@ -42,7 +42,9 @@ export function getQueryString(name) {
     }
     return null;
 }
-
+export function toLogin() {
+    window.location.href = "/login" + "?redirect=" + location.pathname + location.search
+}
 export function createToast(text,type) {
     var typeStyle={
         "info":"linear-gradient(to right, #2c3e50, #bdc3c7)",
@@ -62,5 +64,4 @@ export function createToast(text,type) {
             background: typeStyle[type],
         },
     }).showToast();
-
 }

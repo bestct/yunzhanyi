@@ -47,7 +47,9 @@ createApp({
                     createToast("登录成功", 'success')
                     loginBtn.disabled = false
                     loginLoading.hidden = true
-                    document.cookie = "token=" + response.data.access_token + ";path=/;expires=" + response.data.expires_in + ";"
+                    var now=new Date();
+                    now.setMilliseconds(now.getMilliseconds()+response.data.expires_in)
+                    document.cookie = "token=" + response.data.access_token + ";path=/;expires=" + now.toUTCString() + ";"
                     //重定向
                     var url = getQueryString("redirect")
                     if (!url) {

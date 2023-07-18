@@ -11,6 +11,7 @@
 <div class="container full">
     <div class="row">
         <div class="col-sm-12 col-lg-9">
+            <data id="poetryId" th:value="${poetry.poetryId}"></data>
             <div class="card">
                 <div class="card-header stress">
                     诗词原文
@@ -38,15 +39,9 @@
                 </div>
 
                 <div class="card-footer">
-
-                    <div class="float">
-                        <div th:text="${poetry.collection}?'已收藏':'收藏'" th:onclick="|collection(${poetry.poetryId})|"
-                             id="collection" class="float-btn">
-                            收藏
-                        </div>
-                        <div class="float-btn" onclick="showPerfectModel()">
-                            完善
-                        </div>
+                    <data id="isCollection" th:value="${poetry.collection}">
+                     </data>
+                    <div id="collection" style="cursor: pointer">
                     </div>
                 </div>
             </div>
@@ -93,4 +88,5 @@
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <th:block th:insert="~{common/footer::tail}"></th:block>
+<script type="module" charset="utf-8" th:src="@{/js/poetry.js}"></script>
 </html>

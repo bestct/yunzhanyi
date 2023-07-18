@@ -131,4 +131,12 @@ public interface PoetryMapper {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> selectApiAllPoetry(@Param("dynasty") Integer dynasty, @Param("tagId") Integer tagId);
+
+    /**
+     * 选择标题通过id
+     *
+     * @param poetryId 诗歌id
+     * @return {@link String}
+     */
+    String selectTitleById(@Param("poetryId") Long poetryId);
 }

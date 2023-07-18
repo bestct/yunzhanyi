@@ -2,6 +2,7 @@ package net.yunzhanyi.client.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.yunzhanyi.client.annotation.AccountPublic;
 import net.yunzhanyi.client.domain.vo.AuthorVo;
 import net.yunzhanyi.client.service.AuthorService;
 import net.yunzhanyi.client.service.PoetryService;
@@ -32,6 +33,7 @@ public class AuthorController {
     @Autowired
     private PoetryService poetryService;
 
+    @AccountPublic
     @GetMapping("/author/{authorId}")
     public String authorDetail(@PathVariable Long authorId, Model model) {
         AuthorVo authorVo = authorService.searchWebAuthorById(authorId);

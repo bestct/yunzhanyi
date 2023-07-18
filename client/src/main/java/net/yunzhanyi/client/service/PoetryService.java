@@ -22,8 +22,19 @@ public interface PoetryService {
      */
     Poetry getPoetryByRandom();
 
+    /**
+     * 随机搜索诗歌
+     *
+     * @param i 我
+     * @return {@link List}<{@link Poetry}>
+     */
     List<Poetry> searchPoetryRandom(int i);
 
+    /**
+     * init王朝
+     *
+     * @return {@link List}<{@link Dynasty}>
+     */
     List<Dynasty> initDynasty();
 
     /**

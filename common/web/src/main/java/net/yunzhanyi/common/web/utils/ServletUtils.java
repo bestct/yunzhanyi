@@ -28,6 +28,14 @@ public class ServletUtils {
         }
     }
 
+    /**
+     * 获取String参数
+     */
+    public static Object getAttribute(String name)
+    {
+        return getRequest().getAttribute(name);
+    }
+
     public static ServletRequestAttributes getRequestAttributes() {
         try {
             RequestAttributes attributes = RequestContextHolder.getRequestAttributes();

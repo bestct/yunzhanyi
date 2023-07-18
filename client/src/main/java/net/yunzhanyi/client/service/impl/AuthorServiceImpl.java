@@ -1,7 +1,11 @@
 package net.yunzhanyi.client.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import net.yunzhanyi.client.domain.vo.AuthorVo;
 import net.yunzhanyi.client.service.AuthorService;
+import net.yunzhanyi.client.service.CollectionService;
+import net.yunzhanyi.client.utils.AuthUtils;
+import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.domain.mapper.AuthorMapper;
 import net.yunzhanyi.domain.mapper.PoetryMapper;
 import net.yunzhanyi.domain.pojo.Author;
@@ -27,6 +31,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private PoetryMapper poetryMapper;
 
+    @Autowired
+    private CollectionService collectionService;
     @Override
     public List<Author> searchAuthorRandom(int pageSize) {
         Integer count = authorMapper.selectCount();
@@ -49,7 +55,12 @@ public class AuthorServiceImpl implements AuthorService {
         List<Poetry> poetries=poetryMapper.selectByAuthorIdLimit(author.getId(),20);
         AuthorVo authorVo=new AuthorVo();
         BeanUtils.copyProperties(author,authorVo);
-        authorVo.setCollection(false);
+        LoginUser loginUser = AuthUtils.getLoginUser();
+        long uid = -1;
+        if (ObjectUtil.isNotEmpty(loginUser)) {
+            uid = loginUser.getUserid();
+        }
+        authorVo.setCollection(collectionService.isCollected(uid,authorId,2));
         authorVo.setPoetryList(poetries);
         return authorVo;
     }
