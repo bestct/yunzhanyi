@@ -12,9 +12,14 @@ import net.yunzhanyi.common.web.utils.ServletUtils;
 public class AuthUtils {
 
     public static Long getUserid() {
-       return getLoginUser().getUserid();
+        LoginUser loginUser = getLoginUser();
+        if (loginUser == null) {
+            return -1L;
+        }
+        return loginUser.getUserid();
     }
-    public static LoginUser getLoginUser(){
+
+    public static LoginUser getLoginUser() {
         return (LoginUser) ServletUtils.getAttribute(AccountConstant.LOGIN_USER);
     }
 }

@@ -1,6 +1,5 @@
 package net.yunzhanyi.client.service.impl;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
 import net.yunzhanyi.client.domain.dto.PoetryDto;
 import net.yunzhanyi.client.domain.vo.PoetryVo;
@@ -9,9 +8,14 @@ import net.yunzhanyi.client.service.PoetryService;
 import net.yunzhanyi.client.utils.AuthUtils;
 import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.PageVo;
-import net.yunzhanyi.common.security.model.LoginUser;
-import net.yunzhanyi.domain.mapper.*;
-import net.yunzhanyi.domain.pojo.*;
+import net.yunzhanyi.domain.mapper.AuthorMapper;
+import net.yunzhanyi.domain.mapper.DynastyMapper;
+import net.yunzhanyi.domain.mapper.PoetryMapper;
+import net.yunzhanyi.domain.mapper.TagMapper;
+import net.yunzhanyi.domain.pojo.Author;
+import net.yunzhanyi.domain.pojo.Dynasty;
+import net.yunzhanyi.domain.pojo.Poetry;
+import net.yunzhanyi.domain.pojo.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,12 +139,8 @@ public class PoetryServiceImpl implements PoetryService {
             }
             poetryVo.setTagList(tagList);
         }
-        LoginUser loginUser = AuthUtils.getLoginUser();
-        long uid = -1;
-        if (ObjectUtil.isNotEmpty(loginUser)) {
-            uid = loginUser.getUserid();
-        }
-        poetryVo.setCollection(collectionService.isCollected(uid, poetryId, 1));
+        Long userid = AuthUtils.getUserid();
+        poetryVo.setCollection(collectionService.isCollected(userid, poetryId, 1));
         Author author = authorMapper.selectByPrimaryKey(poetry.getAuthorId());
         poetryVo.setAuthor(author);
         return poetryVo;
