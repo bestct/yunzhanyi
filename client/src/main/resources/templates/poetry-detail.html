@@ -19,10 +19,10 @@
                 <div class="card-body">
                     <div style="font-weight: bold;font-size: x-large" th:text="${poetry.poetryTitle}"></div>
                     <div style="margin-top: 20px;margin-bottom: 20px ">
-                        [<a style="color: #580000" target="_blank"
+                        [<a class="link-info" target="_blank"
                             th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}"
                             th:text="${poetry.poetryDynasty}"></a>]
-                        <a style="color: #580000" th:href="@{'/author/'+${poetry.authorId}}"
+                        <a class="link-info" th:href="@{'/author/'+${poetry.authorId}}"
                            th:text="${poetry.poetryAuthor}"
                         ></a>
                     </div>
@@ -33,7 +33,7 @@
                     <div style="margin-top: 20px">
                         <th:block th:each="tag : ${poetry.tagList}">
                             <a th:href="@{/index/poetry(tag=${tag.tagId})}" th:text="${tag.tagName}"
-                               class="badge rounded-pill text-bg-primary">成功</a>
+                               class="badge rounded-pill text-bg-success">成功</a>
                         </th:block>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                 <div class="card-footer">
                     <data id="isCollection" th:value="${poetry.collection}">
                      </data>
-                    <div id="collection" style="cursor: pointer">
-                    </div>
+                    <span id="collection" style="cursor: pointer">
+                    </span>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
                                style="font-size: 22px;"> </a>
                         </div>
                         <div>
-                            朝代 : <a style="color: #580000"
+                            朝代 : <a class="link-info"
                                     th:href="@{/index/author/(dynasty=${poetry.author.dynastyId})}"
                                     th:text="${poetry.author.authorDynasty}"></a>
                         </div>

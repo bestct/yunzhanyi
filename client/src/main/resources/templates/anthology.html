@@ -10,21 +10,27 @@
 <div class="container full">
     <div class="row">
         <div class="col-lg-9 col-sm-12">
-            <h3 th:text="${anthologyVo.anthologyName}"></h3>
-            <h5 th:text="${anthologyVo.subtitle}"></h5>
+            <div class="text-center">
+                <h3 th:text="${anthologyVo.anthologyName}"></h3>
+                <h6 th:text="${anthologyVo.anthologyInfo}"></h6>
+            </div>
             <th:block th:each="anthology : ${anthologyVo.subAnthologyList}">
-                <div class="card">
+                <div class="card" style="margin: 3px">
                     <div class="card-header">
-                        <h5 th:text="${anthology.anthologyName}"></h5>
+                        <div class="stress" th:text="${anthology.anthologyName}"></div>
                     </div>
                     <div class="card-body row">
-                        <div th:each="poetry: ${anthology.anthologyPoetryList}" class="col-md-4 col-lg-4 col-sm-6 text-truncate">
-                            《<a  class="link-secondary" th:text="${poetry.poetryTitle}"
-                                 th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
+                        <div th:each="poetry: ${anthology.anthologyPoetryList}"
+                             class="col-md-4 col-lg-4 col-sm-6 text-truncate">
+                            《<a class="text-body" th:text="${poetry.poetryTitle}"
+                                th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
                         </div>
                     </div>
                 </div>
             </th:block>
+        </div>
+        <div class=" col-lg-3 col-sm-12">
+            <div th:insert="~{common/common::ghcard}"></div>
         </div>
     </div>
 </div>

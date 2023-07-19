@@ -22,7 +22,7 @@
                                   style="font-weight: bold;font-size: 22px;"> </span>
                         </div>
                         <div>
-                            朝代 : <a style="color: #580000" target="_blank" th:href="@{/index/author/(dynasty=${author.dynastyId})}" th:text="${author.authorDynasty}"></a>
+                            朝代 : <a class="link-info" target="_blank" th:href="@{/index/author/(dynasty=${author.dynastyId})}" th:text="${author.authorDynasty}"></a>
                         </div>
                     </div>
                     <div class="mx-lg-5">
@@ -45,8 +45,8 @@
                 </div>
                 <div class="card-body">
                     <th:block th:each="poetry : ${author.poetryList}">
-                        <a style="color: #b40000" class="mx-1" th:href="@{'/poetry/'+${poetry.poetryId}}" th:text="${poetry.poetryTitle}">
-                        </a>
+                        《<a class="mx-1 text-body" th:href="@{'/poetry/'+${poetry.poetryId}}" th:text="${poetry.poetryTitle}">
+                        </a>》
                     </th:block>
                 </div>
             </div>

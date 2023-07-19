@@ -1,86 +1,88 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="auto">
 <head>
-  <title>诗词检索-云沾衣诗词网</title>
-  <th:block th:insert="~{common/header::head}"></th:block>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+    <title>诗词检索-云沾衣诗词网</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
 </head>
 
 <body class="bg-body-secondary">
 <div th:insert="~{common/header :: main_nav}"></div>
 <div class="container full">
-  <div class="row">
-    <data id="indexDynasty" th:value="${dynasty}"></data>
-    <data id="indexTag" th:value="${tag}"></data>
-    <div class="col-lg-9 col-sm-12">
-      <div hidden id="app">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex flex-row flex-nowrap author-criteria-collapse">
-              <div style="width:3rem;">
-                <span class="m-1 badge text-bg-info">朝代：</span>
-              </div>
-              <ul class="list-unstyled d-flex flex-row flex-wrap align-items-center w-100 ">
-                <li v-for="dynasty in dynastyList"
-                    @click="clickIndexDynasty(dynasty.dynastyId)"
-                    style="cursor: pointer"
-                    :class="indexDynasty== dynasty.dynastyId ? 'm-1 badge text-bg-primary ':'m-1 badge  bg-secondary'">{{dynasty.dynastyName}}
-                </li>
-              </ul>
-            </div>
+    <div class="row">
+        <data id="indexDynasty" th:value="${dynasty}"></data>
+        <data id="indexTag" th:value="${tag}"></data>
+        <div class="col-lg-9 col-sm-12">
+            <div hidden id="app">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-row flex-nowrap author-criteria-collapse">
+                            <div style="width:3rem;">
+                                <span class="m-1 badge text-bg-info">朝代：</span>
+                            </div>
+                            <ul class="list-unstyled d-flex flex-row flex-wrap align-items-center w-100 ">
+                                <li v-for="dynasty in dynastyList"
+                                    @click="clickIndexDynasty(dynasty.dynastyId)"
+                                    style="cursor: pointer"
+                                    :class="indexDynasty== dynasty.dynastyId ? 'm-1 badge text-bg-primary ':'m-1 badge  bg-secondary'">
+                                    {{dynasty.dynastyName}}
+                                </li>
+                            </ul>
+                        </div>
 
-            <div class="d-flex flex-row flex-nowrap author-criteria-collapse">
-              <div style="width:3rem;">
-                <span class="m-1 badge text-bg-info">分类：</span>
-              </div>
-              <ul class="list-unstyled d-flex flex-row flex-wrap align-items-center w-100 ">
-                <li v-for="tag in tagList"
-                    @click="clickIndexTag(tag.tagId)"
-                    style="cursor: pointer"
-                    :class="indexTag== tag.tagId ? 'm-1 badge text-bg-primary ':'m-1 badge  bg-secondary'">{{tag.tagName}}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div v-for="poetry in dataList">
-          <div class="card" style="padding: 5px">
-            <div class="card-body">
-              <a :href="'/poetry/'+poetry.poetryId" target="_blank">
-                <div style="font-size: x-large">{{poetry.poetryTitle}}</div>
-              </a>
-              <div style="margin-top: 20px;margin-bottom: 20px ">
-                [<a style="color: #580000" target="_blank">{{poetry.poetryDynasty}}</a>]
-                <a :href="'/author/'+poetry.authorId" style="color: #580000" target="_blank"
-                >{{poetry.poetryAuthor}}</a>
-              </div>
+                        <div class="d-flex flex-row flex-nowrap author-criteria-collapse">
+                            <div style="width:3rem;">
+                                <span class="m-1 badge text-bg-info">分类：</span>
+                            </div>
+                            <ul class="list-unstyled d-flex flex-row flex-wrap align-items-center w-100 ">
+                                <li v-for="tag in tagList"
+                                    @click="clickIndexTag(tag.tagId)"
+                                    style="cursor: pointer"
+                                    :class="indexTag== tag.tagId ? 'm-1 badge text-bg-primary ':'m-1 badge  bg-secondary'">
+                                    {{tag.tagName}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div v-for="poetry in dataList">
+                    <div class="card" style="padding: 5px">
+                        <div class="card-body">
+                            <a :href="'/poetry/'+poetry.poetryId" target="_blank">
+                                <div style="font-size: x-large">{{poetry.poetryTitle}}</div>
+                            </a>
+                            <div style="margin-top: 20px;margin-bottom: 20px ">
+                                [<a class="link-info" target="_blank">{{poetry.poetryDynasty}}</a>]
+                                <a class="link-info" :href="'/author/'+poetry.authorId" target="_blank"
+                                >{{poetry.poetryAuthor}}</a>
+                            </div>
 
-              <div style="font-size: large; line-height: 1.5;">
+                            <div style="font-size: large; line-height: 1.5;">
                     <span style="white-space: pre-wrap;">
                       {{poetry.poetryContent}}
                     </span>
-              </div>
-              <div style="margin-top: 20px">
-                <a v-for="tag in poetry.tagList" target="_blank"
-                   class="badge rounded-pill text-bg-primary">{{tag.tagName}}</a>
-              </div>
+                            </div>
+                            <div style="margin-top: 20px">
+                                <a v-for="tag in poetry.tagList" target="_blank"
+                                   class="badge rounded-pill text-bg-success">{{tag.tagName}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="loading" class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div style="margin: 10px" v-if="!loading && !isNoMore" class="text-center" @click="loadMore">
+                    <span style="color: #b40000">加载更多</span></div>
+                <div style="margin: 10px" v-if="!loading && isNoMore" class="text-center">——没有更多数据了——</div>
             </div>
-          </div>
         </div>
-        <div v-if="loading" class="text-center">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+        <div class=" col-lg-3 col-sm-12">
+            <div th:insert="~{common/common::ghcard}"></div>
         </div>
-        <div style="margin: 10px" v-if="!loading && !isNoMore" class="text-center" @click="loadMore">
-          <span style="color: #b40000">加载更多</span></div>
-        <div style="margin: 10px" v-if="!loading && isNoMore" class="text-center">——没有更多数据了——</div>
-      </div>
     </div>
-    <div class=" col-lg-3 col-sm-12">
-      <div th:insert="~{common/common::ghcard}"></div>
-    </div>
-  </div>
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>

@@ -1,3 +1,7 @@
+.stress{
+    color: #b40000;
+    font-weight: bold;
+}
 .full{
     padding-top: 80px;
     min-height: calc(100% - 125px);

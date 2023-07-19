@@ -30,8 +30,8 @@
                                     <div style="font-size: x-large">{{poetry.poetryTitle}}</div>
                                 </a>
                                 <div style="margin-top: 20px;margin-bottom: 20px ">
-                                    [<a style="color: #580000" target="_blank">{{poetry.poetryDynasty}}</a>]
-                                    <a :href="'/author/'+poetry.authorId" style="color: #580000" target="_blank"
+                                    [<a class="link-info" target="_blank">{{poetry.poetryDynasty}}</a>]
+                                    <a class="link-info" :href="'/author/'+poetry.authorId" target="_blank"
                                     >{{poetry.poetryAuthor}}</a>
                                 </div>
 
@@ -43,7 +43,7 @@
                                 <div style="margin-top: 20px">
                                     <a v-for="tag in poetry.tagList" target="_blank"
                                        :href="'/index/poetry?tag='+tag.tagId"
-                                       class="badge rounded-pill text-bg-primary">{{tag.tagName}}</a>
+                                       class="badge rounded-pill text-bg-success">{{tag.tagName}}</a>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                            style="font-size: 22px;">{{author.authorName}} </a>
                                     </div>
                                     <div>
-                                        朝代 : <a style="color: #580000" target="_blank">{{author.authorDynasty}}</a>
+                                        朝代 : <a class="link-info" target="_blank">{{author.authorDynasty}}</a>
                                     </div>
                                 </div>
                                 <span>{{author.info}}</span> <a target="_blank"
