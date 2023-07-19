@@ -1,3 +1,34 @@
+import instance from "./request.js";
+import {createToast,clearToken} from "./base.js";
+
+var logoutModel;
+
+var showLogout=document.getElementById('showLogout')
+if (showLogout){
+    showLogout.addEventListener('click', ev => {
+        showLogoutModel()
+    })
+    document.getElementById('logout').addEventListener('click',logout)
+}
+function showLogoutModel() {
+    //初始化模态框
+    logoutModel = new bootstrap.Modal(document.getElementById('logoutModal'))
+    logoutModel.show()
+}
+
+function logout() {
+    instance({
+        url: "/logout",
+        method: 'post',
+    }).then(function (response) {
+        createToast("退出成功","success")
+        //清楚token
+        clearToken()
+        window.location.reload()
+        logoutModel.hide()
+    });
+}
+
 document.getElementById('keyword').addEventListener('keydown', ev => {
     if (ev.key === 'Enter') {
         search()
@@ -9,22 +40,7 @@ function search() {
     //搜索内容不能为空
     let keyword = document.getElementById('keyword').value.trim()
     if (keyword === '' || keyword === undefined) {
-        Toastify({
-            text: "搜索内容不能为空",
-            duration: 2000,
-            newWindow: true,
-            close: false,
-            gravity: "top", // `top` or `bottom`
-            position: "center", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                //成功 linear-gradient(to right, #56ab2f, #a8e063)
-                //警告 linear-gradient(to right, #f2994a, #f2c94c)
-                //错误 linear-gradient(to right, #ed213a, #93291e)
-                //提示 linear-gradient(to right, #2c3e50, #bdc3c7)
-                background: "linear-gradient(to right, #f2994a, #f2c94c)",
-            },
-        }).showToast();
+        createToast("搜索内容不能为空",'warning')
     } else {
         let searchType = document.getElementById('searchType').value
         if ('/search' === window.location.pathname) {

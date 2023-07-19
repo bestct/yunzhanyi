@@ -47,8 +47,8 @@ createApp({
                     createToast("登录成功", 'success')
                     loginBtn.disabled = false
                     loginLoading.hidden = true
-                    var now=new Date();
-                    now.setMilliseconds(now.getMilliseconds()+response.data.expires_in)
+                    var now = new Date();
+                    now.setMilliseconds(now.getMilliseconds() + response.data.expires_in)
                     document.cookie = "token=" + response.data.access_token + ";path=/;expires=" + now.toUTCString() + ";"
                     //重定向
                     var url = getQueryString("redirect")
@@ -61,19 +61,19 @@ createApp({
         },
         registerAccount() {
             if (this.phone === '') {
-                createToast('手机号不能为空',"warning")
+                createToast('手机号不能为空', "warning")
                 return;
             }
             if (!isPhoneNumber(this.phone)) {
-                createToast('手机号格式错误！',"warning")
+                createToast('手机号格式错误！', "warning")
                 return;
             }
             if (this.registerPassword === '') {
-                createToast("请输入密码！","warning")
+                createToast("请输入密码！", "warning")
             } else if (this.registerPassword.length < 8) {
-                createToast("密码长度不能小于8！","warning")
+                createToast("密码长度不能小于8！", "warning")
             } else if (this.rePassword !== this.registerPassword) {
-                createToast("两次密码不一致","warning")
+                createToast("两次密码不一致", "warning")
             } else {
                 instance({
                         method: 'post',
@@ -84,10 +84,10 @@ createApp({
                         }
                     }
                 ).then(function (response) {
-                    createToast("注册成功，请去登录吧","success")
-                    this.registerPassword=''
-                    this.rePassword=''
-                    this.phone=''
+                    createToast("注册成功，请去登录吧", "success")
+                    this.registerPassword = ''
+                    this.rePassword = ''
+                    this.phone = ''
                 })
             }
         },

@@ -8,6 +8,7 @@ import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.common.security.service.TokenService;
+import net.yunzhanyi.common.security.utils.SecurityUtils;
 import net.yunzhanyi.common.web.manager.AsyncManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -66,6 +68,12 @@ public class LoginController {
         loginService.register(phone, password);
         return AjaxResult.success(AccountConstant.REGISTER_SUCCESS,null);
     }
-
+    @PostMapping("/api/logout")
+    @ResponseBody
+    public AjaxResult<String> logout(HttpServletRequest request){
+        String token = SecurityUtils.getToken(request);
+        tokenService.removeLoginUserToken(token);
+        return AjaxResult.success();
+    }
 
 }

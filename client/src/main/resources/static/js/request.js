@@ -12,12 +12,12 @@ instance.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     if (response.data.code === 500) {
         createToast(response.data.msg, "error")
-        return Promise.reject(error);
+        return Promise.reject(response.data.msg);
     }
     if (response.data.code === 401 || response.data.code === 403) {
         createToast(response.data.msg, "error")
         toLogin()
-        return Promise.reject(error);
+        return Promise.reject(response.data.msg);
     }
     return response.data;
 }, function (error) {

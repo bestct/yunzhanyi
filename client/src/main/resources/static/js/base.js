@@ -38,12 +38,12 @@ export function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
     if (r != null) {
-        return unescape(r[2]);
+        return decodeURIComponent(r[2]);
     }
     return null;
 }
 export function toLogin() {
-    window.location.href = "/login" + "?redirect=" + location.pathname + location.search
+    window.location.href = "/login" + "?redirect=" + location.pathname + encodeURIComponent(location.search)
 }
 export function createToast(text,type) {
     var typeStyle={
