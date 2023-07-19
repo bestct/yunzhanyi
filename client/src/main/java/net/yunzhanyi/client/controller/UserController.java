@@ -6,7 +6,9 @@ import net.yunzhanyi.client.domain.vo.SexType;
 import net.yunzhanyi.client.service.ClientAccountService;
 import net.yunzhanyi.client.service.ClientUserService;
 import net.yunzhanyi.client.utils.AuthUtils;
+import net.yunzhanyi.common.core.constants.AccountConstant;
 import net.yunzhanyi.common.core.constants.UserConstant;
+import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.redis.service.RedisService;
 import net.yunzhanyi.common.web.utils.DataMaskingUtils;
@@ -15,10 +17,7 @@ import net.yunzhanyi.domain.pojo.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +26,7 @@ import java.util.List;
 /**
  * @author bestct
  * @date 2023/7/15
- * description: TODO
+ * description:
  */
 @Controller
 public class UserController {
@@ -80,6 +79,53 @@ public class UserController {
         } else {
             return AjaxResult.error(UserConstant.NICKNAME_ERROR);
         }
+        return AjaxResult.success();
+    }
+
+    @CheckLogin
+    @ResponseBody
+    @PostMapping("/api/bind/phone")
+    public AjaxResult bindPhone(
+            @RequestParam String phone) {
+
+        if (!StringUtils.isMobile(phone)) {
+            return AjaxResult.error(AccountConstant.PHONE_ERROR);
+        }
+        long aid = AuthUtils.getUserid();
+        if (!clientAccountService.checkPhoneUnique(phone)) {
+            return AjaxResult.error(AccountConstant.PHONE_NOT_UNIQUE);
+        }
+        clientAccountService.bindPhone(aid, phone);
+        return AjaxResult.success();
+    }
+
+    @CheckLogin
+    @ResponseBody
+    @PostMapping("/api/bind/email")
+    public AjaxResult bindEmail(
+            @RequestParam String email) {
+
+        if (!StringUtils.isEmail(email)) {
+            return AjaxResult.error(AccountConstant.EMAIL_ERROR);
+        }
+        long aid = AuthUtils.getUserid();
+        if (!clientAccountService.checkEmailUnique(email)) {
+            return AjaxResult.error(AccountConstant.EMAIL_NOT_UNIQUE);
+        }
+        clientAccountService.bindEmail(aid, email);
+        return AjaxResult.success();
+    }
+
+
+    @CheckLogin
+    @PostMapping("/api/change/password")
+    @ResponseBody
+    public AjaxResult changePassword(@RequestParam String newPassword) {
+        long aid = AuthUtils.getUserid();
+        if (StringUtils.isEmpty(newPassword) || newPassword.length() < AccountConstant.MIN_PASSWORD_LENGTH) {
+            return AjaxResult.error(AccountConstant.PASSWORD_ERROR);
+        }
+        clientAccountService.changePassword(aid, newPassword);
         return AjaxResult.success();
     }
 }

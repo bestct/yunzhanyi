@@ -27,16 +27,14 @@
                     <div class="tab-content">
                         <div id="account" class="container tab-pane active">
                             <div class="mb-3 mt-3 input-group">
-                                <input type="text" th:value="${phone}" placeholder="未绑定手机号" class="form-control"
-                                       >
-                                <button class="btn btn-success" onclick="showPhoneModal()">绑定手机</button>
+                                <input type="text" th:value="${phone}" placeholder="未绑定手机号" class="form-control">
+                                <button id="showPhoneModalBtn" class="btn btn-success">绑定手机</button>
                             </div>
                             <div class="mb-3 input-group">
                                 <input type="text" th:value="${email}"  placeholder="未绑定邮箱"
                                        class="form-control">
-                                <button class="btn btn-success" onclick="showEmailModal()">绑定邮箱</button>
+                                <button id="showEmailModalBtn" class="btn btn-success">绑定邮箱</button>
                             </div>
-
                         </div>
                         <div id="changePassword" class="container tab-pane fade"><br>
                             <div class="mb-3 mt-3 input-group">
@@ -48,7 +46,7 @@
                                        placeholder="确认密码">
                             </div>
                             <br>
-                            <button class="w-100 btn btn-primary" onclick="changePassword();"
+                            <button id="cpButton" class="w-100 btn btn-primary"
                                     type="button">
                                 修改
                             </button>
@@ -62,7 +60,58 @@
         </div>
     </div>
 </div>
+
+<!-- 模态框 -->
+<div class="modal fade" id="phoneModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h3 class="modal-title">绑定手机号</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- 模态框内容 -->
+            <div class="modal-body">
+                <input type="text" placeholder="请输入手机号" class="form-control" id="phone">
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="bindPhoneBtn">绑定
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- 模态框 -->
+<div class="modal fade" id="emailModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h3 class="modal-title">绑定邮箱</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- 模态框内容 -->
+            <div class="modal-body">
+                <input type="text" placeholder="请输入邮箱" class="form-control" id="email">
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="bindEmailBtn">绑定
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <th:block th:insert="~{common/footer::tail}"></th:block>
+<script type="module" charset="utf-8" th:src="@{/js/account.js}"></script>
 </html>
