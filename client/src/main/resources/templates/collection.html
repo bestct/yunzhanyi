@@ -1,26 +1,109 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" data-bs-theme="light">
 <head>
-  <title th:text="${loginUser.username}+'收藏管理-云沾衣诗词网'">云沾衣诗词网</title>
-  <th:block th:insert="~{common/header::head}"></th:block>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+    <title th:text="${loginUser.username}+'收藏管理-云沾衣诗词网'">云沾衣诗词网</title>
+    <th:block th:insert="~{common/header::head}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/base.css}">
+    <style>
+        .collect-cancel {
+            margin-right: 10px;
+            color: gold;
+        }
+
+        .collect-cancel :hover {
+            cursor: pointer;
+            color: goldenrod;
+        }
+
+
+        .collect-add {
+            margin-right: 10px;
+            color: gray;
+        }
+
+        .collect-add:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body class="bg-body-secondary">
 <div th:insert="~{common/header :: main_nav}"></div>
 <div class="container full">
-  <div class="row" style="padding: 10px">
-    <div class="col-lg-3 col-sm-auto">
+    <div class="row" style="padding: 10px">
+        <div class="col-lg-3 col-sm-auto">
+        </div>
+        <div class="col-lg-6">
+            <div th:insert="~{common/header :: user-head}"></div>
+            <div id="app" hidden>
+                <ul class="nav nav-tabs nav-fill">
+                    <li class="nav-item mx-3">
+                        <a @click="switchType(0)"
+                           :class="collectionType == 0 ?'nav-link active':'nav-link'">全部</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a @click="switchType(1)"
+                           :class="collectionType ==1 ? 'nav-link active ':'nav-link'">诗词</a>
+                    </li>
 
-    </div>
-    <div class="col-lg-6">
-      <div th:insert="~{common/header :: user-head}"></div>
-    </div>
-    <div class="col-lg-3 col-sm-auto">
+                    <li class="nav-item mx-3">
+                        <a @click="switchType(2)"
+                           :class="collectionType == 2 ? 'nav-link active ':'nav-link'">诗人</a>
+                    </li>
+                </ul>
+                <div class="table-responsive" style="min-height: 500px">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>标题</th>
+                            <th>收藏时间</th>
+                            <th>取消</th>
+                        </tr>
+                        </thead>
 
+                        <tbody>
+                        <tr v-for="collection in dataList">
+                            <td>
+                                <em>{{collection.collectionType == 1 ? '诗文':'作者'}}</em>
+                            </td>
+                            <td>
+                                <a href="javascript:"
+                                   @click="resToTarget(collection.resId,collection.collectionType)">{{collection.resName}}</a>
+                            </td>
+                            <td>
+                                <span>{{collection.collectionTime}}</span>
+                            </td>
+                            <td>
+                                <span class="collect-cancel"
+                                      v-bind:id="'sp_' + collection.id"
+                                      @click="doCollection(collection.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                          <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                        </svg>
+                                </span>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div v-if="loading" class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div style="margin: 10px" v-if="!loading && !isNoMore" class="text-center" @click="loadMore">
+                        <span style="color: #b40000">加载更多</span></div>
+                    <div style="margin: 10px" v-if="!loading && isNoMore" class="text-center">——没有更多数据了——</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-auto">
+        </div>
     </div>
-  </div>
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <th:block th:insert="~{common/footer::tail}"></th:block>
+<script type="module" charset="utf-8" th:src="@{/js/collection.js}"></script>
 </html>

@@ -25,7 +25,7 @@
         where  id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByUserid" resultType="net.yunzhanyi.domain.pojo.ClientCollection">
+    <select id="selectByUserid" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
         from client_collection
         where user_id =#{userid} and collection_status = 1
