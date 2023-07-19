@@ -1,6 +1,8 @@
 package net.yunzhanyi.common.security.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
+import cn.hutool.core.map.MapUtil;
 import net.yunzhanyi.common.core.constants.CacheConstants;
 import net.yunzhanyi.common.core.constants.SecurityConstants;
 import net.yunzhanyi.common.core.utils.JwtUtils;
@@ -85,10 +87,13 @@ public class TokenServiceImpl implements TokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + expireTime);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        redisService.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MILLISECONDS);
+        Map<String, Object> map = BeanUtil.beanToMap(loginUser);
+        redisService.setCacheMap(userKey, map);
+        redisService.expire(userKey, expireTime, TimeUnit.MILLISECONDS);
     }
 
-    private String getTokenKey(String token) {
+    @Override
+    public String getTokenKey(String token) {
         return accessToken + token;
     }
 
@@ -149,7 +154,11 @@ public class TokenServiceImpl implements TokenService {
         try {
             if (StringUtils.isNotEmpty(token)) {
                 String userkey = JwtUtils.getUserKey(token);
-                user = redisService.getCacheObject(getTokenKey(userkey));
+                Map<String, Object> cacheMap = redisService.getCacheMap(getTokenKey(userkey));
+                if (MapUtil.isEmpty(cacheMap)) {
+                    return null;
+                }
+                user = BeanUtil.mapToBean(cacheMap, LoginUser.class, true);
                 return user;
             }
         } catch (Exception ignored) {

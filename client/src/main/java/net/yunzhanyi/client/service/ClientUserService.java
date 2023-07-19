@@ -15,4 +15,19 @@ public interface ClientUserService {
      * @return {@link ClientUser}
      */
     ClientUser getUserById(Long userid);
+
+    /**
+     * 检查尼克名字独特
+     *
+     * @param clientUser 客户端用户
+     * @return boolean
+     */
+    boolean checkNickNameUnique(ClientUser clientUser);
+
+    /**
+     * 保存用户
+     *
+     * @param clientUser 客户端用户
+     */
+    void saveUser(ClientUser clientUser);
 }

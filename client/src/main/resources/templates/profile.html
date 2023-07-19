@@ -51,10 +51,10 @@
 
                             <div class="mb-3">
                                 <label for="join-time" class="form-label">加入时间</label>
-                                <input type="text" th:value="${clientUser.createdTime}" class="form-control"
+                                <input type="text" th:value="${#dates.format(clientUser.createdTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control"
                                        readonly id="join-time">
                             </div>
-                            <button type="button" class="w-100 btn btn-primary" onclick="savaUser()">保存</button>
+                            <button id="savaUser" type="button" class="w-100 btn btn-primary">保存</button>
                         </div>
                     </form>
                 </div>
@@ -69,4 +69,5 @@
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <th:block th:insert="~{common/footer::tail}"></th:block>
+<script type="module" charset="utf-8" th:src="@{/js/profile.js}"></script>
 </html>

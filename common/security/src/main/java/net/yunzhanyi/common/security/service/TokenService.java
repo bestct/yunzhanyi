@@ -57,4 +57,11 @@ public interface TokenService {
      */
     void removeLoginUserToken(String token);
 
+    /**
+     * 获得令牌密钥
+     *
+     * @param token 令牌
+     * @return {@link String}
+     */
+    String getTokenKey(String token);
 }

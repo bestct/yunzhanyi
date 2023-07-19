@@ -2,6 +2,7 @@ package net.yunzhanyi.domain.mapper;
 
 import net.yunzhanyi.domain.pojo.ClientUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author bestct
@@ -24,4 +25,11 @@ public interface ClientUserMapper {
 
     int updateByPrimaryKey(ClientUser record);
 
+    /**
+     * 选择通过尼克名字
+     *
+     * @param nickName 尼克名字
+     * @return {@link ClientUser}
+     */
+    ClientUser selectByNickName(@Param("nickName") String nickName);
 }

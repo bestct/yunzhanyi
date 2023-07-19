@@ -66,7 +66,10 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
                 }
             }
         }
-        request.setAttribute(AccountConstant.LOGIN_USER, loginUser);
+        if (ObjectUtil.isNotNull(loginUser)){
+            request.setAttribute(AccountConstant.LOGIN_USER, loginUser);
+            request.setAttribute(AccountConstant.RTK,tokenService.getTokenKey(loginUser.getToken()));
+        }
         return true;
     }
 }

@@ -32,12 +32,16 @@
         select
         <include refid="Base_Column_List" />
         from client_user
-        where  aid = #{aid,jdbcType=BIGINT} 
+        where  aid = #{aid,jdbcType=BIGINT}
     </select>
-
+    <select id="selectByNickName" resultMap="BaseResultMap">
+        select aid, uid, avatar_url, nick_name, sex, signature
+        from client_user
+        where nick_name = #{nickName,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from client_user
-        where  aid = #{aid,jdbcType=BIGINT} 
+        where  aid = #{aid,jdbcType=BIGINT}
     </delete>
     <insert id="insert" keyColumn="aid" keyProperty="aid" parameterType="net.yunzhanyi.domain.pojo.ClientUser" useGeneratedKeys="true">
         insert into client_user
@@ -125,11 +129,11 @@
                     destroy_time = #{destroyTime,jdbcType=TIMESTAMP},
                 </if>
         </set>
-        where   aid = #{aid,jdbcType=BIGINT} 
+        where   aid = #{aid,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.ClientUser">
         update client_user
-        set 
+        set
             uid =  #{uid,jdbcType=BIGINT},
             avatar_url =  #{avatarUrl,jdbcType=VARCHAR},
             nick_name =  #{nickName,jdbcType=VARCHAR},
@@ -142,6 +146,6 @@
             created_time =  #{createdTime,jdbcType=TIMESTAMP},
             modified_time =  #{modifiedTime,jdbcType=TIMESTAMP},
             destroy_time =  #{destroyTime,jdbcType=TIMESTAMP}
-        where   aid = #{aid,jdbcType=BIGINT} 
+        where   aid = #{aid,jdbcType=BIGINT}
     </update>
 </mapper>

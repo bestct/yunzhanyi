@@ -152,4 +152,5 @@ public class ClientUser implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
 }
