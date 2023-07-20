@@ -44,10 +44,10 @@
                         <a th:href="'/poetry/'+${indexPoetry.poetryId}" style="font-size: x-large"
                            th:text="${indexPoetry.poetryTitle}"></a>
                         <div style="margin-top: 20px;margin-bottom: 20px ">
-                            [<a style="color: #580000" target="_blank"
+                            [<a class="link-info" target="_blank"
                                 th:href="@{/index/poetry/(dynasty=${indexPoetry.dynastyId})}"
                                 th:text="${indexPoetry.poetryDynasty}"></a>]
-                            <a style="color: #580000" th:href="@{'/author/'+${indexPoetry.authorId}}"
+                            <a class="link-info" th:href="@{'/author/'+${indexPoetry.authorId}}"
                                th:text="${indexPoetry.poetryAuthor}"
                             ></a>
                         </div>

@@ -8,89 +8,89 @@
 <body class="bg-body-secondary">
 <div th:insert="~{common/header :: main_nav}"></div>
 <div class="container full">
-    <div class="row" style="padding: 10px">
-        <div class="col-lg-2 col-sm-auto">
-
-        </div>
-        <div class="col-lg-8">
-            <div class="card" style="align-content: center">
-                <h4 style="margin: 10px"> 诗格律检测</h4>
-                <div class="card-body">
-                    <textarea class="form-control" id="content" rows="8"
+    <div id="app" hidden>
+        <div class="row" style="padding: 10px">
+            <div class="col-lg-5">
+                <div class="card" style="align-content: center">
+                    <h4 style="margin: 10px">格律示例</h4>
+                    <div class="card-body text-center">
+                        <h5>{{formsName}}</h5>
+                        <div style="font-size: 16px" v-html="formHtml">
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="align-content: center">
+                    <h4 style="margin: 10px"> 诗格律检测</h4>
+                    <div class="card-body">
+                    <textarea class="form-control" v-model="content" rows="8"
                               placeholder="请输入要检测的诗词正文"></textarea>
-                </div>
-                <div class="row" style="padding: 10px">
-                    <div class="col">
-                        <select class="form-select" aria-label="Default select example" id="selectedForm">
-                            <option selected value="1">五律</option>
-                            <option value="2">五绝</option>
-                            <option value="3">七律</option>
-                            <option value="4">七绝</option>
-                        </select>
                     </div>
-                    <div class="col">
-                        <select class="form-select" aria-label="Default select example" id="selectedFirst">
-                            <option value="1" selected>仄起首句不入韵</option>
-                            <option value="2">仄起首句入韵</option>
-                            <option value="3">平起首句不入韵</option>
-                            <option value="4">平起首句入韵</option>
-                        </select>
+                    <div class="row" style="padding: 10px">
+                        <div class="col">
+                            <select class="form-select" aria-label="Default select example" v-model="selectedFormId">
+                                <option v-for="(item, key) in selectedForm" :value="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" aria-label="Default select example" v-model="selectedFirstId">
+                                <option v-for="(item, key) in selectedFirst" :value="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div align="center" style="padding: 10px;">
-                    <div class="form-check form-check-inline">
-                        <input checked class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio1"
-                               value="1">
-                        <label class="form-check-label" for="inlineRadio1">平水韵</label>
+                    <div align="center" style="padding: 10px;">
+                        <div class="form-check form-check-inline">
+                            <input checked class="form-check-input" type="radio" v-model="rhymeBookId" id="inlineRadio1"
+                                   value="1">
+                            <label class="form-check-label" for="inlineRadio1">平水韵</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="rhymeBookId" id="inlineRadio2"
+                                   value="2">
+                            <label class="form-check-label" for="inlineRadio2">中华新韵</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" v-model="rhymeBookId" id="inlineRadio3"
+                                   value="3">
+                            <label class="form-check-label" for="inlineRadio3">中华通韵</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio2"
-                               value="2">
-                        <label class="form-check-label" for="inlineRadio2">中华新韵</label>
+                    <div class="d-grid gap-2" style="padding: 10px">
+                        <button @click="check" class="btn btn-success" type="button">开始检测</button>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="rhymeBookId" id="inlineRadio3"
-                               value="3">
-                        <label class="form-check-label" for="inlineRadio3">中华通韵</label>
-                    </div>
-                </div>
-                <div class="d-grid gap-2" style="padding: 10px">
-                    <button id="checkBtn" class="btn btn-success" type="button">开始检测</button>
-                </div>
 
-                <div id="alert" style="padding: 10px">
-                    <div id="checkSuccess" class="alert" hidden role="alert">
-                        <h4 class="alert-heading">检测成功</h4>
-                        <div id="codeResult"></div>
-                        <hr>
-                        <p id="suggest" class="mb-0"></p>
+                    <div id="alert" style="padding: 10px">
+                        <div id="checkSuccess" class="alert" hidden role="alert">
+                            <h4 class="alert-heading">检测成功</h4>
+                            <div id="codeResult"></div>
+                            <hr>
+                            <p id="suggest" class="mb-0"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="card" style="margin-top: 20px; align-content: center">
-                <h4 style="margin: 10px">韵部检索</h4>
-                <div class="card-body">
-                    <div class="input-group" style="padding: 11px">
-                        <input type="text" id="searchHanZi" class="form-control" placeholder="请输入要搜索的汉字">
-                        <button id="searchZiBtn" type="button" class="btn btn-primary btn-sm">搜索</button>
-                    </div>
-                    <div id="alertSearch" style="padding: 10px">
-                        <div id="searchSuccess" class="alert" hidden role="alert">
-                            <div id="searchResult"></div>
+            <div class="col-lg-7">
+                <div class="card" style="margin-top: 20px; align-content: center">
+                    <h4 style="margin: 10px">韵部检索</h4>
+                    <div class="card-body">
+                        <div class="input-group" style="padding: 11px">
+                            <input type="text" class="form-control" @keydown.enter="searchHanzi"
+                                   v-model="searchHanZi"
+                                   placeholder="请输入要搜索的汉字">
+                            <button @click="searchHanzi" type="button" class="btn btn-primary btn-sm">搜索</button>
+                        </div>
+                        <div id="alertSearch" style="padding: 10px">
+                            <div id="searchSuccess" class="alert" hidden role="alert">
+                                <div v-html="searchResult"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-2">
-
-    </div>
 </div>
 <div th:insert="~{common/footer::home-footer}"></div>
 </body>
 <th:block th:insert="~{common/footer::tail}"></th:block>
 <script type="module" charset="utf-8" th:src="@{/js/check.js}"></script>
-
 </html>
