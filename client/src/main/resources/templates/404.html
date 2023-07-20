@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404-云沾衣诗词网</title>
+    <style>
+        span{
+            color: #759574;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/other.css}">
+</head>
+<body>
+
+<div class="not_found">
+
+    <div class="not_found_404">
+        <span>4</span>
+        <span>0</span>
+        <span>4</span>
+    </div>
+
+    <div class="btn">
+        <a id="home" class="button button-rounded">首页</a>
+        <a id="cancel" class="button button-rounded">返回上页</a>
+    </div>
+
+</div>
+
+</body>
+<script>
+    document.getElementById('cancel').addEventListener("click", function () {
+        window.history.back()
+    });
+    document.getElementById('home').addEventListener("click", function () {
+        window.location.href = '/'
+    });
+
+</script>
+</html>
