@@ -90,4 +90,9 @@ public class IndexController {
     public String about() {
         return "about";
     }
+
+    @GetMapping("/advise")
+    public String advise() {
+        return "advise";
+    }
 }

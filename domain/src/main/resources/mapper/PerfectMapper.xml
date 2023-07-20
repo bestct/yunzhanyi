@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.PerfectMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.pojo.Perfect">
+            <id property="perfectId" column="perfect_id" jdbcType="BIGINT"/>
+            <result property="aid" column="aid" jdbcType="BIGINT"/>
+            <result property="perfectTitle" column="perfect_title" jdbcType="VARCHAR"/>
+            <result property="perfectContent" column="perfect_content" jdbcType="VARCHAR"/>
+            <result property="perfectType" column="perfect_type" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="perfectStatus" column="perfect_status" jdbcType="INTEGER"/>
+            <result property="dealTime" column="deal_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        perfect_id,aid,perfect_title,
+        perfect_content,perfect_type,create_time,
+        perfect_status,deal_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from perfect
+        where  perfect_id = #{perfectId,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from perfect
+        where  perfect_id = #{perfectId,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="perfect_id" keyProperty="perfectId" parameterType="net.yunzhanyi.domain.pojo.Perfect" useGeneratedKeys="true">
+        insert into perfect
+        ( perfect_id,aid,perfect_title
+        ,perfect_content,perfect_type,create_time
+        ,perfect_status,deal_time)
+        values (#{perfectId,jdbcType=BIGINT},#{aid,jdbcType=BIGINT},#{perfectTitle,jdbcType=VARCHAR}
+        ,#{perfectContent,jdbcType=VARCHAR},#{perfectType,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP}
+        ,#{perfectStatus,jdbcType=INTEGER},#{dealTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="perfect_id" keyProperty="perfectId" parameterType="net.yunzhanyi.domain.pojo.Perfect" useGeneratedKeys="true">
+        insert into perfect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="perfectId != null">perfect_id,</if>
+                <if test="aid != null">aid,</if>
+                <if test="perfectTitle != null">perfect_title,</if>
+                <if test="perfectContent != null">perfect_content,</if>
+                <if test="perfectType != null">perfect_type,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="perfectStatus != null">perfect_status,</if>
+                <if test="dealTime != null">deal_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="perfectId != null">#{perfectId,jdbcType=BIGINT},</if>
+                <if test="aid != null">#{aid,jdbcType=BIGINT},</if>
+                <if test="perfectTitle != null">#{perfectTitle,jdbcType=VARCHAR},</if>
+                <if test="perfectContent != null">#{perfectContent,jdbcType=VARCHAR},</if>
+                <if test="perfectType != null">#{perfectType,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="perfectStatus != null">#{perfectStatus,jdbcType=INTEGER},</if>
+                <if test="dealTime != null">#{dealTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.pojo.Perfect">
+        update perfect
+        <set>
+                <if test="aid != null">
+                    aid = #{aid,jdbcType=BIGINT},
+                </if>
+                <if test="perfectTitle != null">
+                    perfect_title = #{perfectTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="perfectContent != null">
+                    perfect_content = #{perfectContent,jdbcType=VARCHAR},
+                </if>
+                <if test="perfectType != null">
+                    perfect_type = #{perfectType,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="perfectStatus != null">
+                    perfect_status = #{perfectStatus,jdbcType=INTEGER},
+                </if>
+                <if test="dealTime != null">
+                    deal_time = #{dealTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   perfect_id = #{perfectId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.pojo.Perfect">
+        update perfect
+        set 
+            aid =  #{aid,jdbcType=BIGINT},
+            perfect_title =  #{perfectTitle,jdbcType=VARCHAR},
+            perfect_content =  #{perfectContent,jdbcType=VARCHAR},
+            perfect_type =  #{perfectType,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            perfect_status =  #{perfectStatus,jdbcType=INTEGER},
+            deal_time =  #{dealTime,jdbcType=TIMESTAMP}
+        where   perfect_id = #{perfectId,jdbcType=BIGINT} 
+    </update>
+</mapper>
