@@ -8,6 +8,7 @@ import net.yunzhanyi.common.core.constants.AccountConstant;
 import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.common.security.service.TokenService;
 import net.yunzhanyi.common.web.utils.AjaxUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Method;
 
 /**

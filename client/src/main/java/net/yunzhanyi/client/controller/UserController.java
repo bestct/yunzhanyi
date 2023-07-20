@@ -86,7 +86,7 @@ public class UserController {
     @ResponseBody
     @PostMapping("/api/bind/phone")
     public AjaxResult bindPhone(
-            @RequestParam String phone) {
+            @RequestParam("phone") String phone) {
 
         if (!StringUtils.isMobile(phone)) {
             return AjaxResult.error(AccountConstant.PHONE_ERROR);
@@ -101,9 +101,9 @@ public class UserController {
 
     @CheckLogin
     @ResponseBody
-    @PostMapping("/api/bind/email")
+    @PostMapping(value = "/api/bind/email")
     public AjaxResult bindEmail(
-            @RequestParam String email) {
+            @RequestParam("email") String email) {
 
         if (!StringUtils.isEmail(email)) {
             return AjaxResult.error(AccountConstant.EMAIL_ERROR);

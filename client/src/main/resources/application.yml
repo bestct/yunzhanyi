@@ -24,16 +24,18 @@ logging:
     name: logs\client.log
 
 swagger:
+  enabled: true
   description: 云沾衣门户网站Api
   title: 云沾衣门户网站API
   version: 1.5.0
   base-package: net.yunzhanyi.client.controller
-  contact:
-    email: 977961764@qq.com
-    name: bestct
+  email: 977961764@qq.com
+  name: bestct
+  url: https://github.com/bestct
 
 security:
   token:
     redis-key-prefix: "yunzhanyi:client"
     time-unit: minutes
     expire-time: 30
+

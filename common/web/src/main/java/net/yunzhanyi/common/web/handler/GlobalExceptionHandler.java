@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     /**
      * 系统异常
      */
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler({Exception.class,RuntimeException.class})
     public Object handleException(Exception exception, HttpServletRequest request,HttpServletResponse response) throws IOException {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, exception);

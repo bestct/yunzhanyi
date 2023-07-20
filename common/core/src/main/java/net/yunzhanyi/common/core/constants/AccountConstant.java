@@ -23,6 +23,6 @@ public class AccountConstant {
     public static final byte ACTIVE = 1;
     public static final byte DESTROY = -1;
     public static final String LOGIN_USER = "loginUser";
-    public static final String EMAIL_ERROR = "请输入正确的手机号";
+    public static final String EMAIL_ERROR = "请输入正确的邮箱";
     public static final String EMAIL_NOT_UNIQUE = "此邮箱已被注册";
 }

@@ -20,18 +20,65 @@ import java.util.List;
 @Component
 @ConfigurationProperties("swagger")
 public class SwaggerProperties implements ApplicationListener<WebServerInitializedEvent> {
-    private Boolean enabled;
+    /**
+     * 启用
+     */
+    private Boolean enabled = true;
+    /**
+     * 基本包
+     */
     private String basePackage = "";
+    /**
+     * 基本路径
+     */
     private List<String> basePath = new ArrayList();
+    /**
+     * 排除路径
+     */
     private List<String> excludePath = new ArrayList();
+    /**
+     * 标题
+     */
     private String title = "";
+    /**
+     * 描述
+     */
     private String description = "";
+    /**
+     * 版本
+     */
     private String version = "";
+    /**
+     * 许可证
+     */
     private String license = "";
+    /**
+     * 电子邮件
+     */
+    private String email;
+    /**
+     * url
+     */
+    private String url;
+    /**
+     * 名字
+     */
+    private String name;
+    /**
+     * 许可证url
+     */
     private String licenseUrl = "";
+    /**
+     * url服务条款
+     */
     private String termsOfServiceUrl = "";
+    /**
+     * 主机
+     */
     private String host = "";
-    private SwaggerProperties.Contact contact = new SwaggerProperties.Contact();
+    /**
+     * 授权
+     */
     private SwaggerProperties.Authorization authorization = new SwaggerProperties.Authorization();
 
     public SwaggerProperties() {
@@ -125,12 +172,28 @@ public class SwaggerProperties implements ApplicationListener<WebServerInitializ
         this.host = host;
     }
 
-    public SwaggerProperties.Contact getContact() {
-        return this.contact;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContact(SwaggerProperties.Contact contact) {
-        this.contact = contact;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public SwaggerProperties.Authorization getAuthorization() {
@@ -156,7 +219,7 @@ public class SwaggerProperties implements ApplicationListener<WebServerInitializ
         }
 
         log.info("\n-----------------------------------------" +
-                "\nswagger 接口文档地址:" + "\n http://"+hostAddress+":" + port + applicationName + "/doc.html" +
+                "\nswagger 接口文档地址:" + "\n http://" + hostAddress + ":" + port + applicationName + "/doc.html" +
                 "\n-----------------------------------------");
 
     }
@@ -224,39 +287,6 @@ public class SwaggerProperties implements ApplicationListener<WebServerInitializ
 
         public void setTokenUrlList(List<String> tokenUrlList) {
             this.tokenUrlList = tokenUrlList;
-        }
-    }
-
-    public static class Contact {
-        private String name = "";
-        private String url = "";
-        private String email = "";
-
-        public Contact() {
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getUrl() {
-            return this.url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getEmail() {
-            return this.email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
         }
     }
 }
