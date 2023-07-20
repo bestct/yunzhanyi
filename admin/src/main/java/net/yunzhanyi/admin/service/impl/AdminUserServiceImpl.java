@@ -1,8 +1,6 @@
 package net.yunzhanyi.admin.service.impl;
 
 import net.yunzhanyi.admin.service.AdminUserService;
-import net.yunzhanyi.domain.mapper.AdminUserMapper;
-import net.yunzhanyi.domain.pojo.AdminUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

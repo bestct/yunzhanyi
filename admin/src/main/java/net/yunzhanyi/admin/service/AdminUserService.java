@@ -1,7 +1,5 @@
 package net.yunzhanyi.admin.service;
 
-import net.yunzhanyi.domain.pojo.AdminUser;
-
 /**
  * 管理用户服务
  *

@@ -2,7 +2,6 @@ package net.yunzhanyi.admin.controller.system;
 
 import net.yunzhanyi.admin.service.AdminUserService;
 import net.yunzhanyi.common.core.vo.AjaxResult;
-import net.yunzhanyi.domain.pojo.AdminUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

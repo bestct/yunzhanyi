@@ -1,7 +1,5 @@
 package net.yunzhanyi.admin;
 
-import net.yunzhanyi.domain.mapper.AdminUserMapper;
-import net.yunzhanyi.domain.pojo.AdminUser;
 import net.yunzhanyi.common.security.utils.SecurityUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
