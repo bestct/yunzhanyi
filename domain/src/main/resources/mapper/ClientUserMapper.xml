@@ -39,6 +39,11 @@
         from client_user
         where nick_name = #{nickName,jdbcType=VARCHAR}
     </select>
+    <select id="selectCountByNickName" resultType="java.lang.Long">
+        select count(aid)
+        from client_user
+        where nick_name = #{nickName}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from client_user
         where  aid = #{aid,jdbcType=BIGINT}

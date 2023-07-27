@@ -1,21 +1,21 @@
 package net.yunzhanyi.client.controller;
 
+import io.swagger.annotations.ApiOperation;
 import net.yunzhanyi.client.domain.vo.LoginVo;
 import net.yunzhanyi.client.service.LoginService;
 import net.yunzhanyi.client.task.AsyncFactory;
 import net.yunzhanyi.common.core.constants.AccountConstant;
+import net.yunzhanyi.common.core.constants.LoginConstant;
 import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.common.security.service.TokenService;
 import net.yunzhanyi.common.security.utils.SecurityUtils;
 import net.yunzhanyi.common.web.manager.AsyncManager;
+import net.yunzhanyi.domain.pojo.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -47,6 +47,17 @@ public class LoginController {
         AsyncManager.me().execute(AsyncFactory.recordLoginLog(loginUser));
         Map<String, Object> token = tokenService.createToken(loginUser);
         return AjaxResult.success("",token);
+    }
+    @ApiOperation(value = "小程序直接登录")
+    @PostMapping("/api/login/mini")
+    @ResponseBody
+    public AjaxResult miniLogin(
+            @RequestParam("principal") String principal,
+            @RequestBody ClientUser user) {
+        LoginUser loginUser = loginService.miniLogin(principal, user);
+        AsyncManager.me().execute(AsyncFactory.recordLoginLog(loginUser));
+        Map<String,Object> token = tokenService.createToken(loginUser);
+        return AjaxResult.success(LoginConstant.LOGIN_SUCCESS, token);
     }
 
     @PostMapping("/api/register")

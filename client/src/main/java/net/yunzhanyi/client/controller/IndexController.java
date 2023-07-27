@@ -38,6 +38,13 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/api/index")
+    @ResponseBody
+    public AjaxResult<Map<String,Object>> index() {
+        Map<String, Object> indexMap = indexService.indexApi();
+        return AjaxResult.successWithoutMsg(indexMap);
+    }
+
     @GetMapping("/index/poetry")
     public String indexPoetry(
             @RequestParam(value = "dynasty", defaultValue = "0") Integer dynasty,
@@ -50,7 +57,7 @@ public class IndexController {
 
     @GetMapping("/api/tag/{tagId}")
     @ResponseBody
-    public AjaxResult<List<Tag>> getTagList(@PathVariable Integer tagId){
+    public AjaxResult<List<Tag>> getTagList(@PathVariable Integer tagId) {
         List<Tag> tags = indexService.getTagList(tagId);
         return AjaxResult.successWithoutMsg(tags);
     }
@@ -63,7 +70,7 @@ public class IndexController {
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Poetry> poetryList = indexService.indexApiPoetry(dynasty,tagId);
+        List<Poetry> poetryList = indexService.indexApiPoetry(dynasty, tagId);
         return AjaxResult.successWithoutMsg(poetryList);
     }
 

@@ -135,4 +135,14 @@ public class IndexServiceImpl implements IndexService {
         List<Tag> tags = tagService.checkTagId(tagId, tagVos);
         return tags;
     }
+
+    @Override
+    public Map<String, Object> indexApi() {
+        List<Part> partList = redisService.getCacheList(CacheConstants.REDIS_INDEX_PARTS);
+        Poetry poetry = redisService.getCacheObject(CacheConstants.REDIS_INDEX_POETRY);
+        Map<String, Object> indexMap = new HashMap<>(3);
+        indexMap.put("partList", partList);
+        indexMap.put("indexPoetry", poetry);
+        return indexMap;
+    }
 }

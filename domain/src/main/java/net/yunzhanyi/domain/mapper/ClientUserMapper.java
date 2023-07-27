@@ -32,4 +32,13 @@ public interface ClientUserMapper {
      * @return {@link ClientUser}
      */
     ClientUser selectByNickName(@Param("nickName") String nickName);
+
+    /**
+     * 选择计数尼克名字
+     *
+     * @param nickName 尼克名字
+     * @return long
+     */
+    long selectCountByNickName(@Param("nickName") String nickName);
+
 }

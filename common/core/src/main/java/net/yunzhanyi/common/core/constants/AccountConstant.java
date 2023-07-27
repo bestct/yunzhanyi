@@ -19,9 +19,9 @@ public class AccountConstant {
     public static final String VERIFICATION_EXPIRED = "验证已过期";
     public static final String DEFAULT_USER = "默认用户";
     public static final int MIN_PASSWORD_LENGTH = 8;
-    public static final byte DISABLED = 0;
-    public static final byte ACTIVE = 1;
-    public static final byte DESTROY = -1;
+    public static final Integer DISABLED = 0;
+    public static final Integer ACTIVE = 1;
+    public static final Integer DESTROY = -1;
     public static final String LOGIN_USER = "loginUser";
     public static final String EMAIL_ERROR = "请输入正确的邮箱";
     public static final String EMAIL_NOT_UNIQUE = "此邮箱已被注册";

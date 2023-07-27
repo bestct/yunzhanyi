@@ -158,4 +158,29 @@ public class PoetryServiceImpl implements PoetryService {
         return poetries;
     }
 
+    @Override
+    public PoetryVo searchPoetryById(Long poetryId) {
+        Poetry poetry = poetryMapper.selectWithDetailsByPrimaryKey(poetryId);
+        if (poetry == null) {
+            throw  new NullPointerException();
+        }
+        PoetryVo poetryVo = new PoetryVo();
+        BeanUtils.copyProperties(poetry, poetryVo);
+        String tags = poetry.getTags();
+        if (StringUtils.isNotEmpty(tags)) {
+            String[] split = tags.split(";");
+            List<Tag> tagList = new ArrayList<>();
+            for (String name : split) {
+                Tag tag = tagMapper.selectByName(name);
+                tagList.add(tag);
+            }
+            poetryVo.setTagList(tagList);
+        }
+        long uid = AuthUtils.getUserid();
+        poetryVo.setCollection(collectionService.isCollected(uid, poetryId, 1));
+        Author author = authorMapper.selectByPrimaryKey(poetry.getAuthorId());
+        poetryVo.setAuthor(author);
+        return poetryVo;
+    }
+
 }

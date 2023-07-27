@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author bestct
  * @date 2022/9/30
- * @type 类 http://localhost:8081/author/poetry/4265
+ * @type 类
  */
 @Controller
 public class AuthorController {
@@ -40,7 +40,13 @@ public class AuthorController {
         model.addAttribute("author", authorVo);
         return "author-detail";
     }
-
+    @GetMapping("/api/author/{authorId}")
+    @ResponseBody
+    @AccountPublic
+    public AjaxResult authorDetail(@PathVariable Long authorId) {
+        AuthorVo authorVo = authorService.searchWebAuthorById(authorId);
+        return AjaxResult.successWithoutMsg(authorVo);
+    }
     @GetMapping("/api/author/poetry/{authorId}")
     @ResponseBody
     public AjaxResult<PageVo> authorPoetry(@PathVariable Long authorId,

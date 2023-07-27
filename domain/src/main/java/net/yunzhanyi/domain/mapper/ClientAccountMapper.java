@@ -29,4 +29,5 @@ public interface ClientAccountMapper {
 
     ClientAccount selectByEmail(@Param("email") String email);
 
+    ClientAccount selectByOpenid(@Param("openid") String openid);
 }

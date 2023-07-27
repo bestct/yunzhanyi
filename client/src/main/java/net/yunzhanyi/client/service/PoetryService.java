@@ -78,4 +78,13 @@ public interface PoetryService {
      * @return {@link List}<{@link Poetry}>
      */
     List<Poetry> indexApiPoetry(Integer dynasty, Integer tagId);
+
+    /**
+     * 搜索诗歌通过id
+     *
+     * @param poetryId 诗歌id
+     * @return {@link PoetryVo}
+     */
+    PoetryVo searchPoetryById(Long poetryId);
+
 }

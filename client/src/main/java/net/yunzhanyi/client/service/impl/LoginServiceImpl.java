@@ -3,6 +3,7 @@ package net.yunzhanyi.client.service.impl;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import net.yunzhanyi.client.service.LoginService;
+import net.yunzhanyi.client.utils.WXUtils;
 import net.yunzhanyi.common.core.constants.AccountConstant;
 import net.yunzhanyi.common.core.constants.LoginConstant;
 import net.yunzhanyi.common.core.utils.StringUtils;
@@ -90,6 +91,41 @@ public class LoginServiceImpl implements LoginService {
         clientAccount.setCreatedTime(new Date());
         clientAccountMapper.insertSelective(clientAccount);
         createDefaultUser(clientAccount.getAid());
+    }
+
+    @Override
+    public LoginUser miniLogin(String principal, ClientUser user) {
+        //获取openID
+        String openid = WXUtils.getOpenid(principal);
+        ClientAccount account = clientAccountMapper.selectByOpenid(openid);
+        //判断是否已注册
+        if (account == null) {
+            account = createAccountByOpenid(openid, user);
+        }
+        if (!AccountConstant.ACTIVE.equals(account.getStatus())) {
+            throw new RuntimeException(LoginConstant.LOGIN_FAIL);
+        }
+        return createClientLoginUser(account.getAid());
+    }
+
+    private ClientAccount createAccountByOpenid(String openid, ClientUser newUser) {
+        ClientAccount account = new ClientAccount();
+        account.setOpenid(openid);
+        account.setStatus(1);
+        account.setCreatedTime(new Date());
+        clientAccountMapper.insertSelective(account);
+        String nickName = newUser.getNickName();
+        long count = clientUserMapper.selectCountByNickName(nickName);
+        if (count != 0) {
+            newUser.setNickName(nickName + "_" + StringUtils.getUniqueStr());
+        }
+        newUser.setAid(account.getAid());
+        newUser.setBirthday(new Date());
+        newUser.setSex(0);
+        newUser.setCreatedTime(new Date());
+        newUser.setSignature("这个人很懒，还没设置签名");
+        clientUserMapper.insertSelective(newUser);
+        return account;
     }
 
     private void createDefaultUser(Long aid) {
