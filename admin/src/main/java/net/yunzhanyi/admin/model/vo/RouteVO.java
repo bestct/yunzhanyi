@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 @Schema(description = "路由对象")
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RouteVO {
+public class RouteVO implements Serializable {
 
     @Schema(description = "路由路径", example = "user")
     private String path;
@@ -34,7 +35,7 @@ public class RouteVO {
 
     @Schema(description = "路由属性类型")
     @Data
-    public static class Meta {
+    public static class Meta implements Serializable{
 
         @Schema(description = "路由title")
         private String title;
