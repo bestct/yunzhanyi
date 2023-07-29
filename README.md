@@ -5,39 +5,62 @@
 云沾衣 出自唐代的书法家，诗人张旭《山中留客》一诗中的
 “纵使晴明无雨色，入云深处亦沾衣。”
 
-
-> > 地址：https://www.yunzhanyi.net/
+**官网**：[云沾衣诗词官网](https://www.yunzhanyi.net)
 
 ### 项目模块
 
 ```
 ├─yunzhanyi  -父项目
-  └─admin    -管理端
+  └─admin    -管理端API
   └─client   -客户端
   └─domain   -数据库操作
   └─common   -通用模块
-    └─core   -核心模块
-    └─web    -web模块
+    └─core     -核心模块
+    └─redis    -缓存模块
+    └─security -安全模块
+    └─swagger  -接口文档模块
+    └─web      -web模块
 ```
 ### 项目主要依赖：
+**后端**
 - SpringBoot 2.7.4
 - MySQL 8.0
 - MyBatis 3.5.7
-- swagger3
-- fastjson
-- thymeleaf
-- bootstrap5
+- MyBatis-Plus 3.5.7
+- Swagger3
+- Fastjson
+
+**前端**
+- Thymeleaf
+- Bootstrap5
+- Vue3
+- Axios
+
+#### 技术栈考虑
+- 网站管理端在有来后台管理框架基础上进行改造。采用前后端分离模式，项目[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin) 为后端API
+前端UI地址为[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
+  
+- 网站客户端采用前后端不分离模式。使用 Thymeleaf + Vue3 在SEO和客户体验之间进行取舍，在用户操作复杂页面使用Vue。
 
 ### 本地环境
 - Java 11
 - MySQL 8.0
 - Redis
 
-### 演示图片：
-![首页](./screenshot/show0.jpg "TIM图片20190415212647.png")
-![诗词索引](./screenshot/show1.jpg "TIM图片20190415212747.png")
-![诗词详情](./screenshot/show2.jpg "TIM图片20190415212836.png")
-![诗词收藏](./screenshot/show3.jpg "TIM图片20190415212936.png")
+### TODO
+- [x] 用户相关
+- [x] 诗词相关
+- [x] 诗人相关
+- [x] 诗词作者搜索
+- [x] 收藏
+- [x] 黑夜模式
+- [x] 韵部查询
+- [x] 诗格律检测
+- [x] 课本诗词
+- [ ] 词格律检测
+- [ ] 诗词格律教学
+- [ ] 词谱
+- [ ] 自由诗（现代诗）
 
 ### 数据库
 *四十万诗词加详情和两万的作者 SQL文件实在太大,所以放在了qq群里*
@@ -47,7 +70,6 @@
 
 #### qq群
 <img src="https://res.yunzhanyi.net/static/img/qun.jpg" width="200"/>
-
 
 ### 支持一下
 <img src="https://res.yunzhanyi.net/static/img/zanshang.png" width="200"/>
