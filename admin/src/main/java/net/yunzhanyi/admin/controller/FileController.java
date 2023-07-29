@@ -12,9 +12,15 @@ import net.yunzhanyi.admin.service.OssService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 文件控制器
+ *
+ * @author bestct
+ * @date 2023/07/29
+ */
 @Tag(name = "07.文件接口")
 @RestController
-@RequestMapping("/api/v1/files")
+@RequestMapping("/api/files")
 @RequiredArgsConstructor
 public class FileController {
 

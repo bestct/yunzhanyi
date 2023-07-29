@@ -21,9 +21,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * 系统角色控制器
+ *
+ * @author bestct
+ * @date 2023/07/29
+ */
 @Tag(name = "03.角色接口")
 @RestController
-@RequestMapping("/api/v1/roles")
+@RequestMapping("/api/roles")
 @RequiredArgsConstructor
 public class SysRoleController {
 

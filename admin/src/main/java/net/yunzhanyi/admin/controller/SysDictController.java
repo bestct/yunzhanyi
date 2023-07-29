@@ -24,9 +24,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * sys dict控制器
+ *
+ * @author bestct
+ * @date 2023/07/29
+ */
 @Tag(name = "06.字典接口")
 @RestController
-@RequestMapping("/api/v1/dict")
+@RequestMapping("/api/dict")
 @RequiredArgsConstructor
 public class SysDictController {
 

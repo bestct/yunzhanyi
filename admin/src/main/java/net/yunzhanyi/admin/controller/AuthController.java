@@ -26,9 +26,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 身份验证控制器
+ *
+ * @author bestct
+ * @date 2023/07/29
+ */
 @Tag(name = "01.认证中心")
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
