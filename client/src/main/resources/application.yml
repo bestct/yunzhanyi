@@ -24,7 +24,6 @@ logging:
     name: logs\client.log
 
 swagger:
-  enabled: true
   description: 云沾衣门户网站Api
   title: 云沾衣门户网站API
   version: 1.5.0
@@ -32,6 +31,9 @@ swagger:
   email: 977961764@qq.com
   name: bestct
   url: https://github.com/bestct
+springdoc:
+  api-docs:
+    enabled: true
 
 security:
   token:

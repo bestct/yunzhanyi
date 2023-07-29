@@ -1,6 +1,5 @@
 package net.yunzhanyi.client.controller;
 
-import io.swagger.annotations.ApiOperation;
 import net.yunzhanyi.client.domain.vo.LoginVo;
 import net.yunzhanyi.client.service.LoginService;
 import net.yunzhanyi.client.task.AsyncFactory;
@@ -48,7 +47,6 @@ public class LoginController {
         Map<String, Object> token = tokenService.createToken(loginUser);
         return AjaxResult.success("",token);
     }
-    @ApiOperation(value = "小程序直接登录")
     @PostMapping("/api/login/mini")
     @ResponseBody
     public AjaxResult miniLogin(

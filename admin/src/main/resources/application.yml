@@ -67,14 +67,6 @@ oss:
 
 
 
-# springdoc配置： https://springdoc.org/properties.html
-springdoc:
-  swagger-ui:
-    enabled: true
-    operationsSorter: alpha
-    tags-sorter: alpha
-  api-docs:
-    enabled: true
 
 # 验证码配置
 easy-captcha:
@@ -107,3 +99,15 @@ system:
     xxl-job-enabled: false
     # WebSocket 开关
     websocket-enabled: true
+
+swagger:
+  description: 云沾衣后台管理端api
+  title: 云沾衣后台管理端API
+  version: 1.5.0
+  base-package: net.yunzhanyi.admin.controller
+  email: 977961764@qq.com
+  name: bestct
+  url: https://github.com/bestct
+springdoc:
+  api-docs:
+    enabled: true

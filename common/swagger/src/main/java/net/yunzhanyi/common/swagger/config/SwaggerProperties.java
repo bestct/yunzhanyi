@@ -21,10 +21,6 @@ import java.util.List;
 @ConfigurationProperties("swagger")
 public class SwaggerProperties implements ApplicationListener<WebServerInitializedEvent> {
     /**
-     * 启用
-     */
-    private Boolean enabled = true;
-    /**
      * 基本包
      */
     private String basePackage = "";
@@ -84,13 +80,6 @@ public class SwaggerProperties implements ApplicationListener<WebServerInitializ
     public SwaggerProperties() {
     }
 
-    public Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getBasePackage() {
         return this.basePackage;

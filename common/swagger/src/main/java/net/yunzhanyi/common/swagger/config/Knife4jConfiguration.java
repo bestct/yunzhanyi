@@ -1,16 +1,16 @@
 package net.yunzhanyi.common.swagger.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
  * @author bestct
@@ -20,30 +20,51 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @Configuration
 @EnableKnife4j
-@EnableSwagger2WebMvc
 public class Knife4jConfiguration {
 
     @Autowired
     private SwaggerProperties swaggerProperties;
 
-    @Bean(value = "defaultApi2")
-    public Docket defaultApi2() {
-        Contact contact = new Contact(swaggerProperties.getName(), swaggerProperties.getUrl(), swaggerProperties.getEmail());
-        return new Docket(DocumentationType.SWAGGER_2)
-                .enable(swaggerProperties.getEnabled())
-                .apiInfo(new ApiInfoBuilder()
+    /**
+     * 接口信息
+     */
+    @Bean
+    public OpenAPI apiInfo() {
+
+        return new OpenAPI()
+                .components(new Components()
+                        .addSecuritySchemes("Authorization",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer").bearerFormat("JWT")
+                        )
+                )
+
+                .info(new Info()
                         .title(swaggerProperties.getTitle())
                         .description(swaggerProperties.getDescription())
-                        .termsOfServiceUrl(swaggerProperties.getTermsOfServiceUrl())
-                        .contact(contact)
+                        .contact(new Contact()
+                                .email(swaggerProperties.getEmail())
+                                .name(swaggerProperties.getName())
+                                .url(swaggerProperties.getUrl()))
                         .version(swaggerProperties.getVersion())
-                        .build())
-                .groupName(swaggerProperties.getTitle())
-                //分组名称
-                .select()
-                //这里指定Controller扫描包路径
-                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
-                .paths(PathSelectors.ant("/api/**"))
+                        .license(new License().name("Apache 2.0")
+                                .url(swaggerProperties.getUrl()))
+                );
+    }
+
+
+    /**
+     * 系统接口分组
+     */
+    @Bean
+    public GroupedOpenApi systemApi() {
+        String[] paths = {"/**"};
+        String[] packagesToScan = {swaggerProperties.getBasePackage()};
+        return GroupedOpenApi.builder()
+                .group(swaggerProperties.getTitle())
+                .packagesToScan(packagesToScan)
+                .pathsToMatch(paths)
                 .build();
     }
+
 }
