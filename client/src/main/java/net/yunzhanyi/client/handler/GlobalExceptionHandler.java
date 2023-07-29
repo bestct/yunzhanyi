@@ -1,4 +1,4 @@
-package net.yunzhanyi.common.web.handler;
+package net.yunzhanyi.client.handler;
 
 import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
