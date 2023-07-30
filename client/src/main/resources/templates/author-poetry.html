@@ -35,7 +35,7 @@
                                 <div style="font-size: x-large">{{poetry.poetryTitle}}</div>
                             </a>
                             <div style="margin-top: 20px;margin-bottom: 20px ">
-                                [<a class="link-info" target="_blank">{{poetry.poetryDynasty}}</a>]
+                                [<a class="link-info" :href="'/index/poetry?dynasty='+poetry.dynastyId" target="_blank">{{poetry.poetryDynasty}}</a>]
                                 <a class="link-info" :href="'/author/'+poetry.authorId" target="_blank"
                                 >{{poetry.poetryAuthor}}</a>
                             </div>

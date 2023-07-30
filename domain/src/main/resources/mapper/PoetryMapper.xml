@@ -100,7 +100,7 @@
     </select>
     <select id="selectApiAllPoetry" resultMap="BaseResultMap">
         select
-        poetry_id, poetry_title, poetry_dynasty, poetry_author,poetry_content
+        poetry_id, poetry_title, poetry_dynasty, poetry_author,poetry_content,dynasty_id,author_id
         from poetry
         <where>
             <if test="dynasty != 0">
