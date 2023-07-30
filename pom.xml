@@ -7,7 +7,7 @@
     <groupId>net.yunzhanyi</groupId>
     <artifactId>yunzhanyi</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0</version>
+    <version>1.1.0</version>
     <modules>
         <module>client</module>
         <module>admin</module>
@@ -18,7 +18,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <yunzhanyi.version>1.5.0</yunzhanyi.version>
+        <yunzhanyi.version>1.1.0</yunzhanyi.version>
         <spring-boot.version>2.7.10</spring-boot.version>
         <mybatis-boot.version>2.3.0</mybatis-boot.version>
         <pagehelper-starter.version>1.4.6</pagehelper-starter.version>

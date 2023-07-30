@@ -103,7 +103,7 @@ system:
 swagger:
   description: 云沾衣后台管理端api
   title: 云沾衣后台管理端API
-  version: 1.5.0
+  version: 1.1.0
   base-package: net.yunzhanyi.admin.controller
   email: 977961764@qq.com
   name: bestct

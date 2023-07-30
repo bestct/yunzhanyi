@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <div class="top-10">
                             <ul>
-                                <li th:each="hotWord:${hotWordList}"><a th:text="${hotWord.value}"
+                                <li th:each="hotWord:${hotWordList}"><a class="text-body" th:text="${hotWord.value}"
                                                                         th:href="@{/search/(keyword=${hotWord.value})}"></a>
                                 </li>
                             </ul>
