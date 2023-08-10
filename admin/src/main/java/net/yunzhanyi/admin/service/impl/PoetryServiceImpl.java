@@ -1,12 +1,16 @@
 package net.yunzhanyi.admin.service.impl;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import net.yunzhanyi.admin.model.query.PoetryPageQuery;
 import net.yunzhanyi.admin.service.PoetryService;
 import net.yunzhanyi.domain.mapper.PoetryMapper;
 import net.yunzhanyi.domain.pojo.Poetry;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author bestct
@@ -16,16 +20,35 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PoetryServiceImpl implements PoetryService {
+
     private final PoetryMapper poetryMapper;
 
-    /**
-     * 让诗歌页面
-     *
-     * @param queryParams 查询参数
-     * @return {@link Page}<{@link Poetry}>
-     */
     @Override
-    public Page<Poetry> getPoetryPage(PoetryPageQuery queryParams) {
-        return null;
+    public PageInfo<Poetry> listPoetry(PoetryPageQuery queryParams) {
+        PageHelper.startPage(queryParams.getPageNum(), queryParams.getPageSize());
+        Poetry poetry = new Poetry();
+        BeanUtils.copyProperties(queryParams,poetry);
+        List<Poetry> poetryList = poetryMapper.selectList(poetry);
+        return new PageInfo<>(poetryList);
+    }
+
+    @Override
+    public Poetry getPoetryForm(Long id) {
+        return poetryMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public boolean updatePoetry(Long id, Poetry poetry) {
+        return false;
+    }
+
+    @Override
+    public boolean savePoetry(Poetry poetry) {
+        return false;
+    }
+
+    @Override
+    public boolean deletePoetry(String ids) {
+        return false;
     }
 }

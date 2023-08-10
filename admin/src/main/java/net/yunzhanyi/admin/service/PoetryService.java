@@ -1,6 +1,6 @@
 package net.yunzhanyi.admin.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import net.yunzhanyi.admin.model.query.PoetryPageQuery;
 import net.yunzhanyi.domain.pojo.Poetry;
 
@@ -11,11 +11,26 @@ import net.yunzhanyi.domain.pojo.Poetry;
  * @date 2023/07/31
  */
 public interface PoetryService {
+
     /**
-     * 让诗歌页面
+     * 清单诗
      *
      * @param queryParams 查询参数
-     * @return {@link Page}<{@link Poetry}>
+     * @return {@link PageInfo}<{@link Poetry}>
      */
-    Page<Poetry> getPoetryPage(PoetryPageQuery queryParams);
+    PageInfo<Poetry> listPoetry(PoetryPageQuery queryParams);
+
+    /**
+     * 把诗歌形式
+     *
+     * @param id id
+     * @return {@link Poetry}
+     */
+    Poetry getPoetryForm(Long id);
+
+    boolean updatePoetry(Long id, Poetry poetry);
+
+    boolean savePoetry(Poetry poetry);
+
+    boolean deletePoetry(String ids);
 }

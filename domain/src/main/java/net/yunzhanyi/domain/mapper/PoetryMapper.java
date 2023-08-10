@@ -139,4 +139,11 @@ public interface PoetryMapper {
      * @return {@link String}
      */
     String selectTitleById(@Param("poetryId") Long poetryId);
+
+    /**
+     * 选择列表
+     *
+     * @param poetryTitle 诗歌标题
+     * @return {@link List}<{@link Poetry}>
+     */
 }
