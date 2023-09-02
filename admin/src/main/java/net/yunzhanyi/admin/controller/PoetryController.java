@@ -41,8 +41,8 @@ public class PoetryController {
     }
 
     @Operation(summary = "单个诗词数据", security = {@SecurityRequirement(name = "Authorization")})
-    @GetMapping("/{id}/form")
-    public Result<Poetry> getDictForm(
+    @GetMapping("/{id}/detail")
+    public Result<Poetry> getPoetryDetail(
             @Parameter(description ="诗词ID") @PathVariable Long id
     ) {
         Poetry formData = poetryService.getPoetryForm(id);
@@ -62,8 +62,7 @@ public class PoetryController {
 
     @Operation(summary = "修改字典", security = {@SecurityRequirement(name = "Authorization")})
     @PutMapping("/{id}")
-    @PreAuthorize("@ss.hasPerm('sys:dict:edit')")
-    public Result updateDict(
+    public Result updatePoetry(
             @PathVariable Long id,
             @RequestBody Poetry poetry
     ) {

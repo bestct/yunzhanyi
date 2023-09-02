@@ -11,55 +11,74 @@
 <div class="container full">
     <div style="padding: 10px">
         <div class="row">
-            <!--诗词名句-->
-            <div class="col-lg-4 col-md-6">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" th:each="part : ${partList}">
-                            <div class="part-card bg-body" th:onclick="|toDetail(${part.poetryId})|">
-                                <div class="part">
-                                    <div class="content">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col col-lg-5 col-md-12 col-sm-12">
+                        <div class="swiper mySwiper" style="margin-top: 10px">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" th:each="part : ${partList}">
+                                    <div class="part-card bg-body" th:onclick="|toDetail(${part.poetryId})|">
+                                        <div class="part">
+                                            <div class="content">
                                             <span style="white-space: pre-wrap;"
                                                   th:text="${ part.partContent }"></span>
+                                            </div>
+                                        </div>
+                                        <div class="source">
+                                            <div class="content" th:text="${part.source}">
+                                            </div>
+                                            <img style="width: 20px;height: 20px" th:src="@{/img/ic_launcher.png}">
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="source">
-                                    <div class="content" th:text="${part.source}">
-                                    </div>
-                                    <img style="width: 20px;height: 20px" th:src="@{/img/ic_launcher.png}">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col col-lg-7 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header stress">
+                                课本诗词
+                            </div>
+                            <div class="card-body row">
+                                <th:block th:each="anthology:${anthologyList}">
+                                    <div class="col-md-6 col-lg-4 col-sm-6"
+                                         style="justify-content: center;display: flex;">
+                                        <div class="m-2" style="padding-top: 25px">
+                                            <div class="up-bar"></div>
+                                            <div class="mod-text">
+                                                <span style="font-size: 12px; margin-top: 3px;"
+                                                      th:text="${anthology.subtitle}">收录四十余万首</span>
+                                                <a style="font-weight: bold;" class="tag-name text-body"
+                                                   th:href="'/anthology/'+${anthology.anthologyId}"
+                                                   th:text="${anthology.anthologyName}">全部诗词</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!--     今日诗词       -->
-            <div class="col-lg-5 col-md-6">
-                <div style="height:28rem" class="card">
+                <div class="card">
                     <div class="card-header stress">
-                        今日诗词
+                        推荐诗词
                     </div>
-                    <div class="card-body">
-                        <a th:href="'/poetry/'+${indexPoetry.poetryId}" style="font-size: x-large"
-                           th:text="${indexPoetry.poetryTitle}"></a>
-                        <div style="margin-top: 20px;margin-bottom: 20px ">
-                            [<a class="link-info" target="_blank"
-                                th:href="@{/index/poetry/(dynasty=${indexPoetry.dynastyId})}"
-                                th:text="${indexPoetry.poetryDynasty}"></a>]
-                            <a class="link-info" th:href="@{'/author/'+${indexPoetry.authorId}}"
-                               th:text="${indexPoetry.poetryAuthor}"
-                            ></a>
-                        </div>
-                        <div class="poetry-content">
-                            <span style="white-space: pre-wrap;"
-                                  th:text="${indexPoetry.poetryContent}"></span>
+                    <div class="card-body row text-body-tertiary">
+                        <div th:each="poetry: ${poetryList}"
+                             class="col-md-6 col-lg-6 col-sm-12 text-truncate">
+                            [<a class="text-body" th:text="${poetry.poetryDynasty}"
+                                th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}">唐代</a>]·
+                            <a class="text-body" th:text="${poetry.poetryAuthor}"
+                               th:href="'/author/'+${poetry.authorId}">卢纶</a>
+                            《<a class="text-body" th:text="${poetry.poetryTitle}"
+                                th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
                         </div>
                     </div>
                 </div>
+
             </div>
-            <!--      诗词搜索排行      -->
-            <div class="col-lg-3 col-md-12">
+            <div class="col-lg-3 col-md-6">
+                <!--      诗词搜索排行      -->
                 <div class="card" style="height: 28rem;">
                     <div class="card-header stress">
                         搜索排行榜
@@ -67,56 +86,15 @@
                     <div class="card-body">
                         <div class="top-10">
                             <ul>
-                                <li th:each="hotWord:${hotWordList}"><a class="text-body" th:text="${hotWord.value}"
-                                                                        th:href="@{/search/(keyword=${hotWord.value})}"></a>
+                                <li th:each="hotWord:${hotWordList}">
+                                    <a class="text-body"
+                                       th:text="${hotWord.value}"
+                                       th:href="@{/search/(keyword=${hotWord.value})}"></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!--     推荐诗词       -->
-            <div class="col-lg-9 col-md-7 col-sm-12">
-                <div class="card">
-                    <div class="card-header stress">
-                        推荐诗词
-                    </div>
-                    <div class="card-body row text-body-tertiary">
-                        <div th:each="poetry: ${poetryList}" class="col-md-6 col-lg-6 col-sm-12 text-truncate">
-                            [<a  class="text-body" th:text="${poetry.poetryDynasty}"
-                                th:href="@{/index/poetry/(dynasty=${poetry.dynastyId})}">唐代</a>]·
-                            <a class="text-body" th:text="${poetry.poetryAuthor}"
-                               th:href="'/author/'+${poetry.authorId}">卢纶</a>
-                            《<a  class="text-body" th:text="${poetry.poetryTitle}"
-                                th:href="'/poetry/'+${poetry.poetryId}">过仙游寺</a>》
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header stress">
-                        课本诗词
-                    </div>
-                    <div class="card-body row">
-                        <th:block th:each="anthology:${anthologyList}">
-                            <div class="col-md-3 col-lg-2 col-sm-6" style="justify-content: center;display: flex;">
-                                <div class="m-2">
-                                    <div class="up-bar"></div>
-                                    <div class="mod-text">
-                                        <span style="font-size: 12px; margin-top: 3px;" th:text="${anthology.subtitle}">收录四十余万首</span>
-                                        <a style="font-weight: bold;"  class="tag-name text-body" th:href="'/anthology/'+${anthology.anthologyId}" th:text="${anthology.anthologyName}">全部诗词</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </th:block>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-5 col-sm-12">
-
                 <div class="card">
                     <div class="card-header stress">
                         著名诗人

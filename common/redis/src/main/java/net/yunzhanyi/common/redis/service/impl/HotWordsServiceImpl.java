@@ -35,7 +35,7 @@ public class HotWordsServiceImpl implements HotWordsService {
     @Override
     public void addHotWord(String hotWord, int score) {
 
-        redisTemplate.opsForZSet().incrementScore("hotWord", hotWord, score);
+        redisTemplate.opsForZSet().incrementScore(CacheConstants.HOT_WORD_KEY, hotWord, score);
         // 加入排序set
     }
 
@@ -49,7 +49,7 @@ public class HotWordsServiceImpl implements HotWordsService {
     @Override
     public List<HotWord> getHotWord(int size) {
         List<HotWord> hotWordList = new ArrayList<>();
-        Set<ZSetOperations.TypedTuple<Object>> typedTupleSet = redisTemplate.opsForZSet().reverseRangeByScoreWithScores("hotWord", 1, 100);
+        Set<ZSetOperations.TypedTuple<Object>> typedTupleSet = redisTemplate.opsForZSet().reverseRangeByScoreWithScores(CacheConstants.HOT_WORD_KEY, 1, 100);
         Iterator<ZSetOperations.TypedTuple<Object>> iterator = typedTupleSet.iterator();
         int flag = 0;
         while (iterator.hasNext()) {

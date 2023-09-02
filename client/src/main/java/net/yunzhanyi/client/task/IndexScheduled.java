@@ -55,7 +55,7 @@ public class IndexScheduled {
         redisService.setCacheList(CacheConstants.REDIS_INDEX_AUTHORS, authors);
         Poetry poetry=poetryService.getPoetryByRandom();
         redisService.setCacheObject(CacheConstants.REDIS_INDEX_POETRY,poetry);
-        List<Poetry> poetryList = poetryService.searchPoetryRandom(40);
+        List<Poetry> poetryList = poetryService.searchPoetryRandom(20);
         redisService.setCacheList(CacheConstants.REDIS_INDEX_POETRIES, poetryList);
         hotWordsService.deleteHotWord(10);
     }

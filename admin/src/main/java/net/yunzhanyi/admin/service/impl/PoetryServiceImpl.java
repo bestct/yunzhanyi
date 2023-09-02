@@ -27,19 +27,21 @@ public class PoetryServiceImpl implements PoetryService {
     public PageInfo<Poetry> listPoetry(PoetryPageQuery queryParams) {
         PageHelper.startPage(queryParams.getPageNum(), queryParams.getPageSize());
         Poetry poetry = new Poetry();
-        BeanUtils.copyProperties(queryParams,poetry);
+        BeanUtils.copyProperties(queryParams, poetry);
         List<Poetry> poetryList = poetryMapper.selectList(poetry);
         return new PageInfo<>(poetryList);
     }
 
     @Override
     public Poetry getPoetryForm(Long id) {
-        return poetryMapper.selectByPrimaryKey(id);
+        return poetryMapper.selectWithDetailsByPrimaryKey(id);
     }
 
     @Override
     public boolean updatePoetry(Long id, Poetry poetry) {
-        return false;
+        poetry.setPoetryId(id);
+        int i = poetryMapper.updateByPrimaryKeySelective(poetry);
+        return i == 1;
     }
 
     @Override

@@ -28,6 +28,13 @@ public interface PoetryService {
      */
     Poetry getPoetryForm(Long id);
 
+    /**
+     * 更新诗歌
+     *
+     * @param id     id
+     * @param poetry 诗歌
+     * @return boolean
+     */
     boolean updatePoetry(Long id, Poetry poetry);
 
     boolean savePoetry(Poetry poetry);
