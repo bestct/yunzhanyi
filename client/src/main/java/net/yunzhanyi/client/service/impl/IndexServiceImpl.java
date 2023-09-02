@@ -82,7 +82,7 @@ public class IndexServiceImpl implements IndexService {
         }
         cacheList = redisService.getCacheList(CacheConstants.REDIS_INDEX_POETRIES);
         if (CollectionUtils.isEmpty(cacheList)) {
-            List<Poetry> poetry = poetryService.searchPoetryRandom(40);
+            List<Poetry> poetry = poetryService.searchPoetryRandom(50);
             redisService.setCacheList(CacheConstants.REDIS_INDEX_POETRIES, poetry);
         }
         cacheList=redisService.getCacheList(CacheConstants.REDIS_INDEX_ANTHOLOGY);

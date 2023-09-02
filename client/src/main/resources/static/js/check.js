@@ -17,7 +17,7 @@ createApp
             selectedFormId: 1,
             selectedFirstId: 1,
             rhymeBookId: 1,
-            content:'',
+            content: '',
             selectedForm: [{id: 1, name: "五律"}, {id: 2, name: "五绝"}, {id: 3, name: "七律"}, {id: 4, name: "七绝"}],
             selectedFirst: [{id: 1, name: "仄起首句不入韵"}, {id: 2, name: "仄起首句入韵"}, {id: 3, name: "平起首句不入韵"}, {
                 id: 4,
@@ -92,25 +92,44 @@ createApp
                     method: 'get'
                 }
             ).then(res => {
-                let HTML = "<div>"
-                document.getElementById('searchSuccess').hidden = false
-                for (const rhymeBook of res.data) {
-                    HTML += "<div style='padding: 10px'>"
-                    HTML += "<h4>" + rhymeBook.rhymeBookName + "</h4>"
-                    let rhymeList = rhymeBook.rhymeList
-                    HTML += "<div style='margin: 10px'>"
-                    for (const rhyme of rhymeList) {
-                        HTML += "<h5>"
-                        HTML += rhyme.rhymeName
-                        HTML += "</h5>"
-                        HTML += "<div style='letter-spacing:5px;line-height: 1.5;'>"
-                        HTML += rhyme.rhymeCharacter
+                let HTML = "<ul class= 'nav nav-underline' role='tablist'>"
+                res.data.forEach((itemData, index) => {
+                    for (let i = 0; i < itemData.rhymeList.length; i++) {
+                        let rhyme = itemData.rhymeList[i]
+                        HTML += "<li class = 'nav-item'>"
+                        let className = ''
+                        if (index === 0 && i === 0) {
+                            className = "class = 'nav-link active'"
+                        } else {
+                            className = "class = 'nav-link'"
+                        }
+                        let href = "href='#" + index + "-" + i + "'"
+                        HTML += "<a " +
+                            className + " " + href +
+                            " data-bs-toggle='tab'>" + itemData.rhymeBookName + "·" + rhyme.rhymeName + "</a>"
+                        HTML += "</li>"
+                    }
+                })
+                HTML += "</ul>"
+
+                HTML += "<div class='tab-content'>"
+                res.data.forEach((itemData, index) => {
+                    for (let i = 0; i < itemData.rhymeList.length; i++) {
+                        let rhyme = itemData.rhymeList[i];
+                        let className = ''
+                        if (index === 0 && i === 0) {
+                            className = "class = 'container tab-pane active'";
+                        } else {
+                            className = "class = 'container tab-pane fade'";
+                        }
+                        let id = "id='" + index + "-" + i + "'";
+                        HTML += "<div " + id + " " +className + ">"
+                        HTML +="<div  style='letter-spacing:5px;line-height: 1.5;padding-top: 4px;'>"+ rhyme.rhymeCharacter+"</div>"
                         HTML += "</div>"
                     }
-                    HTML += "</div>"
-                    HTML += "</div>"
-                }
+                })
                 HTML += "</div>"
+                document.getElementById('searchSuccess').hidden = false
                 this.searchResult = HTML;
             })
         },

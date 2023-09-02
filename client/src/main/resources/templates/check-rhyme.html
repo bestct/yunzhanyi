@@ -10,17 +10,12 @@
 <div class="container full">
     <div id="app" hidden>
         <div class="row" style="padding: 10px">
+
             <div class="col-lg-5">
                 <div class="card" style="align-content: center">
-                    <h4 style="margin: 10px">格律示例</h4>
-                    <div class="card-body text-center">
-                        <h5>{{formsName}}</h5>
-                        <div style="font-size: 16px" v-html="formHtml">
-                        </div>
+                    <div class="card-header stress">
+                        诗格律检测
                     </div>
-                </div>
-                <div class="card" style="align-content: center">
-                    <h4 style="margin: 10px"> 诗格律检测</h4>
                     <div class="card-body">
                     <textarea class="form-control" v-model="content" rows="8"
                               placeholder="请输入要检测的诗词正文"></textarea>
@@ -69,8 +64,21 @@
                 </div>
             </div>
             <div class="col-lg-7">
-                <div class="card" style="margin-top: 20px; align-content: center">
-                    <h4 style="margin: 10px">韵部检索</h4>
+                <div class="card" style="align-content: center">
+                    <div class="card-header stress">
+                        格律示例
+                    </div>
+                    <div class="card-body text-center">
+                        <h5>{{formsName}}</h5>
+                        <div style="font-size: 16px" v-html="formHtml">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header stress">
+                        韵部检索
+                    </div>
                     <div class="card-body">
                         <div class="input-group" style="padding: 11px">
                             <input type="text" class="form-control" @keydown.enter="searchHanzi"
@@ -78,7 +86,7 @@
                                    placeholder="请输入要搜索的汉字">
                             <button @click="searchHanzi" type="button" class="btn btn-primary btn-sm">搜索</button>
                         </div>
-                        <div id="alertSearch" style="padding: 10px">
+                        <div id="alertSearch">
                             <div id="searchSuccess" class="alert" hidden role="alert">
                                 <div v-html="searchResult"></div>
                             </div>
