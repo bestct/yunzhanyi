@@ -2,11 +2,13 @@ package net.yunzhanyi.client.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
+import lombok.val;
 import net.yunzhanyi.client.service.*;
 import net.yunzhanyi.common.core.constants.CacheConstants;
 import net.yunzhanyi.common.core.vo.HotWord;
 import net.yunzhanyi.common.redis.service.HotWordsService;
 import net.yunzhanyi.common.redis.service.RedisService;
+import net.yunzhanyi.domain.domain.SiteCount;
 import net.yunzhanyi.domain.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +84,7 @@ public class IndexServiceImpl implements IndexService {
         }
         cacheList = redisService.getCacheList(CacheConstants.REDIS_INDEX_POETRIES);
         if (CollectionUtils.isEmpty(cacheList)) {
-            List<Poetry> poetry = poetryService.searchPoetryRandom(50);
+            List<Poetry> poetry = poetryService.searchPoetryRandom(CacheConstants.POETRIES_NUMBER);
             redisService.setCacheList(CacheConstants.REDIS_INDEX_POETRIES, poetry);
         }
         cacheList=redisService.getCacheList(CacheConstants.REDIS_INDEX_ANTHOLOGY);
@@ -145,4 +147,5 @@ public class IndexServiceImpl implements IndexService {
         indexMap.put("indexPoetry", poetry);
         return indexMap;
     }
+
 }

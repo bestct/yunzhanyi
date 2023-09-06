@@ -56,5 +56,4 @@ public interface IndexService {
      */
     Map<String, Object> indexApi();
 
-
 }

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author bestct
@@ -64,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
         if (ObjectUtils.isEmpty(account) || ObjectUtils.isEmpty(account.getAid())) {
             throw new RuntimeException(LoginConstant.LOGIN_FAIL);
         }
-        if (account.getStatus() != AccountConstant.ACTIVE) {
+        if (!Objects.equals(account.getStatus(), AccountConstant.ACTIVE)) {
             throw new RuntimeException(LoginConstant.ACCOUNT_ERROR);
         }
         //比对密码

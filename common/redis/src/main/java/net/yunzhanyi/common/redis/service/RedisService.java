@@ -249,4 +249,38 @@ public class RedisService {
     {
         return redisTemplate.keys(pattern);
     }
+
+    public Boolean addHyperLogLog(String key,String o){
+        return redisTemplate.opsForHyperLogLog().add(key, o) > 0;
+    }
+
+    public Long count(String key){
+        return redisTemplate.opsForHyperLogLog().size(key).longValue();
+    }
+
+    /**
+     * 递增
+     * @param key   键
+     * @param delta 要增加几(大于0)
+     */
+    public long incr(String key, long delta) {
+        if (delta < 0) {
+            throw new RuntimeException("递增因子必须大于0");
+        }
+        return redisTemplate.opsForValue().increment(key, delta);
+    }
+
+
+    /**
+     * 递减
+     * @param key   键
+     * @param delta 要减少几(小于0)
+     */
+    public long decr(String key, long delta) {
+        if (delta < 0) {
+            throw new RuntimeException("递减因子必须大于0");
+        }
+        return redisTemplate.opsForValue().increment(key, -delta);
+    }
+
 }

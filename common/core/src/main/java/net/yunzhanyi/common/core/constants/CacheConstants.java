@@ -54,6 +54,22 @@ public class CacheConstants {
      */
     public static final String REDIS_INDEX_ANTHOLOGY = "yunzhanyi:index:anthology";
     /**
+     *
+     */
+    public static final String REDIS_SITE_IP = "yunzhanyi:site:ip";
+    /**
+     *
+     */
+    public static final String REDIS_SITE_SUM_PV = "yunzhanyi:site:sumpv";
+    /**
+     *
+     */
+    public static final String REDIS_SITE_PV = "yunzhanyi:site:pv";
+    /**
+     *
+     */
+    public static final int POETRIES_NUMBER = 50;
+    /**
      * 热词
      */
     public static String HOT_WORD_KEY = "yunzhanyi:index:hotWords";

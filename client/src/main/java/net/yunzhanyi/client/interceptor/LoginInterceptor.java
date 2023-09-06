@@ -4,9 +4,11 @@ import cn.hutool.core.util.ObjectUtil;
 import net.yunzhanyi.client.annotation.AccountPublic;
 import net.yunzhanyi.client.annotation.CheckLogin;
 import net.yunzhanyi.client.annotation.CheckWebLogin;
+import net.yunzhanyi.client.task.AsyncFactory;
 import net.yunzhanyi.common.core.constants.AccountConstant;
 import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.common.security.service.TokenService;
+import net.yunzhanyi.common.web.manager.AsyncManager;
 import net.yunzhanyi.common.web.utils.AjaxUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+        //记录访问量
+        AsyncManager.me().execute(AsyncFactory.recordSiteCount(request));
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         LoginUser loginUser;

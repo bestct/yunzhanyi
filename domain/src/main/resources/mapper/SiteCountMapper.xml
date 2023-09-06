@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yunzhanyi.domain.mapper.SiteCountMapper">
+
+    <resultMap id="BaseResultMap" type="net.yunzhanyi.domain.domain.SiteCount">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="collectionDate" column="collection_date" jdbcType="TIMESTAMP"/>
+            <result property="pv" column="pv" jdbcType="INTEGER"/>
+            <result property="uv" column="uv" jdbcType="INTEGER"/>
+            <result property="ip" column="ip" jdbcType="INTEGER"/>
+            <result property="sumPv" column="sum_pv" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,collection_date,pv,
+        uv,ip,sum_pv
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from site_count
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from site_count
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.domain.SiteCount" useGeneratedKeys="true">
+        insert into site_count
+        ( id,collection_date,pv
+        ,uv,ip,sum_pv
+        )
+        values (#{id,jdbcType=BIGINT},#{collectionDate,jdbcType=TIMESTAMP},#{pv,jdbcType=INTEGER}
+        ,#{uv,jdbcType=INTEGER},#{ip,jdbcType=INTEGER},#{sumPv,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.yunzhanyi.domain.domain.SiteCount" useGeneratedKeys="true">
+        insert into site_count
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="collectionDate != null">collection_date,</if>
+                <if test="pv != null">pv,</if>
+                <if test="uv != null">uv,</if>
+                <if test="ip != null">ip,</if>
+                <if test="sumPv != null">sum_pv,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="collectionDate != null">#{collectionDate,jdbcType=TIMESTAMP},</if>
+                <if test="pv != null">#{pv,jdbcType=INTEGER},</if>
+                <if test="uv != null">#{uv,jdbcType=INTEGER},</if>
+                <if test="ip != null">#{ip,jdbcType=INTEGER},</if>
+                <if test="sumPv != null">#{sumPv,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.yunzhanyi.domain.domain.SiteCount">
+        update site_count
+        <set>
+                <if test="collectionDate != null">
+                    collection_date = #{collectionDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="pv != null">
+                    pv = #{pv,jdbcType=INTEGER},
+                </if>
+                <if test="uv != null">
+                    uv = #{uv,jdbcType=INTEGER},
+                </if>
+                <if test="ip != null">
+                    ip = #{ip,jdbcType=INTEGER},
+                </if>
+                <if test="sumPv != null">
+                    sum_pv = #{sumPv,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.yunzhanyi.domain.domain.SiteCount">
+        update site_count
+        set 
+            collection_date =  #{collectionDate,jdbcType=TIMESTAMP},
+            pv =  #{pv,jdbcType=INTEGER},
+            uv =  #{uv,jdbcType=INTEGER},
+            ip =  #{ip,jdbcType=INTEGER},
+            sum_pv =  #{sumPv,jdbcType=INTEGER}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

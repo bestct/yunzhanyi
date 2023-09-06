@@ -1,8 +1,11 @@
 package net.yunzhanyi.client.controller;
 
 import com.github.pagehelper.PageHelper;
+import lombok.val;
 import net.yunzhanyi.client.service.IndexService;
+import net.yunzhanyi.client.service.SiteCountService;
 import net.yunzhanyi.common.core.vo.AjaxResult;
+import net.yunzhanyi.domain.domain.SiteCount;
 import net.yunzhanyi.domain.pojo.Author;
 import net.yunzhanyi.domain.pojo.Poetry;
 import net.yunzhanyi.domain.pojo.Tag;
@@ -31,6 +34,9 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
 
+    @Autowired
+    private SiteCountService siteCountService;
+
     @GetMapping({"/index", "/"})
     public String index(Model model) {
         Map<String, Object> map = indexService.index();
@@ -40,7 +46,7 @@ public class IndexController {
 
     @GetMapping("/api/index")
     @ResponseBody
-    public AjaxResult<Map<String,Object>> index() {
+    public AjaxResult<Map<String, Object>> index() {
         Map<String, Object> indexMap = indexService.indexApi();
         return AjaxResult.successWithoutMsg(indexMap);
     }
@@ -60,6 +66,14 @@ public class IndexController {
     public AjaxResult<List<Tag>> getTagList(@PathVariable Integer tagId) {
         List<Tag> tags = indexService.getTagList(tagId);
         return AjaxResult.successWithoutMsg(tags);
+    }
+
+
+    @GetMapping("/api/index/pv")
+    @ResponseBody
+    public AjaxResult<SiteCount> getSiteCount(){
+        val siteCount = siteCountService.getSiteCount();
+        return AjaxResult.successWithoutMsg(siteCount);
     }
 
     @GetMapping("/api/index/poetry")
@@ -94,7 +108,7 @@ public class IndexController {
     }
 
     @GetMapping("/show")
-    public String about() {
+    public String about(Model model) {
         return "about";
     }
 
