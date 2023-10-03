@@ -1,5 +1,6 @@
 package net.yunzhanyi.client.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import net.yunzhanyi.client.annotation.CheckLogin;
 import net.yunzhanyi.client.annotation.CheckWebLogin;
 import net.yunzhanyi.client.domain.vo.SexType;
@@ -11,6 +12,8 @@ import net.yunzhanyi.common.core.constants.UserConstant;
 import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import net.yunzhanyi.common.redis.service.RedisService;
+import net.yunzhanyi.common.security.model.LoginUser;
+import net.yunzhanyi.common.security.service.TokenService;
 import net.yunzhanyi.common.web.utils.DataMaskingUtils;
 import net.yunzhanyi.domain.pojo.ClientAccount;
 import net.yunzhanyi.domain.pojo.ClientUser;
@@ -19,9 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * @author bestct
@@ -38,6 +40,9 @@ public class UserController {
     private ClientAccountService clientAccountService;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private RedisService redisService;
 
     @CheckWebLogin
@@ -45,8 +50,8 @@ public class UserController {
     public String profile(Model model) {
         ClientUser clientUser = clientUserService.getUserById(AuthUtils.getUserid());
         List<SexType> sexTypeList = new ArrayList<>();
-        sexTypeList.add(new SexType("未知",0));
-        sexTypeList.add(new SexType("男",  1));
+        sexTypeList.add(new SexType("未知", 0));
+        sexTypeList.add(new SexType("男", 1));
         sexTypeList.add(new SexType("女", 2));
         model.addAttribute("sexTypeList", sexTypeList);
         model.addAttribute("clientUser", clientUser);
@@ -67,6 +72,26 @@ public class UserController {
     }
 
     @CheckLogin
+    @GetMapping("/api/profile")
+    @ResponseBody
+    public AjaxResult profile() {
+        ClientUser clientUser = clientUserService.getUserById(AuthUtils.getUserid());
+        return AjaxResult.successWithoutMsg(clientUser);
+    }
+
+    @GetMapping("/api/loginUser")
+    @ResponseBody
+    public AjaxResult<Map<String, Object>> getLoginUser(HttpServletRequest request) {
+        LoginUser loginUser = tokenService.getLoginUser(request);
+        Map<String, Object> map = new HashMap<>();
+        boolean isLogin = ObjectUtil.isNotNull(loginUser);
+        map.put("login", isLogin);
+        map.put("avatarUrl", isLogin ? loginUser.getAvatarUrl() : "../../static/icon/user.png");
+        map.put("nickName", isLogin ? loginUser.getUsername() : "未登录");
+        return AjaxResult.successWithoutMsg(map);
+    }
+
+    @CheckLogin
     @PostMapping("/api/save/user")
     @ResponseBody
     private AjaxResult saveUser(@RequestBody ClientUser clientUser) {
@@ -76,6 +101,7 @@ public class UserController {
         if (clientUserService.checkNickNameUnique(clientUser)) {
             clientUserService.saveUser(clientUser);
             redisService.setCacheMapValue(AuthUtils.getRedisTokenKey(), "username", clientUser.getNickName());
+            redisService.setCacheMapValue(AuthUtils.getRedisTokenKey(), "avatarUrl", clientUser.getAvatarUrl());
         } else {
             return AjaxResult.error(UserConstant.NICKNAME_ERROR);
         }

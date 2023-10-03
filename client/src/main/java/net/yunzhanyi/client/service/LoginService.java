@@ -1,7 +1,6 @@
 package net.yunzhanyi.client.service;
 
 import net.yunzhanyi.common.security.model.LoginUser;
-import net.yunzhanyi.domain.pojo.ClientUser;
 
 /**
  * @author bestct
@@ -34,5 +33,5 @@ public interface LoginService {
      */
     void register(String phone, String password);
 
-    LoginUser miniLogin(String principal, ClientUser user);
+    LoginUser miniLogin(String principal);
 }

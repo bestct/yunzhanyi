@@ -31,6 +31,7 @@ swagger:
   email: 977961764@qq.com
   name: bestct
   url: https://github.com/bestct
+
 springdoc:
   api-docs:
     enabled: true
@@ -38,6 +39,6 @@ springdoc:
 security:
   token:
     redis-key-prefix: "yunzhanyi:client"
-    time-unit: minutes
+    time-unit: days
     expire-time: 30
 

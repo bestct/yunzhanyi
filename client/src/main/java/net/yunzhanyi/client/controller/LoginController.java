@@ -11,10 +11,12 @@ import net.yunzhanyi.common.security.model.LoginUser;
 import net.yunzhanyi.common.security.service.TokenService;
 import net.yunzhanyi.common.security.utils.SecurityUtils;
 import net.yunzhanyi.common.web.manager.AsyncManager;
-import net.yunzhanyi.domain.pojo.ClientUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -50,9 +52,8 @@ public class LoginController {
     @PostMapping("/api/login/mini")
     @ResponseBody
     public AjaxResult miniLogin(
-            @RequestParam("principal") String principal,
-            @RequestBody ClientUser user) {
-        LoginUser loginUser = loginService.miniLogin(principal, user);
+            @RequestParam("principal") String principal) {
+        LoginUser loginUser = loginService.miniLogin(principal);
         AsyncManager.me().execute(AsyncFactory.recordLoginLog(loginUser));
         Map<String,Object> token = tokenService.createToken(loginUser);
         return AjaxResult.success(LoginConstant.LOGIN_SUCCESS, token);

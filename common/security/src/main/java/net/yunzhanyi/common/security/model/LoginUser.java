@@ -32,6 +32,10 @@ public class LoginUser {
     private String username;
 
     /**
+     *头像地址
+     */
+    private String avatarUrl;
+    /**
      * 登录时间
      */
     private Long loginTime;

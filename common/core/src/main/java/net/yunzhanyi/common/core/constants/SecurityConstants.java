@@ -31,7 +31,7 @@ public class SecurityConstants {
     /**
      * 用户标识
      */
-    public static final String USER_KEY = "user_key";
+        public static final String USER_KEY = "user_key";
 
     /**
      * 登录用户
