@@ -5,8 +5,10 @@
 云沾衣 出自唐代的书法家，诗人张旭《山中留客》一诗中的
 “纵使晴明无雨色，入云深处亦沾衣。”
 
-**官网**：[云沾衣诗词官网](https://www.yunzhanyi.net)
-
+##### **官网**：[https://www.yunzhanyi.net](https://www.yunzhanyi.net)
+##### **后端API项目**：[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin)
+##### **前端UI地址**：[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
+##### **微信小程序**：[https://github.com/bestct/yunzhanyi-miniprogram](https://github.com/bestct/yunzhanyi-miniprogram)
 ### 项目模块
 
 ```
@@ -37,11 +39,9 @@
 - Axios
 
 #### 技术栈考虑
-- 网站管理端在有来后台管理框架基础上进行改造。采用前后端分离模式，项目[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin) 为后端API
-前端UI地址为[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
-  
+- 网站管理端在有来后台管理框架基础上进行改造。采用前后端分离模式，
 - 网站客户端采用前后端不分离模式。使用 Thymeleaf + Vue3 在SEO和客户体验之间进行取舍，在用户操作复杂页面使用Vue。
-
+  
 ### 本地环境
 - Java 11
 - MySQL 8.0
