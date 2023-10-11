@@ -6,8 +6,9 @@
 “纵使晴明无雨色，入云深处亦沾衣。”
 
 ##### **官网**：[https://www.yunzhanyi.net](https://www.yunzhanyi.net)
-##### **后端API项目**：[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin)(未完成)
-##### **前端UI地址**：[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
+##### **前台项目**：[client模块](https://github.com/bestct/yunzhanyi/tree/master/client)
+##### **管理端API项目**：[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin)(未完成)
+##### **管理端UI地址**：[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
 ##### **微信小程序**：[https://github.com/bestct/yunzhanyi-miniprogram](https://github.com/bestct/yunzhanyi-miniprogram)
 ### 项目模块
 
@@ -61,6 +62,9 @@
 - [ ] 诗词格律教学
 - [ ] 词谱
 - [ ] 自由诗（现代诗）
+
+### 特别鸣谢
+**有来开源 youlai-boot : https://github.com/haoxianrui/youlai-boot**
 
 ### 数据库
 *四十万诗词加详情和两万的作者 SQL文件实在太大,所以放在了qq群里*
