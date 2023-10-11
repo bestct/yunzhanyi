@@ -6,7 +6,7 @@
 “纵使晴明无雨色，入云深处亦沾衣。”
 
 ##### **官网**：[https://www.yunzhanyi.net](https://www.yunzhanyi.net)
-##### **后端API项目**：[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin)
+##### **后端API项目**：[admin模块](https://github.com/bestct/yunzhanyi/tree/master/admin)(未完成)
 ##### **前端UI地址**：[https://github.com/bestct/yunzhanyi-admin-ui](https://github.com/bestct/yunzhanyi-admin-ui)
 ##### **微信小程序**：[https://github.com/bestct/yunzhanyi-miniprogram](https://github.com/bestct/yunzhanyi-miniprogram)
 ### 项目模块
@@ -25,7 +25,7 @@
 ```
 ### 项目主要依赖：
 **后端**
-- SpringBoot 2.7.4
+- SpringBoot 3.1.4
 - MySQL 8.0
 - MyBatis 3.5.7
 - MyBatis-Plus 3.5.7
