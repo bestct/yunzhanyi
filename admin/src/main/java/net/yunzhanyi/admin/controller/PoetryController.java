@@ -13,7 +13,7 @@ import net.yunzhanyi.admin.common.result.Result;
 import net.yunzhanyi.admin.model.query.PoetryPageQuery;
 import net.yunzhanyi.admin.service.PoetryService;
 import net.yunzhanyi.domain.pojo.Poetry;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

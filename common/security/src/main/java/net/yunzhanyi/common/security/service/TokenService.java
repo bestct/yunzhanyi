@@ -2,7 +2,7 @@ package net.yunzhanyi.common.security.service;
 
 import net.yunzhanyi.common.security.model.LoginUser;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**

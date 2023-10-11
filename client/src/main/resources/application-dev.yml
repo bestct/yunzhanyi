@@ -1,0 +1,26 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8080
+#  ssl:
+#    enabled: true
+#    key-store: classpath:yunzhanyi.net.pfx
+#    key-store-password: fqdyyagb
+#    # 证书类型
+#    key-store-type: PKCS12
+#  compression:
+#    enabled: true
+#  max-http-header-size: 8192
+
+custom:
+  http:
+    port: 8080
+    # 自定义http启动端口
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yunzhanyi_1.5.0?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root

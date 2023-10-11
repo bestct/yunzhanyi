@@ -15,7 +15,7 @@ import net.yunzhanyi.admin.model.query.MenuQuery;
 import net.yunzhanyi.admin.model.vo.MenuVO;
 import net.yunzhanyi.admin.model.vo.RouteVO;
 import net.yunzhanyi.admin.service.SysMenuService;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

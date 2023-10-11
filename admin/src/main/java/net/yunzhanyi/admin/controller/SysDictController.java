@@ -18,7 +18,7 @@ import net.yunzhanyi.admin.model.vo.DictPageVO;
 import net.yunzhanyi.admin.model.vo.DictTypePageVO;
 import net.yunzhanyi.admin.service.SysDictService;
 import net.yunzhanyi.admin.service.SysDictTypeService;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

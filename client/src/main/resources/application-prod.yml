@@ -1,0 +1,46 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 443
+  ssl:
+    enabled: true
+    key-store: classpath:yunzhanyi.net.pfx
+    key-store-password: fqdyyagb
+    # 证书类型
+    key-store-type: JKS
+  compression:
+    enabled: true
+  max-http-header-size: 8192
+
+custom:
+  http:
+    port: 80
+    # 自定义http启动端口
+
+spring:
+  #配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp19a7a4oq8d5nph6.mysql.rds.aliyuncs.com:3306/yunzhanyi?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: ct
+    password: Alyct123456
+  data:
+    redis:
+      host: r-bp1o3n07kpc43jtkfm.redis.rds.aliyuncs.com
+      port: 6379
+      database: 0
+      password:
+      # 连接超时时间
+      timeout: 10s
+      lettuce:
+        pool:
+          # 连接池中的最小空闲连接
+          min-idle: 0
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池的最大数据库连接数
+          max-active: 8
+          # #连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms

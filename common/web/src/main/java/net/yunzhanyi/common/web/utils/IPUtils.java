@@ -2,7 +2,7 @@ package net.yunzhanyi.common.web.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**

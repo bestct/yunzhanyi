@@ -42,7 +42,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requestMatcherRegistry ->
-                        requestMatcherRegistry.antMatchers(SecurityConstants.LOGIN_PATH).permitAll()
+                        requestMatcherRegistry.requestMatchers(SecurityConstants.LOGIN_PATH).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -69,7 +69,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers(
+                .requestMatchers(
                         "/api/auth/captcha",
                         "/webjars/**",
                         "/doc.html",

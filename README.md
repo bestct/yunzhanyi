@@ -43,7 +43,7 @@
 - 网站客户端采用前后端不分离模式。使用 Thymeleaf + Vue3 在SEO和客户体验之间进行取舍，在用户操作复杂页面使用Vue。
   
 ### 本地环境
-- Java 11
+- Java 17
 - MySQL 8.0
 - Redis
 

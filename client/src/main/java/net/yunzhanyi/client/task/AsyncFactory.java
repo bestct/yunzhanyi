@@ -10,7 +10,7 @@ import net.yunzhanyi.common.web.utils.IPUtils;
 import net.yunzhanyi.domain.mapper.ClientLoginLogMapper;
 import net.yunzhanyi.domain.pojo.ClientLoginLog;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -36,10 +36,10 @@ public class AsyncFactory {
     }
 
     public static TimerTask recordSiteCount(HttpServletRequest request) {
+        String ip = IPUtils.getIpAddress(request);
        return new TimerTask() {
            @Override
            public void run() {
-               String ip = IPUtils.getIpAddress(request);
                val bean = BeanUtils.getBean(RedisService.class);
                bean.addHyperLogLog(CacheConstants.REDIS_SITE_IP,ip);
                bean.incr(CacheConstants.REDIS_SITE_PV,1);

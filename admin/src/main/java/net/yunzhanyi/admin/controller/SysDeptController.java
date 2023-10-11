@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.yunzhanyi.admin.common.annotation.PreventDuplicateSubmit;
 import net.yunzhanyi.admin.common.model.Option;
@@ -13,11 +14,10 @@ import net.yunzhanyi.admin.model.form.DeptForm;
 import net.yunzhanyi.admin.model.query.DeptQuery;
 import net.yunzhanyi.admin.model.vo.DeptVO;
 import net.yunzhanyi.admin.service.SysDeptService;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

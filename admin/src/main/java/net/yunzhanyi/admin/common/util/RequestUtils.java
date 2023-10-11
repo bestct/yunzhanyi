@@ -1,9 +1,9 @@
 package net.yunzhanyi.admin.common.util;
 
 import cn.hutool.core.util.StrUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import net.yunzhanyi.admin.common.constant.SecurityConstants;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求工具类

@@ -9,9 +9,9 @@ import net.yunzhanyi.common.core.utils.StringUtils;
 import net.yunzhanyi.common.core.vo.AjaxResult;
 import org.springframework.http.HttpStatus;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
