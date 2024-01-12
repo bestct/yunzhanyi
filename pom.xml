@@ -20,10 +20,10 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <yunzhanyi.version>1.2.0</yunzhanyi.version>
-        <spring-boot.version>3.1.4</spring-boot.version>
+        <spring-boot.version>3.2.1</spring-boot.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
